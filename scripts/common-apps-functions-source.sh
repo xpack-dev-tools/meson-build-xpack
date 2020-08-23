@@ -59,45 +59,40 @@ function build_meson()
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
       prepare_gcc_env "${CROSS_COMPILE_PREFIX}-"
-      build_win32="true"
-    else
-      build_win32="false"
     fi
 
-    CPPFLAGS="${XBB_CPPFLAGS}"
-    CFLAGS="${XBB_CFLAGS}"
-    CXXFLAGS="${XBB_CXXFLAGS}"
-    LDFLAGS="${XBB_LDFLAGS_APP_STATIC_GCC}"
+    CPPFLAGS="${XBB_CPPFLAGS} -I${SOURCES_FOLDER_PATH}/Python-${PYTHON_VERSION}/Include"
+    CFLAGS="${XBB_CFLAGS_NO_W}"
+    CXXFLAGS="${XBB_CXXFLAGS_NO_W}"
+    LDFLAGS="${XBB_LDFLAGS_APP_STATIC_GCC} -L${INSTALL_FOLDER_PATH}/libs/lib"
+
+    # Python3 uses these two libraries.
+    LIBS="-lpython${PYTHON_VERSION_MAJOR} -lpython${PYTHON_VERSION_MAJOR_MINOR}"
 
     export CPPFLAGS
     export CFLAGS
     export CXXFLAGS
     export LDFLAGS
+    export LIBS
 
     env | sort
 
-    local build_type
-    if [ "${IS_DEBUG}" == "y" ]
-    then
-      build_type=Debug
-    else
-      build_type=Release
-    fi
-
     cp -v "${BUILD_GIT_PATH}/src"/* .
-
-    mkdir -pv "${APP_PREFIX}/bin"    
 
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
       run_verbose make meson.exe V=1
 
+      mkdir -pv "${APP_PREFIX}/bin"    
       install -v -m755 -c meson.exe "${APP_PREFIX}/bin"
     else
       run_verbose make meson V=1
 
+      mkdir -pv "${APP_PREFIX}/bin"    
       install -v -m755 -c meson "${APP_PREFIX}/bin"
     fi
+
+    prepare_app_libraries "${APP_PREFIX}/bin/meson"
 
     copy_license \
       "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}" \
@@ -112,7 +107,12 @@ function build_meson()
 
 function test_meson()
 {
-  run_app "${APP_PREFIX}/bin/meson" --version
+  if [ "${TARGET_PLATFORM}" == "win32" -a "${TARGET_BITS}" == "32" ]
+  then
+    : # skip, Wine fails.
+  else
+    run_app "${APP_PREFIX}/bin/meson" --version
+  fi
 }
 
 # -----------------------------------------------------------------------------
