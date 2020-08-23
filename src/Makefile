@@ -1,8 +1,8 @@
 meson:	meson.c.o
-	$(CC) $(CPPFLAGS) $(CFLAGS) meson.c.o -o meson
+	$(CXX) $(LDFLAGS) meson.c.o -o meson $(LIBS)
 
 meson.exe:	meson.c.o
-	$(CC) $(CPPFLAGS) $(CFLAGS) meson.c.o -o meson.exe
+	$(CXX) $(LDFLAGS) meson.c.o -o meson.exe $(LIBS)
 
 meson.c.o: meson.c
-	$(CC) $(LDFLAGS) -c meson.c -o meson.c.o
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c meson.c -o meson.c.o
