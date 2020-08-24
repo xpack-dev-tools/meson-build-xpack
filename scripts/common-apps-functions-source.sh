@@ -13,8 +13,7 @@
 
 # -----------------------------------------------------------------------------
 
-# https://github.com/meson-build/meson/wiki
-# https://sourceforge.net/projects/msys2/files/REPOS/MSYS2/Sources/meson-1.10.0-1.src.tar.gz/download
+# https://stackoverflow.com/questions/44150871/embeded-python3-6-with-mingw-in-c-fail-on-linking
 
 function build_meson()
 {
@@ -55,19 +54,29 @@ function build_meson()
     xbb_activate
     # xbb_activate_installed_dev
 
-    local build_win32
+    local exe=""
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
       prepare_gcc_env "${CROSS_COMPILE_PREFIX}-"
+      exe=".exe"
     fi
 
-    CPPFLAGS="${XBB_CPPFLAGS} -I${SOURCES_FOLDER_PATH}/Python-${PYTHON_VERSION}/Include"
+    CPPFLAGS="${XBB_CPPFLAGS} -I${SOURCES_FOLDER_PATH}/Python-${PYTHON_VERSION}/Include -DPy_BUILD_CORE_BUILTIN=1"
     CFLAGS="${XBB_CFLAGS_NO_W}"
     CXXFLAGS="${XBB_CXXFLAGS_NO_W}"
-    LDFLAGS="${XBB_LDFLAGS_APP_STATIC_GCC} -L${INSTALL_FOLDER_PATH}/libs/lib"
+    LDFLAGS="${XBB_LDFLAGS_APP_STATIC_GCC}"
+    if [ "${TARGET_PLATFORM}" == "win32" ]
+    then
+      LDFLAGS+=" -L${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"
+    fi
 
     # Python3 uses these two libraries.
-    LIBS="-lpython${PYTHON_VERSION_MAJOR} -lpython${PYTHON_VERSION_MAJOR_MINOR}"
+    LIBS="-lpython${PYTHON3_VERSION_MAJOR} -lpython${PYTHON3_VERSION_MAJOR_MINOR}"
+
+    if [ "${IS_DEBUG}" == "y" ]
+    then
+      CPPFLAGS+=" -DDEBUG"
+    fi
 
     export CPPFLAGS
     export CFLAGS
@@ -79,20 +88,23 @@ function build_meson()
 
     cp -v "${BUILD_GIT_PATH}/src"/* .
 
-    if [ "${TARGET_PLATFORM}" == "win32" ]
-    then
-      run_verbose make meson.exe V=1
+    run_verbose make meson${exe} V=1
 
-      mkdir -pv "${APP_PREFIX}/bin"    
-      install -v -m755 -c meson.exe "${APP_PREFIX}/bin"
-    else
-      run_verbose make meson V=1
-
-      mkdir -pv "${APP_PREFIX}/bin"    
-      install -v -m755 -c meson "${APP_PREFIX}/bin"
-    fi
+    mkdir -pv "${APP_PREFIX}/bin"    
+    install -v -m755 -c meson${exe} "${APP_PREFIX}/bin"
 
     prepare_app_libraries "${APP_PREFIX}/bin/meson"
+
+    echo "Copying mesonbuild..."
+    # Copy Meson .py files as is.
+    mkdir -pv "${APP_PREFIX}/bin/mesonbuild"
+    cp -r "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}/mesonbuild"/* "${APP_PREFIX}/bin/mesonbuild"
+    (
+      cd "${APP_PREFIX}/bin/mesonbuild"
+
+      echo "Compiling all..."
+      python3 -m compileall
+    )
 
     copy_license \
       "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}" \
@@ -107,12 +119,7 @@ function build_meson()
 
 function test_meson()
 {
-  if [ "${TARGET_PLATFORM}" == "win32" -a "${TARGET_BITS}" == "32" ]
-  then
-    : # skip, Wine fails.
-  else
-    run_app "${APP_PREFIX}/bin/meson" --version
-  fi
+  run_app "${APP_PREFIX}/bin/meson" --version
 }
 
 # -----------------------------------------------------------------------------
