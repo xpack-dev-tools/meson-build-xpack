@@ -40,6 +40,8 @@ function build_versions()
       mkdir -pv "${APP_PREFIX}/bin"
       cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}/python${PYTHON3_VERSION_MAJOR_MINOR}.zip" \
         "${APP_PREFIX}/bin"
+      cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}/python.exe" \
+        "${APP_PREFIX}/bin/python-meson.exe"
 
       mkdir -pv "${APP_PREFIX}/bin/DLLs"
       # Copy the Windows specific DLLs (.pyd) to the separate folder;

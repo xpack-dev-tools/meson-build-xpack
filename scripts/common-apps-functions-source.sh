@@ -95,6 +95,11 @@ function build_meson()
 
     prepare_app_libraries "${APP_PREFIX}/bin/meson"
 
+    if [ "${TARGET_PLATFORM}" == "win32" ]
+    then
+      prepare_app_libraries "${APP_PREFIX}/bin/python-meson"
+    fi
+
     echo "Copying mesonbuild..."
     # Copy Meson .py files as is.
     mkdir -pv "${APP_PREFIX}/bin/mesonbuild"
