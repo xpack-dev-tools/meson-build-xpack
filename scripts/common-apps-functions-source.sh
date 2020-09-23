@@ -105,10 +105,9 @@ function build_meson()
     mkdir -pv "${APP_PREFIX}/bin/mesonbuild"
     cp -r "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}/mesonbuild"/* "${APP_PREFIX}/bin/mesonbuild"
     (
-      cd "${APP_PREFIX}/bin/mesonbuild"
-
       echo "Compiling all..."
-      python3 -m compileall
+      run_app "${APP_PREFIX}/bin/python-meson" \
+        -m compileall "${APP_PREFIX}/bin/mesonbuild"
     )
 
     copy_license \
