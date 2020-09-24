@@ -15,10 +15,57 @@ int
 main(int argc, char* argv[])
 {
 #if defined(DEBUG)
-  printf("argc %d\n");
+  printf("argc %d\n", argc);
   for (int i = 0; i < argc; ++i) {
     printf("argv[%d]='%s'\n", i, argv[i]);
   }
+#endif
+
+#if 0
+  char python_folder_name[] = "pythonXX.YY";
+  snprintf(python_folder_name, sizeof(python_folder_name) - 1, "python%d.%d", 
+    PYTHON3_VERSION_MAJOR, PYTHON3_VERSION_MINOR);
+#endif
+
+  char self_exe_path[PATH_MAX];
+  char self_folder_path[PATH_MAX];
+  char root_folder_path[PATH_MAX];
+  int len;
+  len = readlink("/proc/self/exe", self_exe_path, sizeof(self_exe_path) - 1);
+  if (len <= 0) {
+    fprintf(stderr, "Fatal error: cannot get self path\n");
+    exit(1);
+  }
+
+  self_exe_path[len] = 0;
+#if defined(DEBUG)
+  printf("self_exe_path: %s\n", self_exe_path);
+#endif
+
+  char* last_slash;
+
+  strcpy(self_folder_path, self_exe_path);
+  last_slash = strrchr(self_folder_path, '/');
+  if (last_slash == NULL) {
+    fprintf(stderr, "Fatal error: cannot get folder path from %s\n", self_exe_path);
+    exit(1);
+  }
+  // Remove the slash and the name.
+  *(last_slash) = '\0';
+#if defined(DEBUG)
+  printf("self_folder_path: %s\n", self_folder_path);
+#endif
+
+  strcpy(root_folder_path, self_folder_path);
+  last_slash = strrchr(root_folder_path, '/');
+  if (last_slash == NULL) {
+    fprintf(stderr, "Fatal error: cannot get folder path from %s\n", self_folder_path);
+    exit(1);
+  }
+  // Remove the slash and the name.
+  *(last_slash) = '\0';
+#if defined(DEBUG)
+  printf("root_folder_path: %s\n", root_folder_path);
 #endif
 
   char* argv0 = argv[0];
@@ -30,7 +77,24 @@ main(int argc, char* argv[])
     wargv[i] = Py_DecodeLocale(argv[i], NULL);
   }
 
-  wchar_t* path = Py_GetPath();
+  wchar_t* wpath = Py_GetPath();
+#if defined(DEBUG)
+  printf("path: %ls\n", wpath);
+#endif
+
+  char new_path[PATH_MAX * 3];
+  new_path[0] = '\0';
+  strcat(new_path, root_folder_path);
+  strcat(new_path, "/lib/python");
+  strcat(new_path, ":");
+  strcat(new_path, root_folder_path);
+  strcat(new_path, "/lib/python.zip");
+  strcat(new_path, ":");
+  strcat(new_path, root_folder_path);
+  strcat(new_path, "/lib/python-dynload");
+
+  wchar_t* new_wpath = Py_DecodeLocale(new_path, NULL);
+  Py_SetPath(new_wpath);
 
 #if defined(_DEBUG)
   wchar_t *full_path = Py_GetProgramFullPath();
@@ -70,7 +134,7 @@ main(int argc, char* argv[])
 
   PyRun_SimpleString("import sys\n");
   
-#if defined(DEBUG)
+#if defined(_DEBUG)
   // PyRun_SimpleString("print(sys.builtin_module_names)\n");
   // PyRun_SimpleString("print(sys.modules.keys())\n");
 
@@ -97,6 +161,8 @@ main(int argc, char* argv[])
 #endif
 
   // Cleanups.
+  PyMem_RawFree(new_wpath);
+  PyMem_RawFree(wpath);
   for (int i=0; i < argc; ++i) {
     PyMem_RawFree(wargv[i]);
   }
