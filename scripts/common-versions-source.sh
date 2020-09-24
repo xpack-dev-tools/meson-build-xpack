@@ -32,6 +32,20 @@ function build_versions()
 
     PYTHON_VERSION="3.8.5"
   
+    if [ "${TARGET_PLATFORM}" != "win32" ]
+    then
+
+      build_zlib "1.2.8"
+
+      build_libmpdec "2.5.0"
+
+      build_expat "2.2.9"
+
+      build_libffi "3.3"
+
+      build_python3 "${PYTHON_VERSION}"
+    fi
+
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
       download_python3_win "${PYTHON_VERSION}"
