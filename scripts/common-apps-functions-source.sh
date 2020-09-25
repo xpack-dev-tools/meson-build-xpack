@@ -290,7 +290,7 @@ function build_meson()
 
     # Python3 uses these two libraries.
     # LIBS="-lpython${PYTHON3_VERSION_MAJOR} -lpython${PYTHON3_VERSION_MAJOR_MINOR}"
-    LIBS="${LIBS_INSTALL_FOLDER_PATH}/lib/libpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}.a -lcrypt -lpthread -ldl  -lutil -lrt -lm"
+    LIBS="${LIBS_INSTALL_FOLDER_PATH}/lib/libpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}.a ${LIBS_INSTALL_FOLDER_PATH}/lib/libcrypt.a -lpthread -ldl  -lutil -lrt -lm"
 
     CPPFLAGS+=" -DPYTHON3_VERSION_MAJOR=${PYTHON3_VERSION_MAJOR}"
     CPPFLAGS+=" -DPYTHON3_VERSION_MINOR=${PYTHON3_VERSION_MINOR}"
