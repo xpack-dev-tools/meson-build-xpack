@@ -43,6 +43,8 @@ function build_versions()
 
       build_libffi "3.3"
 
+      build_libxcrypt "4.4.17"
+      
       build_python3 "${PYTHON_VERSION}"
     fi
 
