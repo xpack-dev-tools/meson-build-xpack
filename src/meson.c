@@ -4,6 +4,10 @@
 // affect the standard headers on some systems, you must include 
 // Python.h before any standard headers are included.
 
+#ifdef __MINGW32__
+#include <windows.h>
+#endif
+
 #include <stdio.h>
 #include <wchar.h>
 
@@ -31,7 +35,17 @@ main(int argc, char* argv[])
   char self_folder_path[PATH_MAX];
   char root_folder_path[PATH_MAX];
   int len;
+#ifdef __MINGW32__
+#define FILE_SEPARATOR '\\'
+#define FILE_SEPARATOR_STR "\\"
+#define PATH_SEPARATOR_STR ";"
+  len = GetModuleFileName(NULL, self_exe_path, sizeof(self_exe_path) - 1);
+#else
+#define FILE_SEPARATOR '/'
+#define FILE_SEPARATOR_STR "/"
+#define PATH_SEPARATOR_STR ":"
   len = readlink("/proc/self/exe", self_exe_path, sizeof(self_exe_path) - 1);
+#endif
   if (len <= 0) {
     fprintf(stderr, "Fatal error: cannot get self path\n");
     exit(1);
@@ -45,7 +59,7 @@ main(int argc, char* argv[])
   char* last_slash;
 
   strcpy(self_folder_path, self_exe_path);
-  last_slash = strrchr(self_folder_path, '/');
+  last_slash = strrchr(self_folder_path, FILE_SEPARATOR);
   if (last_slash == NULL) {
     fprintf(stderr, "Fatal error: cannot get folder path from %s\n", self_exe_path);
     exit(1);
@@ -57,7 +71,7 @@ main(int argc, char* argv[])
 #endif
 
   strcpy(root_folder_path, self_folder_path);
-  last_slash = strrchr(root_folder_path, '/');
+  last_slash = strrchr(root_folder_path, FILE_SEPARATOR);
   if (last_slash == NULL) {
     fprintf(stderr, "Fatal error: cannot get folder path from %s\n", self_folder_path);
     exit(1);
@@ -79,22 +93,34 @@ main(int argc, char* argv[])
 
   wchar_t* wpath = Py_GetPath();
 #if defined(DEBUG)
-  printf("path: %ls\n", wpath);
+  printf("initial path: %ls\n", wpath);
 #endif
 
   char new_path[PATH_MAX * 3];
   new_path[0] = '\0';
   strcat(new_path, root_folder_path);
-  strcat(new_path, "/lib/python");
-  strcat(new_path, ":");
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "lib");
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "python");
+  strcat(new_path, PATH_SEPARATOR_STR);
   strcat(new_path, root_folder_path);
-  strcat(new_path, "/lib/python.zip");
-  strcat(new_path, ":");
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "lib");
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "python.zip");
+  strcat(new_path, PATH_SEPARATOR_STR);
   strcat(new_path, root_folder_path);
-  strcat(new_path, "/lib/python-dynload");
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "lib");
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "python-dynload");
 
   wchar_t* new_wpath = Py_DecodeLocale(new_path, NULL);
   Py_SetPath(new_wpath);
+#if defined(DEBUG)
+  printf("new path: %ls\n", new_wpath);
+#endif
 
 #if defined(_DEBUG)
   wchar_t *full_path = Py_GetProgramFullPath();
