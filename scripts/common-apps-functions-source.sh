@@ -150,7 +150,7 @@ function build_python3()
           config_options+=("--disable-shared")
           # config_options+=("--enable-loadable-sqlite-extensions")
 
-          if is_linux
+          if [ "${TARGET_PLATFORM}" == "linux" ]
           then
             config_options+=("--disable-new-dtags")
           fi
@@ -330,7 +330,7 @@ function build_meson()
         cp -r "${LIBS_INSTALL_FOLDER_PATH}/lib/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"/* \
           "python"
 
-        echo "Cleaning all compiled files..."
+        echo "Cleaning all .pyc files..."
         find "python" -name '*.pyc' -type f -exec rm {} \;
         rm -rf "python/lib-dynload"
 
@@ -345,7 +345,7 @@ function build_meson()
         run_app "${LIBS_INSTALL_FOLDER_PATH}/bin/python3" \
           -m compileall -j "${JOBS}" -f "python"
 
-        echo "Replacing .py files with .pyc..."
+        echo "Replacing .py files with .pyc files..."
         move_pyc "${BUILD_FOLDER_PATH}/${meson_folder_name}/python"
 
         rm -rf "${APP_PREFIX}/lib/python"
