@@ -8,6 +8,10 @@
 #include <windows.h>
 #endif
 
+# if defined(__APPLE__)
+#include <mach-o/dyld.h>
+#endif
+
 #include <stdio.h>
 #include <wchar.h>
 
@@ -35,11 +39,19 @@ main(int argc, char* argv[])
   char self_folder_path[PATH_MAX];
   char root_folder_path[PATH_MAX];
   int len;
-#ifdef __MINGW32__
+#if defined(__MINGW32__)
 #define FILE_SEPARATOR '\\'
 #define FILE_SEPARATOR_STR "\\"
 #define PATH_SEPARATOR_STR ";"
   len = GetModuleFileName(NULL, self_exe_path, sizeof(self_exe_path) - 1);
+#elif defined(__APPLE__)
+#define FILE_SEPARATOR '/'
+#define FILE_SEPARATOR_STR "/"
+#define PATH_SEPARATOR_STR ":"
+  len = sizeof(self_exe_path) - 1;
+  // In general it may be a symbolic link, and readlink() must be used,
+  // but in this specific case it is not.
+  _NSGetExecutablePath(self_exe_path, &len);
 #else
 #define FILE_SEPARATOR '/'
 #define FILE_SEPARATOR_STR "/"
