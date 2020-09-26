@@ -77,7 +77,7 @@ function build_python3()
       cd "${BUILD_FOLDER_PATH}/${python3_folder_name}"
 
       xbb_activate
-      # To pick libexpat & libmp
+      # To pick the new libraries
       xbb_activate_installed_dev
 
       if false # [ "${TARGET_PLATFORM}" == "darwin" ]
@@ -181,7 +181,12 @@ function build_python3()
         # make install-strip
         run_verbose make install
 
-        # Tests are quite complicated
+        # Hundreds of tests, take a lot of time.
+        # Many failures.
+        if false # [ "${WITH_TESTS}" == "y" ]
+        then
+          run_verbose make -j1 quicktest
+        fi
 
       ) 2>&1 | tee "${LOGS_FOLDER_PATH}/${python3_folder_name}/make-output.txt"
     )
@@ -357,27 +362,20 @@ function build_meson()
         rm -rf "python"
         mkdir -pv "python"
 
-        echo "Copying standard Python library..."
-        if [ "${TARGET_PLATFORM}" == "win32" ]
-        then
-          unzip -d "python" "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}/python${PYTHON3_VERSION_MAJOR_MINOR}.zip"
-        else
-          cp -r "${LIBS_INSTALL_FOLDER_PATH}/lib/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"/* \
-            "python"
+        echo
+        echo "Copying .py files from the standard Python library..."
 
-          echo "Cleaning all .pyc files..."
-          find "python" -name '*.pyc' -type f -exec rm {} \;
-          rm -rf "python/lib-dynload"
-        fi
+        # Copy all .py from the original source package.
+        cp -r "${SOURCES_FOLDER_PATH}/${PYTHON3_SRC_FOLDER_NAME}"/Lib/* "python"
 
+        echo "Copying mesonbuild .py code..."
         mkdir -pv "python/mesonbuild"
-        echo "Copying mesonbuild Python code..."
         cp -r "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}"/mesonbuild/* \
           "python/mesonbuild"
 
+        echo "Compiling all python & meson sources..."
         # Compiling tests fails, ignore the errors.
         set +e
-        echo "Compiling all python & meson sources..."
         if [ "${TARGET_PLATFORM}" == "win32" ]
         then
           run_app "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}/python" \
@@ -401,7 +399,9 @@ function build_meson()
       (
         mkdir -pv "${APP_PREFIX}/lib/python-dynload/"
 
+        echo
         echo "Copying Python shared libraries..."
+
         if [ "${TARGET_PLATFORM}" == "win32" ]
         then
           # Copy the Windows specific DLLs (.pyd) to the separate folder;
