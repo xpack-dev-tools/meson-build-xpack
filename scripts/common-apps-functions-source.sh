@@ -80,7 +80,7 @@ function build_python3()
       # To pick libexpat & libmp
       xbb_activate_installed_dev
 
-      if [ "${TARGET_PLATFORM}" == "darwin" ]
+      if false # [ "${TARGET_PLATFORM}" == "darwin" ]
       then
         # GCC fails with:
         # error: variably modified 'bytes' at file scope
@@ -91,7 +91,7 @@ function build_python3()
       CPPFLAGS="${XBB_CPPFLAGS}"
       CFLAGS="${XBB_CFLAGS_NO_W}"
       CXXFLAGS="${XBB_CXXFLAGS_NO_W}"
-      LDFLAGS="${XBB_LDFLAGS_APP}"
+      LDFLAGS="${XBB_LDFLAGS_APP_STATIC_GCC}"
 
       if [[ "${CC}" =~ gcc* ]]
       then
@@ -119,7 +119,7 @@ function build_python3()
           echo
           echo "Running python3 configure..."
 
-          run_verbose bash "${SOURCES_FOLDER_PATH}/${PYTHON3_SRC_FOLDER_NAME}/configure" --help
+          bash "${SOURCES_FOLDER_PATH}/${PYTHON3_SRC_FOLDER_NAME}/configure" --help
 
           # Fail on macOS:
           # --enable-universalsdk
@@ -137,18 +137,25 @@ function build_python3()
           config_options+=("--with-computed-gotos")
           config_options+=("--with-dbmliborder=gdbm:ndbm")
 
-          config_options+=("--with-system-expat")
-          config_options+=("--with-system-ffi")
-          config_options+=("--with-system-libmpdec")
+          # Better not, allow configure to choose.
+          # config_options+=("--with-system-expat")
+          # config_options+=("--with-system-ffi")
+          # config_options+=("--with-system-libmpdec")
 
           # config_options+=("--with-openssl=${INSTALL_FOLDER_PATH}")
           config_options+=("--without-ensurepip")
           config_options+=("--without-lto")
           
-          # config_options+=("--enable-shared")
-          # Workaround, patchelf damages the python shared libraries.
-          config_options+=("--disable-shared")
+          if [ "${TARGET_PLATFORM}" == "linux" ]
+          then
+            # Workaround, patchelf damages the python shared libraries.
+            config_options+=("--disable-shared")
+          else
+            config_options+=("--enable-shared")
+          fi
+
           # config_options+=("--enable-loadable-sqlite-extensions")
+          config_options+=("--disable-loadable-sqlite-extensions")
 
           if [ "${TARGET_PLATFORM}" == "linux" ]
           then
@@ -286,7 +293,11 @@ function build_meson()
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
       LDFLAGS+=" -L${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"
-    else
+    elif [ "${TARGET_PLATFORM}" == "darwin" ]
+    then
+      LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib -fno-semantic-interposition"
+    elif [ "${TARGET_PLATFORM}" == "linux" ]
+    then
       # ${LIBS_INSTALL_FOLDER_PATH}/lib/libpython3.8.a
       LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib -fno-semantic-interposition -Xlinker -export-dynamic"
     fi
@@ -299,7 +310,11 @@ function build_meson()
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
       LIBS="-lpython${PYTHON3_VERSION_MAJOR} -lpython${PYTHON3_VERSION_MAJOR_MINOR}"
-    else
+    elif [ "${TARGET_PLATFORM}" == "darwin" ]
+    then
+      LIBS="-lpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -lcrypt -lpthread -ldl  -lutil -lm"
+    elif [ "${TARGET_PLATFORM}" == "linux" ]
+    then
       LIBS="${LIBS_INSTALL_FOLDER_PATH}/lib/libpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}.a ${LIBS_INSTALL_FOLDER_PATH}/lib/libcrypt.a -lpthread -ldl  -lutil -lrt -lm"
     fi
 
@@ -392,14 +407,16 @@ function build_meson()
           # Copy the Windows specific DLLs (.pyd) to the separate folder;
           # they are dynamically loaded by Python.
           cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"/*.pyd "${APP_PREFIX}/lib/python-dynload/"
-          # Copy the usual DLLs too.
+          # Copy the usual DLLs too; the python*.dll are used, do not remove them.
           cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"/*.dll "${APP_PREFIX}/lib/python-dynload/"
         else
+          # Copy dynamically loaded modules and rename folder.
           cp -r "${LIBS_INSTALL_FOLDER_PATH}/lib/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"/lib-dynload/* \
             "${APP_PREFIX}/lib/python-dynload/"
 
           echo "Preparing Python shared libraries..."
-          for file_path in "${APP_PREFIX}"/lib/python-dynload/*.${SHLIB_EXT}
+          # on macOS the libraries use .so too.
+          for file_path in "${APP_PREFIX}"/lib/python-dynload/*.so
           do
             prepare_app_libraries "${file_path}"
           done
@@ -443,7 +460,6 @@ function process_pycache()
 
   find ${folder_path} -name '*.pyc' -type f -print0 | xargs -0 -L 1 -I {} bash -c 'process_pyc "{}"'
 
-
   if [ $(ls -1 "${folder_path}" | wc -l) -eq 0 ]
   then
     rm -rf "${folder_path}"
@@ -465,6 +481,8 @@ function move_pyc()
 function test_meson()
 {
   time run_app "${APP_PREFIX}/bin/meson" --version
+
+  # TODO: Add a minimal test.
 }
 
 # -----------------------------------------------------------------------------
