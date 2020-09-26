@@ -34,6 +34,8 @@ function build_versions()
   
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
+      # Shortcut, use the existing pyton.exe instead of building
+      # if from sources. It also downloads the sources.
       download_python3_win "${PYTHON_VERSION}"
     else
       # On macOS, to prevent Python picking system libraries,
