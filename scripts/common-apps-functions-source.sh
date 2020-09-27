@@ -323,8 +323,8 @@ function build_meson()
       LIBS="${LIBS_INSTALL_FOLDER_PATH}/lib/libpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}.a ${LIBS_INSTALL_FOLDER_PATH}/lib/libcrypt.a -lpthread -ldl  -lutil -lrt -lm"
     fi
 
-    CPPFLAGS+=" -DPYTHON3_VERSION_MAJOR=${PYTHON3_VERSION_MAJOR}"
-    CPPFLAGS+=" -DPYTHON3_VERSION_MINOR=${PYTHON3_VERSION_MINOR}"
+    CPPFLAGS+=" -DPYTHON_VERSION_MAJOR=${PYTHON3_VERSION_MAJOR}"
+    CPPFLAGS+=" -DPYTHON_VERSION_MINOR=${PYTHON3_VERSION_MINOR}"
 
     if [ "${IS_DEBUG}" == "y" ]
     then
@@ -356,48 +356,53 @@ function build_meson()
     show_libs "${APP_PREFIX}/bin/meson"
     prepare_app_libraries "${APP_PREFIX}/bin/meson"
 
-    if [ ! -d "${APP_PREFIX}/lib/python/" ]
+    local python_with_version="python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"
+    if [ ! -d "${APP_PREFIX}/lib/${python_with_version}/" ]
     then
       (
-        rm -rf "python"
-        mkdir -pv "python"
+        mkdir -pv "${APP_PREFIX}/lib/${python_with_version}/"
 
         echo
         echo "Copying .py files from the standard Python library..."
 
         # Copy all .py from the original source package.
-        cp -r "${SOURCES_FOLDER_PATH}/${PYTHON3_SRC_FOLDER_NAME}"/Lib/* "python"
+        cp -r "${SOURCES_FOLDER_PATH}/${PYTHON3_SRC_FOLDER_NAME}"/Lib/* \
+          "${APP_PREFIX}/lib/${python_with_version}/"
 
         echo "Copying mesonbuild .py code..."
-        mkdir -pv "python/mesonbuild"
+        mkdir -pv "${APP_PREFIX}/lib/${python_with_version}/mesonbuild/"
         cp -r "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}"/mesonbuild/* \
-          "python/mesonbuild"
+          "${APP_PREFIX}/lib/${python_with_version}/mesonbuild/"
 
-        echo "Compiling all python & meson sources..."
-        # Compiling tests fails, ignore the errors.
-        set +e
-        if [ "${TARGET_PLATFORM}" == "win32" ]
-        then
-          run_app "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}/python" \
-            -m compileall -j "${JOBS}" -f "python/mesonbuild"
-        else
-          run_app "${LIBS_INSTALL_FOLDER_PATH}/bin/python3" \
-            -m compileall -j "${JOBS}" -f "python"
-        fi
+        (
+          echo "Compiling all python & meson sources..."
+          # Compiling tests fails, ignore the errors.
+          if [ "${TARGET_PLATFORM}" == "win32" ]
+          then
+            run_app "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}/python" \
+              -m compileall \
+              -j "${JOBS}" \
+              -f "${APP_PREFIX}/lib/${python_with_version}/" \
+              || true
+          else
+            run_app "${LIBS_INSTALL_FOLDER_PATH}/bin/python3" \
+              -m compileall \
+              -j "${JOBS}" \
+              -f "${APP_PREFIX}/lib/${python_with_version}/" \
+              || true
+
+          fi
+
+          # For just in case.
+          find "${APP_PREFIX}/lib/${python_with_version}/" \
+            \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
+            -exec rm -v {} \;
+        )
 
         echo "Replacing .py files with .pyc files..."
-        move_pyc "${BUILD_FOLDER_PATH}/${meson_folder_name}/python"
+        move_pyc "${APP_PREFIX}/lib/${python_with_version}"
 
-        rm -rf "${APP_PREFIX}/lib/python"
-        mkdir -pv "${APP_PREFIX}/lib/"
-        mv -v "${BUILD_FOLDER_PATH}/${meson_folder_name}/python" "${APP_PREFIX}/lib/"
-      )
-    fi
-
-    if [ ! -d "${APP_PREFIX}/lib/python-dynload" ]
-    then
-      (
-        mkdir -pv "${APP_PREFIX}/lib/python-dynload/"
+        mkdir -pv "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
 
         echo
         echo "Copying Python shared libraries..."
@@ -406,17 +411,19 @@ function build_meson()
         then
           # Copy the Windows specific DLLs (.pyd) to the separate folder;
           # they are dynamically loaded by Python.
-          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"/*.pyd "${APP_PREFIX}/lib/python-dynload/"
+          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"/*.pyd \
+            "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
           # Copy the usual DLLs too; the python*.dll are used, do not remove them.
-          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"/*.dll "${APP_PREFIX}/lib/python-dynload/"
+          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"/*.dll \
+            "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
         else
           # Copy dynamically loaded modules and rename folder.
           cp -r "${LIBS_INSTALL_FOLDER_PATH}/lib/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"/lib-dynload/* \
-            "${APP_PREFIX}/lib/python-dynload/"
+            "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
 
           echo "Preparing Python shared libraries..."
           # on macOS the libraries use .so too.
-          for file_path in "${APP_PREFIX}"/lib/python-dynload/*.so
+          for file_path in "${APP_PREFIX}/lib/${python_with_version}"/lib-dynload/*.so
           do
             prepare_app_libraries "${file_path}"
           done
@@ -482,6 +489,7 @@ function test_meson()
 {
   time run_app "${APP_PREFIX}/bin/meson" --version
 
+  run_app "${APP_PREFIX}/bin/meson" --help
   # TODO: Add a minimal test.
 }
 

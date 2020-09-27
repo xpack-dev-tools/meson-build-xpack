@@ -29,22 +29,19 @@ main(int argc, char* argv[])
   }
 #endif
 
-#if 0
-  char python_folder_name[] = "pythonXX.YY";
-  snprintf(python_folder_name, sizeof(python_folder_name) - 1, "python%d.%d", 
-    PYTHON3_VERSION_MAJOR, PYTHON3_VERSION_MINOR);
-#endif
-
   char self_exe_path[PATH_MAX];
-  char self_folder_path[PATH_MAX];
-  char root_folder_path[PATH_MAX];
-  int len;
+
+  int len = 0;
+
 #if defined(__MINGW32__)
+
 #define FILE_SEPARATOR '\\'
 #define FILE_SEPARATOR_STR "\\"
 #define PATH_SEPARATOR_STR ";"
   len = GetModuleFileName(NULL, self_exe_path, sizeof(self_exe_path) - 1);
+
 #elif defined(__APPLE__)
+
 #define FILE_SEPARATOR '/'
 #define FILE_SEPARATOR_STR "/"
 #define PATH_SEPARATOR_STR ":"
@@ -52,12 +49,16 @@ main(int argc, char* argv[])
   // In general it may be a symbolic link, and readlink() must be used,
   // but in this specific case it is not.
   _NSGetExecutablePath(self_exe_path, &len);
-#else
+
+#elif defined(__linux__) 
+
 #define FILE_SEPARATOR '/'
 #define FILE_SEPARATOR_STR "/"
 #define PATH_SEPARATOR_STR ":"
   len = readlink("/proc/self/exe", self_exe_path, sizeof(self_exe_path) - 1);
+
 #endif
+
   if (len <= 0) {
     fprintf(stderr, "Fatal error: cannot get self path\n");
     exit(1);
@@ -68,6 +69,13 @@ main(int argc, char* argv[])
   printf("self_exe_path: %s\n", self_exe_path);
 #endif
 
+  // Set the program name to the full executable path.
+  // Prefer self_exe_path, argv0 usually is not absolute.
+  wchar_t* wself_exe_path = Py_DecodeLocale(self_exe_path, NULL);
+  Py_SetProgramName(wself_exe_path);
+
+  // The executable folder path, like .../bin.
+  char self_folder_path[PATH_MAX];
   char* last_slash;
 
   strcpy(self_folder_path, self_exe_path);
@@ -82,8 +90,11 @@ main(int argc, char* argv[])
   printf("self_folder_path: %s\n", self_folder_path);
 #endif
 
-  strcpy(root_folder_path, self_folder_path);
-  last_slash = strrchr(root_folder_path, FILE_SEPARATOR);
+  // The home folder path, like the first part of PYTHONHOME.
+  char home_folder_path[PATH_MAX];
+
+  strcpy(home_folder_path, self_folder_path);
+  last_slash = strrchr(home_folder_path, FILE_SEPARATOR);
   if (last_slash == NULL) {
     fprintf(stderr, "Fatal error: cannot get folder path from %s\n", self_folder_path);
     exit(1);
@@ -91,42 +102,47 @@ main(int argc, char* argv[])
   // Remove the slash and the name.
   *(last_slash) = '\0';
 #if defined(DEBUG)
-  printf("root_folder_path: %s\n", root_folder_path);
+  printf("home_folder_path: %s\n", home_folder_path);
 #endif
 
-  char* argv0 = argv[0];
-  wchar_t* wargv0 = Py_DecodeLocale(argv0, NULL);
-  argv[0] = "";
+  wchar_t* whome;
+#if defined(DEBUG)
+  whome = Py_GetPythonHome();
+  printf("initial home %ls\n", whome);
+#endif
 
-  wchar_t* wargv[argc];
-  for (int i=0; i < argc; ++i) {
-    wargv[i] = Py_DecodeLocale(argv[i], NULL);
-  }
+  wchar_t* new_whome = Py_DecodeLocale(home_folder_path, NULL);
+  Py_SetPythonHome(new_whome);
+#if defined(DEBUG)
+  printf("new home: %ls\n", new_whome);
+#endif
 
   wchar_t* wpath = Py_GetPath();
 #if defined(DEBUG)
   printf("initial path: %ls\n", wpath);
 #endif
 
-  char new_path[PATH_MAX * 3];
+  char python_folder_name[] = "pythonXX.YY";
+  snprintf(python_folder_name, sizeof(python_folder_name) - 1, "python%d.%d", 
+    PYTHON_VERSION_MAJOR, PYTHON_VERSION_MINOR);
+
+  char new_path[PATH_MAX * 2];
   new_path[0] = '\0';
-  strcat(new_path, root_folder_path);
+
+  strcat(new_path, home_folder_path);
   strcat(new_path, FILE_SEPARATOR_STR);
   strcat(new_path, "lib");
   strcat(new_path, FILE_SEPARATOR_STR);
-  strcat(new_path, "python");
+  strcat(new_path, python_folder_name);
   strcat(new_path, PATH_SEPARATOR_STR);
-  strcat(new_path, root_folder_path);
+
+  strcat(new_path, home_folder_path);
   strcat(new_path, FILE_SEPARATOR_STR);
   strcat(new_path, "lib");
   strcat(new_path, FILE_SEPARATOR_STR);
-  strcat(new_path, "python.zip");
-  strcat(new_path, PATH_SEPARATOR_STR);
-  strcat(new_path, root_folder_path);
+  strcat(new_path, python_folder_name);
   strcat(new_path, FILE_SEPARATOR_STR);
-  strcat(new_path, "lib");
-  strcat(new_path, FILE_SEPARATOR_STR);
-  strcat(new_path, "python-dynload");
+  strcat(new_path, "lib-dynload");
 
   wchar_t* new_wpath = Py_DecodeLocale(new_path, NULL);
   Py_SetPath(new_wpath);
@@ -134,26 +150,15 @@ main(int argc, char* argv[])
   printf("new path: %ls\n", new_wpath);
 #endif
 
-#if defined(_DEBUG)
+#if defined(DEBUG)
   wchar_t *full_path = Py_GetProgramFullPath();
   wchar_t *prefix = Py_GetPrefix();
   wchar_t *exec_prefix = Py_GetExecPrefix();
-  wchar_t *home = Py_GetPythonHome();
 
   printf("full_path %ls\n", full_path);
-  printf("path %ls\n", full_path);
   printf("prefix %ls\n", prefix);
   printf("exec_prefix %ls\n", exec_prefix);
-  printf("home %ls\n", home);
 #endif
-
-  if (wargv0 == NULL) {
-    fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
-    exit(1);
-  }
-  // The argument should point to a zero-terminated wide character string
-  // in static storage 
-  Py_SetProgramName(wargv0);  /* optional but recommended */
 
   Py_Initialize();
   if (! Py_IsInitialized()) {
@@ -165,6 +170,20 @@ main(int argc, char* argv[])
   printf("initialised\n");
 #endif
 
+  char* argv0 = argv[0];
+  wchar_t* wargv0 = Py_DecodeLocale(argv0, NULL);
+  argv[0] = "";
+
+  if (wargv0 == NULL) {
+    fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
+    exit(1);
+  }
+
+  wchar_t* wargv[argc];
+  for (int i=0; i < argc; ++i) {
+    wargv[i] = Py_DecodeLocale(argv[i], NULL);
+  }
+
   // It is recommended that applications embedding the Python interpreter
   // for purposes other than executing a single script pass 0 as updatepath,
   // and update sys.path themselves if desired.
@@ -172,7 +191,7 @@ main(int argc, char* argv[])
 
   PyRun_SimpleString("import sys\n");
   
-#if defined(_DEBUG)
+#if defined(DEBUG)
   // PyRun_SimpleString("print(sys.builtin_module_names)\n");
   // PyRun_SimpleString("print(sys.modules.keys())\n");
 
@@ -198,13 +217,16 @@ main(int argc, char* argv[])
   printf("exiting...\n");
 #endif
 
-  // Cleanups.
+  // Cleanups. 
+  // Normally all allocated wide strings must be freed,
+  // but before exit it makes not much sense.
   PyMem_RawFree(new_wpath);
   PyMem_RawFree(wpath);
   for (int i=0; i < argc; ++i) {
     PyMem_RawFree(wargv[i]);
   }
   PyMem_RawFree(wargv0);
+  PyMem_RawFree(wself_exe_path);
 
   return 0;
 }
