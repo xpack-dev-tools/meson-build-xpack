@@ -8,11 +8,12 @@ For details, see
 ## Compliance
 
 The xPack Meson Build generally follows the official
-[Meson](http://mesonbuild.com) build releases.
+[Meson](http://mesonbuild.com) build
+[releases](https://github.com/mesonbuild/meson/releases).
 
 The current version is based on:
 
-- Meson Build version 0.55.1, from Aug 15, 2020.
+- Meson Build version 0.55.3, from Aug 15, 2020.
 
 ## Changes
 
