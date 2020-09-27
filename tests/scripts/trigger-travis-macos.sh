@@ -42,6 +42,8 @@ script_folder_name="$(basename "${script_folder_path}")"
 
 # =============================================================================
 
+source "${script_folder_path}/app-defs.sh"
+
 helper_folder_path="$(dirname $(dirname "${script_folder_path}"))/scripts/helper"
 
 source "${helper_folder_path}/test-functions-source.sh"
@@ -50,14 +52,14 @@ source "${helper_folder_path}/test-functions-source.sh"
 
 source "${script_folder_path}/app-defs.sh"
 
-message="Test ${app_description} on latest platforms"
+message="Test ${app_description} on macOS platforms"
 branch="xpack-develop"
 
 version="$(cat $(dirname $(dirname ${script_folder_path}))/scripts/VERSION)"
 
+base_url="https://github.com/${github_org}/${github_repo}/releases/download/v${version}/"
 # base_url="https://github.com/${github_org}/${github_pre_releases}/releases/download/test/"
 # base_url="https://github.com/${github_org}/${github_pre_releases}/releases/download/experimental/"
-base_url="https://github.com/${github_org}/${github_repo}/releases/download/v${version}/"
 echo ${base_url}
 
 data_file_path="$(mktemp)"
@@ -65,9 +67,6 @@ data_file_path="$(mktemp)"
 create_macos_data_file "${message}" "${branch}" "${base_url}" "${data_file_path}"
 
 # https://docs.travis-ci.com/user/triggering-builds/
-
-github_org="xpack-dev-tools"
-github_repo="meson-build-xpack"
 
 # TRAVIS_ORG_TOKEN must be present in the environment.
 trigger_travis "${github_org}" "${github_repo}" "${data_file_path}"

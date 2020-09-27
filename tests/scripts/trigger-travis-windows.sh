@@ -50,14 +50,14 @@ source "${helper_folder_path}/test-functions-source.sh"
 
 # -----------------------------------------------------------------------------
 
-message="Test ${app_description} on latest platforms"
+message="Test ${app_description} on Windows platforms"
 branch="xpack-develop"
 
 version="$(cat $(dirname $(dirname ${script_folder_path}))/scripts/VERSION)"
 
+base_url="https://github.com/${github_org}/${github_repo}/releases/download/v${version}/"
 # base_url="https://github.com/${github_org}/${github_pre_releases}/releases/download/test/"
 # base_url="https://github.com/${github_org}/${github_pre_releases}/releases/download/experimental/"
-base_url="https://github.com/${github_org}/${github_repo}/releases/download/v${version}/"
 echo ${base_url}
 
 data_file_path="$(mktemp)"
