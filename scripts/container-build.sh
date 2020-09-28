@@ -101,6 +101,7 @@ WITH_HTML="n"
 IS_DEVELOP=""
 IS_DEBUG=""
 WITH_TESTS="y"
+LINUX_INSTALL_RELATIVE_PATH=""
 
 if [ "$(uname)" == "Linux" ]
 then
@@ -162,6 +163,13 @@ do
       shift
       ;;
 
+    # --- specific
+
+    --linux-install-relative-path)
+      LINUX_INSTALL_RELATIVE_PATH="$2"
+      shift 2
+      ;;
+
     *)
       echo "Unknown action/option $1"
       exit 1
@@ -187,6 +195,15 @@ prepare_xbb_env
 prepare_xbb_extras
 
 # -----------------------------------------------------------------------------
+
+if [ ! -z "${LINUX_INSTALL_RELATIVE_PATH}" ]
+then
+  if [ ! -x "${WORK_FOLDER_PATH}/${LINUX_INSTALL_RELATIVE_PATH}/libs/bin/python3" ]
+  then
+    echo "The Windows build requires the GNU/Linux binaries. Build them first and retry."
+    exit 1
+  fi
+fi
 
 echo
 echo "Here we go..."
