@@ -379,13 +379,13 @@ function build_meson()
           # Compiling tests fails, ignore the errors.
           if [ "${TARGET_PLATFORM}" == "win32" ]
           then
-            run_app "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}/python" \
+            run_verbose "${WORK_FOLDER_PATH}/${LINUX_INSTALL_RELATIVE_PATH}/libs/bin/python3" \
               -m compileall \
               -j "${JOBS}" \
               -f "${APP_PREFIX}/lib/${python_with_version}/" \
               || true
           else
-            run_app "${LIBS_INSTALL_FOLDER_PATH}/bin/python3" \
+            run_verbose "${LIBS_INSTALL_FOLDER_PATH}/bin/python3" \
               -m compileall \
               -j "${JOBS}" \
               -f "${APP_PREFIX}/lib/${python_with_version}/" \
