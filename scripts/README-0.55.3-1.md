@@ -1,6 +1,6 @@
 # The xPack Meson Build
 
-This is the **xPack** version of **Meson** build system.
+This is the **xPack** version of [Meson](https://mesonbuild.com) build system.
 
 For details, see
 [The xPack Meson Build](https://xpack.github.io/meson-build/) pages.

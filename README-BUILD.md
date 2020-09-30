@@ -193,20 +193,20 @@ $ bash ~/Downloads/cmake-xpack.git/scripts/build.sh --linux64 --linux32 --win64 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
 `screen -r meson-build`; to kill the session use `Ctrl-a` `Ctrl-k` and confirm.
 
-About 30 minutes later, the output of the build script is a set of 4
+About 16 minutes later, the output of the build script is a set of 4
 archives and their SHA signatures, created in the `deploy` folder:
 
 ```console
 $ cd ~/Work/meson-build-*/deploy
-total 76520
--rw-rw-r-- 1 ilg ilg 19941735 Sep 26 19:59 xpack-meson-build-0.55.3-1-linux-x32.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Sep 26 19:59 xpack-meson-build-0.55.3-1-linux-x32.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 19760188 Sep 26 19:50 xpack-meson-build-0.55.3-1-linux-x64.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Sep 26 19:50 xpack-meson-build-0.55.3-1-linux-x64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 18815291 Sep 26 20:31 xpack-meson-build-0.55.3-1-win32-x32.zip
--rw-rw-r-- 1 ilg ilg      107 Sep 26 20:31 xpack-meson-build-0.55.3-1-win32-x32.zip.sha
--rw-rw-r-- 1 ilg ilg 19815379 Sep 26 19:50 xpack-meson-build-0.55.3-1-win32-x64.zip
--rw-rw-r-- 1 ilg ilg      107 Sep 26 19:50 xpack-meson-build-0.55.3-1-win32-x64.zip.sha
+total 80596
+-rw-rw-r-- 1 ilg ilg 19876980 Sep 30 11:32 xpack-meson-build-0.55.3-1-linux-x32.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Sep 30 11:32 xpack-meson-build-0.55.3-1-linux-x32.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 19697828 Sep 30 11:23 xpack-meson-build-0.55.3-1-linux-x64.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Sep 30 11:23 xpack-meson-build-0.55.3-1-linux-x64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 20965024 Sep 30 11:33 xpack-meson-build-0.55.3-1-win32-x32.zip
+-rw-rw-r-- 1 ilg ilg      107 Sep 30 11:33 xpack-meson-build-0.55.3-1-win32-x32.zip.sha
+-rw-rw-r-- 1 ilg ilg 21964105 Sep 30 11:23 xpack-meson-build-0.55.3-1-win32-x64.zip
+-rw-rw-r-- 1 ilg ilg      107 Sep 30 11:23 xpack-meson-build-0.55.3-1-win32-x64.zip.sha
 ```
 
 To copy the files from the build machine to the current development
@@ -264,16 +264,16 @@ $ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
 `screen -r meson`; to kill the session use `Ctrl-a` `Ctrl-k` and confirm.
 
-About 55 minutes later, the output of the build script is a set of 2
+About 85 minutes later, the output of the build script is a set of 2
 archives and their SHA signatures, created in the `deploy` folder:
 
 ```console
 $ cd ~/Work/meson-build-*/deploy
-total 38124
--rw-rw-r-- 1 ilg ilg 19733030 Sep 26 18:19 xpack-meson-build-0.55.3-1-linux-arm64.tar.gz
--rw-rw-r-- 1 ilg ilg      112 Sep 26 18:19 xpack-meson-build-0.55.3-1-linux-arm64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 19294631 Sep 26 19:09 xpack-meson-build-0.55.3-1-linux-arm.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Sep 26 19:09 xpack-meson-build-0.55.3-1-linux-arm.tar.gz.sha
+total 37960
+-rw-rw-r-- 1 ilg ilg 19644860 Sep 30 08:48 xpack-meson-build-0.55.3-1-linux-arm64.tar.gz
+-rw-rw-r-- 1 ilg ilg      112 Sep 30 08:48 xpack-meson-build-0.55.3-1-linux-arm64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 19212119 Sep 30 09:40 xpack-meson-build-0.55.3-1-linux-arm.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Sep 30 09:40 xpack-meson-build-0.55.3-1-linux-arm.tar.gz.sha
 ```
 
 To copy the files from the build machine to the current development
@@ -306,14 +306,14 @@ To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
 `screen -r meson`; to kill the session use `Ctrl-a` `Ctrl-\` or
 `Ctrl-a` `Ctrl-k` and confirm.
 
-Several minutes later, the output of the build script is a compressed
+About 15 minutes later, the output of the build script is a compressed
 archive and its SHA signature, created in the `deploy` folder:
 
 ```console
 $ cd ~/Work/meson-build-*/deploy
-total 38136
--rw-r--r--  1 ilg  staff  19519598 Sep 26 21:04 xpack-meson-build-0.55.3-1-darwin-x64.tar.gz
--rw-r--r--  1 ilg  staff       111 Sep 26 21:04 xpack-meson-build-0.55.3-1-darwin-x64.tar.gz.sha
+total 37416
+-rw-r--r--  1 ilg  staff  19150231 Sep 30 11:30 xpack-meson-build-0.55.3-1-darwin-x64.tar.gz
+-rw-r--r--  1 ilg  staff       111 Sep 30 11:30 xpack-meson-build-0.55.3-1-darwin-x64.tar.gz.sha
 ```
 
 To copy the files from the build machine to the current development

@@ -51,6 +51,7 @@ TBD
 
 ## Create a new GitHub pre-release
 
+- push the latest changes to the GitHub repo
 - go to the [GitHub Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases) page
 - click the **Draft a new release** button
 - name the tag like **v0.55.3-1** (mind the dash in the middle!)
