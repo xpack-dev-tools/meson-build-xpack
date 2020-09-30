@@ -14,16 +14,17 @@ for GNU/Linux and Windows or a custom folder for MacOS).
 
 ## Repositories
 
-- `https://github.com/xpack-dev-tools/meson-build.git` - the URL of the
-  [xPack Meson Build fork](https://github.com/xpack-dev-tools/meson-build)
+- `https://github.com/xpack-dev-tools/meson-build-xpack.git` - the URL of the
+  [xPack Meson Build fork](https://github.com/xpack-dev-tools/meson-build-xpack)
 - `https://github.com/xpack-dev-tools/build-helper` - the URL of the
-  xPack build helper, used as the `scripts/helper` submodule.
+  xPack build helper, used as the `scripts/helper` submodule
+- `https://github.com/mesonbuild/meson` - the URL of the original Meson repo
 
 ### Branches
 
 - `xpack` - the updated content, used during builds
 - `xpack-develop` - the updated content, used during development
-- `master` - the original content; it follows the upstream master.
+- `master` - empty
 
 ## Prerequisites
 
@@ -109,8 +110,8 @@ No need to add a tag here, it'll be added when the release is created.
 ### Prepare release
 
 To prepare a new release, first determine the Meson Build version
-(like `0.55.1`) and update the `scripts/VERSION` file. The format is
-`0.55.1-1`. The fourth number is the xPack release number
+(like `0.55.3`) and update the `scripts/VERSION` file. The format is
+`0.55.3-1`. The fourth number is the xPack release number
 of this version. A fifth number will be added when publishing
 the package on the `npm` server.
 
@@ -183,6 +184,12 @@ $ sudo rm -rf ~/Work/meson-build-*
 $ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
+or, for development builds:
+
+```console
+$ bash ~/Downloads/cmake-xpack.git/scripts/build.sh --linux64 --linux32 --win64 --win32 --develop
+```
+
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
 `screen -r meson-build`; to kill the session use `Ctrl-a` `Ctrl-k` and confirm.
 
@@ -190,8 +197,7 @@ About 30 minutes later, the output of the build script is a set of 4
 archives and their SHA signatures, created in the `deploy` folder:
 
 ```console
-$ cd ~/Work/meson-build-*
-$ ls -l deploy
+$ cd ~/Work/meson-build-*/deploy
 total 76520
 -rw-rw-r-- 1 ilg ilg 19941735 Sep 26 19:59 xpack-meson-build-0.55.3-1-linux-x32.tar.gz
 -rw-rw-r-- 1 ilg ilg      110 Sep 26 19:59 xpack-meson-build-0.55.3-1-linux-x32.tar.gz.sha
@@ -208,9 +214,7 @@ machine, either use NFS to mount the entire folder, or open the `deploy`
 folder in a terminal and use `scp`:
 
 ```console
-$ cd ~/Work/meson-build-*
-$ cd deploy
-$ scp * ilg@wks:Downloads/xpack-binaries/meson
+$ (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
 ```
 
 #### Build the Arm GNU/Linux binaries
@@ -264,8 +268,7 @@ About 55 minutes later, the output of the build script is a set of 2
 archives and their SHA signatures, created in the `deploy` folder:
 
 ```console
-$ cd ~/Work/meson-build-*
-$ ls -l deploy
+$ cd ~/Work/meson-build-*/deploy
 total 38124
 -rw-rw-r-- 1 ilg ilg 19733030 Sep 26 18:19 xpack-meson-build-0.55.3-1-linux-arm64.tar.gz
 -rw-rw-r-- 1 ilg ilg      112 Sep 26 18:19 xpack-meson-build-0.55.3-1-linux-arm64.tar.gz.sha
@@ -278,8 +281,7 @@ machine, either use NFS to mount the entire folder, or open the `deploy`
 folder in a terminal and use `scp`:
 
 ```console
-$ cd ~/Work/meson-build-*/deploy
-$ scp * ilg@wks:Downloads/xpack-binaries/meson
+$ (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
 ```
 
 #### Build the macOS binary
@@ -308,8 +310,7 @@ Several minutes later, the output of the build script is a compressed
 archive and its SHA signature, created in the `deploy` folder:
 
 ```console
-$ cd ~/Work/meson-build-*
-$ ls -l deploy
+$ cd ~/Work/meson-build-*/deploy
 total 38136
 -rw-r--r--  1 ilg  staff  19519598 Sep 26 21:04 xpack-meson-build-0.55.3-1-darwin-x64.tar.gz
 -rw-r--r--  1 ilg  staff       111 Sep 26 21:04 xpack-meson-build-0.55.3-1-darwin-x64.tar.gz.sha
@@ -320,9 +321,7 @@ machine, either use NFS to mount the entire folder, or open the `deploy`
 folder in a terminal and use `scp`:
 
 ```console
-$ cd ~/Work/meson-build-*
-$ cd deploy
-$ scp * ilg@wks:Downloads/xpack-binaries/meson
+$ (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
 ```
 
 ### Subsequent runs
@@ -396,8 +395,8 @@ program from there. For example on macOS the output should
 look like:
 
 ```console
-$ /Users/ilg/Downloads/xPacks/meson-build/0.55.1-1/bin/meson --version
-0.55.1
+$ /Users/ilg/Downloads/xPacks/meson-build/0.55.3-1/bin/meson --version
+0.55.3
 ```
 
 ## Installed folders
@@ -406,8 +405,8 @@ After install, the package should create a structure like this (macOS files;
 only the first two depth levels are shown):
 
 ```console
-$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.55.1-1.1/.content/
-/Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.55.1-1.1/.content/
+$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.55.3-1.1/.content/
+/Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.55.3-1.1/.content/
 TODO
 ```
 

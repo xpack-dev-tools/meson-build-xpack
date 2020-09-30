@@ -163,8 +163,6 @@ do
       shift
       ;;
 
-    # --- specific
-
     --linux-install-relative-path)
       LINUX_INSTALL_RELATIVE_PATH="$2"
       shift 2
