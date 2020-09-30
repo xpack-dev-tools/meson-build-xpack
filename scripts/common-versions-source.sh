@@ -24,6 +24,8 @@ function build_versions()
   # NINJA_BUILD_GIT_COMMIT=${NINJA_BUILD_GIT_COMMIT:-"HEAD"}
   README_OUT_FILE_NAME=${README_OUT_FILE_NAME:-"README-${RELEASE_VERSION}.md"}
 
+  MESON_VERSION="$(echo "${RELEASE_VERSION}" | sed -e 's|-[0-9]*||')"
+
   # Keep them in sync with combo archive content.
   if [[ "${RELEASE_VERSION}" =~ 0\.55\.3-* ]]
   then
@@ -59,7 +61,7 @@ function build_versions()
       build_python3 "${PYTHON_VERSION}"
     fi
 
-    build_meson "0.55.3"
+    build_meson "${MESON_VERSION}"
 
     # -------------------------------------------------------------------------
   else
