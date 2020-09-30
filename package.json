@@ -1,6 +1,6 @@
 {
   "name": "@xpack-dev-tools/meson-build",
-  "version": "0.0.1",
+  "version": "0.55.3-1.1",
   "description": "An xPack with Meson Build",
   "main": "",
   "scripts": {
@@ -24,7 +24,7 @@
     "name": "Liviu Ionescu",
     "email": "ilg@livius.net",
     "url": "https://github.com/ilg-ul"
-    },
+  },
   "license": "MIT",
   "config": {},
   "dependencies": {},
