@@ -3,8 +3,6 @@
 
 # The xPack Meson Build
 
-> Note: This project is work in progress!
-
 This open source project is hosted on GitHub as
 [`xpack-dev-tools/meson-build-xpack`](https://github.com/xpack-dev-tools/meson-build-xpack)
 and provides the platform specific binaries for the
@@ -93,7 +91,7 @@ be added only as pre-release strings, separated by a dash,
 like `0.55.3-1`. When published as a npm package, the version gets
 a fifth number, like `0.55.3-1.1`.
 
-Since adherance to third party packages to semver is not guaranteed,
+Since adherance of third party packages to semver is not guaranteed,
 it is recommended to use semver expressions like `^0.55.3` and `~0.55.3`
 with caution, and prefer exact matches, like `0.55.3-1.1`.
 
