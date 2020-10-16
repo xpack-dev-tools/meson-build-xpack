@@ -23,18 +23,22 @@ function build_versions()
 
     # -------------------------------------------------------------------------
 
+    # https://www.python.org/ftp/python/
+
     if [ "${RELEASE_VERSION}" == "0.53.3-1" ]
     then
       README_OUT_FILE_NAME=${README_OUT_FILE_NAME:-"README-${RELEASE_VERSION}.md"}
+      PYTHON3_VERSION="3.8.5"
+    else
+      PYTHON3_VERSION="3.8.6"
     fi
 
-    PYTHON_VERSION="3.8.5"
   
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
       # Shortcut, use the existing pyton.exe instead of building
       # if from sources. It also downloads the sources.
-      download_python3_win "${PYTHON_VERSION}"
+      download_python3_win "${PYTHON3_VERSION}"
     else
       # On macOS, to prevent Python picking system libraries,
       # provide controlled versions of them.
@@ -54,7 +58,7 @@ function build_versions()
 
       build_sqlite "3.32.3"
 
-      build_python3 "${PYTHON_VERSION}"
+      build_python3 "${PYTHON3_VERSION}"
     fi
 
     build_meson "${MESON_VERSION}"
