@@ -49,22 +49,17 @@ recreate the archives with the correct file.
 - add a new `if` with the new version before the existing code
 - check the Python version, and possibly bump to newer one
 
-## Push the build script
-
-In this Git repo:
-
-- push the `xpack-develop` branch to GitHub
-- possibly push the helper project too
-
 ## Build
 
 ### Clean the destination folder
 
-Clear the folder where the binaries from all build machines will be collected.
+On the development machine clear the folder where binaries from all
+build machines will be collected.
 
 ```console
 $ rm -f ~/Downloads/xpack-binaries/meson/*
 ```
+
 ### Pre-run the build scripts
 
 Before the real build, run a test build on the development machine:
@@ -73,6 +68,17 @@ Before the real build, run a test build on the development machine:
 $ sudo rm -rf ~/Work/meson-build-*
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --win64 --linux32 --win32
 ```
+
+Work on the scripts until all 4 platforms pass the build.
+
+## Push the build script
+
+In this Git repo:
+
+- push the `xpack-develop` branch to GitHub
+- possibly push the helper project too
+
+From here it'll be cloned on the production machines.
 
 ### Run the build scripts
 
@@ -107,16 +113,16 @@ Remove any previous build:
 $ sudo rm -rf ~/Work/meson-build-*
 ```
 
-On the Linux machines:
-
-```console
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
-```
-
 On the macOS machine:
 
 ```console
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
+```
+
+On the Linux machines:
+
+```console
+$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
 Copy the binaries to the development machine.
