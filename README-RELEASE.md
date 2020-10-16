@@ -56,17 +56,18 @@ recreate the archives with the correct file.
 On the development machine clear the folder where binaries from all
 build machines will be collected.
 
-```console
-$ rm -f ~/Downloads/xpack-binaries/meson/*
+```bash
+rm -f ~/Downloads/xpack-binaries/meson/*
 ```
 
 ### Pre-run the build scripts
 
 Before the real build, run a test build on the development machine:
 
-```console
-$ sudo rm -rf ~/Work/meson-build-*
-$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --win64 --linux32 --win32
+```bash
+sudo rm -rf ~/Work/meson-build-*
+
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --win64 --linux32 --win32
 ```
 
 Work on the scripts until all 4 platforms pass the build.
@@ -84,53 +85,62 @@ From here it'll be cloned on the production machines.
 
 Move to the three production machines.
 
-On the macOS build machine, create three new terminals.
+On the macOS build machine
+
+- empty the trash bin
+- create three new terminals
 
 Connect to the Intel Linux:
 
-```console
-$ caffeinate ssh xbbi
+```bash
+caffeinate ssh xbbi
 ```
 
 Connect to the Arm Linux:
 
-```console
-$ caffeinate ssh xbba
+```bash
+caffeinate ssh xbba
 ```
 
 On all machines, clone the `xpack-develop` branch:
 
-```console
-$ rm -rf ~/Downloads/meson-build-xpack.git; \
+```bash
+rm -rf ~/Downloads/meson-build-xpack.git; \
   git clone --recurse-submodules --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
   ~/Downloads/meson-build-xpack.git
+
 ```
 
-Remove any previous build:
+On all machines, remove any previous build:
 
-```console
-$ sudo rm -rf ~/Work/meson-build-*
+```bash
+sudo rm -rf ~/Work/meson-build-*
 ```
 
 On the macOS machine:
 
-```console
-$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
+```bash
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
 ```
+
+A typical run takes about 15 minutes.
 
 On the Linux machines:
 
-```console
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
+```bash
+bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
+
+A typical run on the Intel machine takes about 15 minutes;
+on the Arm machine it takes about 80 minutes.
 
 Copy the binaries to the development machine.
 
 On all three machines:
 
-```console
-$ (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/qemu)
+```bash
+(cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
 ```
 
 ## Test
@@ -281,16 +291,16 @@ $ xpm install --global @xpack-dev-tools/meson-build@next
 
 On GNU/Linux systems, including Raspberry Pi, use the following commands:
 
-```
-~/opt/xPacks/@xpack-dev-tools/meson-build/0.55.3-2.1/.content/bin/qemu-system-gnuarmeclipse --version
+```bash
+~/opt/xPacks/@xpack-dev-tools/meson-build/0.55.3-2.1/.content/bin/meson --version
 
 TODO
 ```
 
 On macOS, use:
 
-```
-~/Library/xPacks/@xpack-dev-tools/meson-build/0.55.3-2.1/.content/bin/qemu-system-gnuarmeclipse --version
+```bash
+~/Library/xPacks/@xpack-dev-tools/meson-build/0.55.3-2.1/.content/bin/meson --version
 
 TODO
 ```
@@ -298,7 +308,7 @@ TODO
 On Windows use:
 
 ```
-%HOMEPATH%\AppData\Roaming\xPacks\@xpack-dev-tools\meson-build\0.55.3-2.1\.content\bin\qemu-system-gnuarmeclipse --version
+%HOMEPATH%\AppData\Roaming\xPacks\@xpack-dev-tools\meson-build\0.55.3-2.1\.content\bin\meson --version
 
 TODO
 ```
