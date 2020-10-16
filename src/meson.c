@@ -189,14 +189,15 @@ main(int argc, char* argv[])
   printf("initialised\n");
 #endif
 
-  char* argv0 = argv[0];
-  wchar_t* wargv0 = Py_DecodeLocale(argv0, NULL);
-  argv[0] = "";
-
-  if (wargv0 == NULL) {
-    fprintf(stderr, "Fatal error: cannot decode argv[0]\n");
-    exit(1);
-  }
+  // Override argv[0] with the actual path, for consistency with Windows,
+  // which uses sys.executable:
+  //
+  //  if 'meson.exe' in sys.executable:
+  //      assert(os.path.isabs(sys.executable))
+  //      launcher = sys.executable
+  //  else:
+  //      launcher = os.path.realpath(sys.argv[0])
+  argv[0] = self_exe_path;
 
   wchar_t* wargv[argc];
   for (int i=0; i < argc; ++i) {
@@ -204,7 +205,7 @@ main(int argc, char* argv[])
   }
 
   // It is recommended that applications embedding the Python interpreter
-  // for purposes other than executing a single script pass 0 as updatepath,
+  // for purposes other than executing a single script to pass 0 as updatepath,
   // and update sys.path themselves if desired.
   PySys_SetArgvEx(argc, wargv, 0);
 
