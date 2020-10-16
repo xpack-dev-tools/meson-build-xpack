@@ -215,15 +215,15 @@ archives and their SHA signatures, created in the `deploy` folder:
 
 ```console
 $ cd ~/Work/meson-build-*/deploy
-total 80596
--rw-rw-r-- 1 ilg ilg 19876980 Sep 30 11:32 xpack-meson-build-0.55.3-2-linux-x32.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Sep 30 11:32 xpack-meson-build-0.55.3-2-linux-x32.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 19697828 Sep 30 11:23 xpack-meson-build-0.55.3-2-linux-x64.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Sep 30 11:23 xpack-meson-build-0.55.3-2-linux-x64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 20965024 Sep 30 11:33 xpack-meson-build-0.55.3-2-win32-x32.zip
--rw-rw-r-- 1 ilg ilg      107 Sep 30 11:33 xpack-meson-build-0.55.3-2-win32-x32.zip.sha
--rw-rw-r-- 1 ilg ilg 21964105 Sep 30 11:23 xpack-meson-build-0.55.3-2-win32-x64.zip
--rw-rw-r-- 1 ilg ilg      107 Sep 30 11:23 xpack-meson-build-0.55.3-2-win32-x64.zip.sha
+total 72744
+-rw-rw-r-- 1 ilg ilg 18083731 Oct 16 20:04 xpack-meson-build-0.55.3-2-linux-x32.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Oct 16 20:04 xpack-meson-build-0.55.3-2-linux-x32.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 17885078 Oct 16 19:56 xpack-meson-build-0.55.3-2-linux-x64.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Oct 16 19:56 xpack-meson-build-0.55.3-2-linux-x64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 18748719 Oct 16 20:04 xpack-meson-build-0.55.3-2-win32-x32.zip
+-rw-rw-r-- 1 ilg ilg      107 Oct 16 20:04 xpack-meson-build-0.55.3-2-win32-x32.zip.sha
+-rw-rw-r-- 1 ilg ilg 19749186 Oct 16 19:56 xpack-meson-build-0.55.3-2-win32-x64.zip
+-rw-rw-r-- 1 ilg ilg      107 Oct 16 19:56 xpack-meson-build-0.55.3-2-win32-x64.zip.sha
 ```
 
 To copy the files from the build machine to the current development
@@ -293,11 +293,11 @@ archives and their SHA signatures, created in the `deploy` folder:
 
 ```console
 $ cd ~/Work/meson-build-*/deploy
-total 37960
--rw-rw-r-- 1 ilg ilg 19644860 Sep 30 08:48 xpack-meson-build-0.55.3-2-linux-arm64.tar.gz
--rw-rw-r-- 1 ilg ilg      112 Sep 30 08:48 xpack-meson-build-0.55.3-2-linux-arm64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 19212119 Sep 30 09:40 xpack-meson-build-0.55.3-2-linux-arm.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Sep 30 09:40 xpack-meson-build-0.55.3-2-linux-arm.tar.gz.sha
+total 34452
+-rw-rw-r-- 1 ilg ilg 17846357 Oct 16 17:21 xpack-meson-build-0.55.3-2-linux-arm64.tar.gz
+-rw-rw-r-- 1 ilg ilg      112 Oct 16 17:21 xpack-meson-build-0.55.3-2-linux-arm64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 17417308 Oct 16 18:11 xpack-meson-build-0.55.3-2-linux-arm.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Oct 16 18:11 xpack-meson-build-0.55.3-2-linux-arm.tar.gz.sha
 ```
 
 To copy the files from the build machine to the current development
@@ -342,9 +342,9 @@ archive and its SHA signature, created in the `deploy` folder:
 
 ```console
 $ cd ~/Work/meson-build-*/deploy
-total 37416
--rw-r--r--  1 ilg  staff  19150231 Sep 30 11:30 xpack-meson-build-0.55.3-2-darwin-x64.tar.gz
--rw-r--r--  1 ilg  staff       111 Sep 30 11:30 xpack-meson-build-0.55.3-2-darwin-x64.tar.gz.sha
+total 33680
+-rw-r--r--  1 ilg  staff  17239748 Oct 16 20:02 xpack-meson-build-0.55.3-2-darwin-x64.tar.gz
+-rw-r--r--  1 ilg  staff       111 Oct 16 20:02 xpack-meson-build-0.55.3-2-darwin-x64.tar.gz.sha
 ```
 
 To copy the files from the build machine to the current development
