@@ -158,7 +158,7 @@ TBD
 - as description
   - add a downloads badge like `![Github Releases (by Release)](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v0.55.3-2/total.svg)`
   - draft a short paragraph explaining what are the main changes
-  - add _At this moment these binaries are for tests only!_
+  - add _At this moment these binaries are provided for tests only!_
 - **attach binaries** and SHA (drag and drop from the
 `~/Downloads/xpack-binaries/meson/` folder)
 - **enable** the **pre-release** button
