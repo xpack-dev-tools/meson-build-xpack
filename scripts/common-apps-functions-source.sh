@@ -71,7 +71,7 @@ function build_meson()
 
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
-      CPPFLAGS="${XBB_CPPFLAGS} -I${BUILD_FOLDER_PATH}/${meson_folder_name} -I${SOURCES_FOLDER_PATH}/Python-${PYTHON_VERSION}/Include -DPy_BUILD_CORE_BUILTIN=1"
+      CPPFLAGS="${XBB_CPPFLAGS} -I${BUILD_FOLDER_PATH}/${meson_folder_name} -I${SOURCES_FOLDER_PATH}/Python-${PYTHON3_VERSION}/Include -DPy_BUILD_CORE_BUILTIN=1"
     else
       CPPFLAGS="${XBB_CPPFLAGS} -I${LIBS_INSTALL_FOLDER_PATH}/include/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -DPy_BUILD_CORE_BUILTIN=1"
     fi
@@ -80,7 +80,7 @@ function build_meson()
     LDFLAGS="${XBB_LDFLAGS_APP_STATIC_GCC}"
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
-      LDFLAGS+=" -L${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"
+      LDFLAGS+=" -L${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"
     elif [ "${TARGET_PLATFORM}" == "darwin" ]
     then
       LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib -fno-semantic-interposition"
@@ -88,6 +88,7 @@ function build_meson()
     then
       # ${LIBS_INSTALL_FOLDER_PATH}/lib/libpython3.8.a
       LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib -fno-semantic-interposition -Xlinker -export-dynamic"
+      LDFLAGS+=" -Wl,-rpath,${LD_LIBRARY_PATH}"
     fi
     if [ "${IS_DEVELOP}" == "y" ]
     then
@@ -103,7 +104,8 @@ function build_meson()
       LIBS="-lpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -lcrypt -lpthread -ldl  -lutil -lm"
     elif [ "${TARGET_PLATFORM}" == "linux" ]
     then
-      LIBS="${LIBS_INSTALL_FOLDER_PATH}/lib/libpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}.a ${LIBS_INSTALL_FOLDER_PATH}/lib/libcrypt.a -lpthread -ldl  -lutil -lrt -lm"
+      # LIBS="${LIBS_INSTALL_FOLDER_PATH}/lib/libpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}.a ${LIBS_INSTALL_FOLDER_PATH}/lib/libcrypt.a -lpthread -ldl  -lutil -lrt -lm"
+      LIBS="-lpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -lcrypt -lpthread -ldl  -lutil -lrt -lm"
     fi
 
     CPPFLAGS+=" -DPYTHON_VERSION_MAJOR=${PYTHON3_VERSION_MAJOR}"
@@ -127,7 +129,7 @@ function build_meson()
 
     if [ "${TARGET_PLATFORM}" == "win32" ]
     then
-      cp -v "${BUILD_GIT_PATH}/extras/includes/pyconfig-${PYTHON_VERSION}.h" \
+      cp -v "${BUILD_GIT_PATH}/extras/includes/pyconfig-win-${PYTHON3_VERSION}.h" \
         "pyconfig.h"
     fi
 
@@ -194,10 +196,10 @@ function build_meson()
         then
           # Copy the Windows specific DLLs (.pyd) to the separate folder;
           # they are dynamically loaded by Python.
-          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"/*.pyd \
+          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"/*.pyd \
             "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
           # Copy the usual DLLs too; the python*.dll are used, do not remove them.
-          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_EMBED_FOLDER_NAME}"/*.dll \
+          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"/*.dll \
             "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
         else
           # Copy dynamically loaded modules and rename folder.

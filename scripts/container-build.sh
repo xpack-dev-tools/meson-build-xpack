@@ -198,7 +198,7 @@ tests_initialize
 
 if [ ! -z "${LINUX_INSTALL_RELATIVE_PATH}" ]
 then
-  if [ ! -x "${WORK_FOLDER_PATH}/${LINUX_INSTALL_RELATIVE_PATH}/libs/bin/python3" ]
+  if [ ! -f "${WORK_FOLDER_PATH}/${LINUX_INSTALL_RELATIVE_PATH}/libs/lib/libpython3.so" ]
   then
     echo "The Windows build requires the GNU/Linux binaries. Build them first and retry."
     exit 1

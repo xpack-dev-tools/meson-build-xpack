@@ -24,6 +24,7 @@ function build_versions()
     # -------------------------------------------------------------------------
 
     # https://www.python.org/ftp/python/
+    # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 
     if [ "${RELEASE_VERSION}" == "0.53.3-1" ]
     then
