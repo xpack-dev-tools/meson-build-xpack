@@ -12,10 +12,18 @@ a set of elaborate build environments based on recent GCC versions
 (Docker containers
 for GNU/Linux and Windows or a custom folder for MacOS).
 
+There are two types of builds:
+
+- local/native builds, which use the tools available on the
+  host machine; generally the binaries do not run on a different system
+  distribution/version; intended mostly for development purposes.
+- distribution builds, which create the archives distributed as
+  binaries; expected to run on most modern systems.
+
 ## Repositories
 
 - `https://github.com/xpack-dev-tools/meson-build-xpack.git` - the URL of the
-  [xPack Meson Build fork](https://github.com/xpack-dev-tools/meson-build-xpack)
+  [xPack Meson Build fork](https://github.com/xpack-dev-tools/meson-build-xpack) project
 - `https://github.com/xpack-dev-tools/build-helper` - the URL of the
   xPack build helper, used as the `scripts/helper` submodule
 - `https://github.com/mesonbuild/meson` - the URL of the original Meson repo
@@ -24,7 +32,7 @@ for GNU/Linux and Windows or a custom folder for MacOS).
 
 - `xpack` - the updated content, used during builds
 - `xpack-develop` - the updated content, used during development
-- `master` - empty
+- `master` - empty, not used.
 
 ## Prerequisites
 
@@ -48,8 +56,8 @@ $ curl -L https://github.com/xpack-dev-tools/meson-build-xpack/raw/xpack/scripts
 This small script issues the following two commands:
 
 ```console
-$ rm -rf ~/Downloads/meson-build-xpack.git
-$ git clone --recurse-submodules \
+$ rm -rf ~/Downloads/meson-build-xpack.git; \
+  git clone --recurse-submodules \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
   ~/Downloads/meson-build-xpack.git
 ```
@@ -67,8 +75,8 @@ $ curl -L https://github.com/xpack-dev-tools/meson-build-xpack/raw/xpack/scripts
 which is a shortcut for:
 
 ```console
-$ rm -rf ~/Downloads/meson-build-xpack.git
-$ git clone --recurse-submodules --branch xpack-develop \
+$ rm -rf ~/Downloads/meson-build-xpack.git; \
+  git clone --recurse-submodules --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
   ~/Downloads/meson-build-xpack.git
 ```
@@ -80,13 +88,41 @@ the user home. Although not recommended, if for any reasons you need to
 change the location of the `Work` folder,
 you can redefine `WORK_FOLDER_PATH` variable before invoking the script.
 
+## Spaces in folder names
+
+Due to the limitations of `make`, builds started in folders with
+spaces in names are known to fail.
+
+If on your system the work folder is in such a location, redefine it in a
+folder without spaces and set the `WORK_FOLDER_PATH` variable before invoking
+the script.
+
+## Customizations
+
+There are many other settings that can be redefined via
+environment variables. If necessary,
+place them in a file and pass it via `--env-file`. This file is
+either passed to Docker or sourced to shell. The Docker syntax
+**is not** identical to shell, so some files may
+not be accepted by bash.
+
+## Versioning
+
+The version string is an extension to semver, the format looks like `0.55.3-2`.
+It includes the three digits with the original Meson version (0.55.3), a fourth
+digit with the xPack release number.
+
+When publishing on the **npmjs.com** server, a fifth digit is appended.
+
 ## Changes
 
 Compared to the original Meson Build distribution, there should be no
 functional changes.
 
-The actual changes for each version are documented in the
-`scripts/README-<version>.md` files.
+The actual changes for each version are documented in the corresponding
+release pages:
+
+- https://xpack.github.io/meson-build/releases/
 
 ## How to build local/native binaries
 
@@ -97,42 +133,6 @@ The details on how to prepare the development environment for Meson Build are in
 
 ## How to build distributions
 
-### Update git repos
-
-To keep the development repository in sync with the original Meson Build
-repository, in the `xpack-dev-tools/meson-build` Git repo:
-
-- checkout `xpack`
-- merge `xpack-develop`
-
-No need to add a tag here, it'll be added when the release is created.
-
-### Prepare release
-
-To prepare a new release, first determine the Meson Build version
-(like `0.55.3`) and update the `scripts/VERSION` file. The format is
-`0.55.3-1`. The fourth number is the xPack release number
-of this version. A fifth number will be added when publishing
-the package on the `npm` server.
-
-Add a new set of definitions in the `scripts/container-build.sh`, with
-the versions of various components.
-
-### Check `README.md`
-
-Normally `README.md` should not need changes, but better check.
-Information related to the new version should not be included here,
-but in the version specific file (below).
-
-### Create `README-<version>.md`
-
-In the `scripts` folder create a copy of the previous one and update the
-Git commit and possible other details.
-
-### Update `CHANGELOG.md`
-
-Check `CHANGELOG.md` and add the new release.
-
 ### Build
 
 Although it is perfectly possible to build all binaries in a single step
@@ -142,8 +142,8 @@ separately on a macOS system.
 
 #### Build the Intel GNU/Linux and Windows binaries
 
-The current platform for GNU/Linux and Windows production builds is an
-Manjaro 19, running on an Intel NUC8i7BEH mini PC with 32 GB of RAM
+The current platform for GNU/Linux and Windows production builds is a
+Debian 10, running on an Intel NUC8i7BEH mini PC with 32 GB of RAM
 and 512 GB of fast M.2 SSD.
 
 ```console
@@ -173,6 +173,22 @@ ilegeul/ubuntu      amd64-12.04-xbb-v3.2             3aba264620ea        2 days 
 hello-world         latest                           bf756fb1ae65        5 months ago        13.3kB
 ```
 
+It is also recommended to Remove unused Docker space. This is mostly useful
+after failed builds, during development, when dangling images may be left
+by Docker.
+
+To check the content of a Docker image:
+
+```console
+$ docker run --interactive --tty ilegeul/ubuntu:amd64-12.04-xbb-v3.2
+```
+
+To remove unused files:
+
+```console
+$ docker system prune --force
+```
+
 Since the build takes a while, use `screen` to isolate the build session
 from unexpected events, like a broken
 network connection or a computer entering sleep.
@@ -188,7 +204,7 @@ or, for development builds:
 
 ```console
 $ rm -rf ~/Work/meson-build-*
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32 
+$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -200,14 +216,14 @@ archives and their SHA signatures, created in the `deploy` folder:
 ```console
 $ cd ~/Work/meson-build-*/deploy
 total 80596
--rw-rw-r-- 1 ilg ilg 19876980 Sep 30 11:32 xpack-meson-build-0.55.3-1-linux-x32.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Sep 30 11:32 xpack-meson-build-0.55.3-1-linux-x32.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 19697828 Sep 30 11:23 xpack-meson-build-0.55.3-1-linux-x64.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Sep 30 11:23 xpack-meson-build-0.55.3-1-linux-x64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 20965024 Sep 30 11:33 xpack-meson-build-0.55.3-1-win32-x32.zip
--rw-rw-r-- 1 ilg ilg      107 Sep 30 11:33 xpack-meson-build-0.55.3-1-win32-x32.zip.sha
--rw-rw-r-- 1 ilg ilg 21964105 Sep 30 11:23 xpack-meson-build-0.55.3-1-win32-x64.zip
--rw-rw-r-- 1 ilg ilg      107 Sep 30 11:23 xpack-meson-build-0.55.3-1-win32-x64.zip.sha
+-rw-rw-r-- 1 ilg ilg 19876980 Sep 30 11:32 xpack-meson-build-0.55.3-2-linux-x32.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Sep 30 11:32 xpack-meson-build-0.55.3-2-linux-x32.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 19697828 Sep 30 11:23 xpack-meson-build-0.55.3-2-linux-x64.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Sep 30 11:23 xpack-meson-build-0.55.3-2-linux-x64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 20965024 Sep 30 11:33 xpack-meson-build-0.55.3-2-win32-x32.zip
+-rw-rw-r-- 1 ilg ilg      107 Sep 30 11:33 xpack-meson-build-0.55.3-2-win32-x32.zip.sha
+-rw-rw-r-- 1 ilg ilg 21964105 Sep 30 11:23 xpack-meson-build-0.55.3-2-win32-x64.zip
+-rw-rw-r-- 1 ilg ilg      107 Sep 30 11:23 xpack-meson-build-0.55.3-2-win32-x64.zip.sha
 ```
 
 To copy the files from the build machine to the current development
@@ -220,8 +236,8 @@ $ (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
 
 #### Build the Arm GNU/Linux binaries
 
-The current platform for GNU/Linux and Windows production builds is an
-Manjaro 19, running on an Raspberry Pi 4B with 4 GB of RAM
+The current platform for Arm GNU/Linux production builds is a
+Debian 9, running on an ROCK Pi 4 SBC with 4 GB of RAM
 and 256 GB of fast M.2 SSD.
 
 ```console
@@ -266,7 +282,7 @@ or, for development builds:
 
 ```console
 $ rm -rf ~/Work/meson-build-*
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
+$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -278,10 +294,10 @@ archives and their SHA signatures, created in the `deploy` folder:
 ```console
 $ cd ~/Work/meson-build-*/deploy
 total 37960
--rw-rw-r-- 1 ilg ilg 19644860 Sep 30 08:48 xpack-meson-build-0.55.3-1-linux-arm64.tar.gz
--rw-rw-r-- 1 ilg ilg      112 Sep 30 08:48 xpack-meson-build-0.55.3-1-linux-arm64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 19212119 Sep 30 09:40 xpack-meson-build-0.55.3-1-linux-arm.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Sep 30 09:40 xpack-meson-build-0.55.3-1-linux-arm.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 19644860 Sep 30 08:48 xpack-meson-build-0.55.3-2-linux-arm64.tar.gz
+-rw-rw-r-- 1 ilg ilg      112 Sep 30 08:48 xpack-meson-build-0.55.3-2-linux-arm64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 19212119 Sep 30 09:40 xpack-meson-build-0.55.3-2-linux-arm.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Sep 30 09:40 xpack-meson-build-0.55.3-2-linux-arm.tar.gz.sha
 ```
 
 To copy the files from the build machine to the current development
@@ -327,8 +343,8 @@ archive and its SHA signature, created in the `deploy` folder:
 ```console
 $ cd ~/Work/meson-build-*/deploy
 total 37416
--rw-r--r--  1 ilg  staff  19150231 Sep 30 11:30 xpack-meson-build-0.55.3-1-darwin-x64.tar.gz
--rw-r--r--  1 ilg  staff       111 Sep 30 11:30 xpack-meson-build-0.55.3-1-darwin-x64.tar.gz.sha
+-rw-r--r--  1 ilg  staff  19150231 Sep 30 11:30 xpack-meson-build-0.55.3-2-darwin-x64.tar.gz
+-rw-r--r--  1 ilg  staff       111 Sep 30 11:30 xpack-meson-build-0.55.3-2-darwin-x64.tar.gz.sha
 ```
 
 To copy the files from the build machine to the current development
@@ -390,6 +406,11 @@ the host file system, and resume an interrupted build.
 For development builds, it is also possible to create everything with
 `-g -O0` and be able to run debug sessions.
 
+### --jobs
+
+By default, the build steps use all available cores. If, for any reason,
+parallel builds fail, it is possible to reduce the load.
+
 #### Interrupted builds
 
 The Docker scripts run with root privileges. This is generally not a
@@ -411,9 +432,16 @@ program from there. For example on macOS the output should
 look like:
 
 ```console
-$ /Users/ilg/Downloads/xPacks/meson-build/0.55.3-1/bin/meson --version
+$ /Users/ilg/Downloads/xPacks/meson-build/0.55.3-2/bin/meson --version
 0.55.3
 ```
+
+## Travis tests
+
+A multi-platform validation test for all binary archives can be performed
+using Travis CI.
+
+For details please see `tests/scripts/README.md`.
 
 ## Installed folders
 
@@ -421,8 +449,8 @@ After install, the package should create a structure like this (macOS files;
 only the first two depth levels are shown):
 
 ```console
-$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.55.3-1.1/.content/
-/Users/ilg/Library/xPacks/@xpack-dev-tools/meson-build/0.55.3-1.1/.content/
+$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.55.3-2.1/.content/
+/Users/ilg/Library/xPacks/@xpack-dev-tools/meson-build/0.55.3-2.1/.content/
 ├── README.md
 ├── bin
 │   ├── libcrypt.2.dylib

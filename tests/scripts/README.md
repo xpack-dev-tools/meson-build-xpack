@@ -16,8 +16,8 @@ the pre-release locations:
 
 The test scripts are part of the `meson-build` xPack:
 
-```console
-rm -rf ~/Downloads/meson-build-xpack.git
+```bash
+rm -rf ~/Downloads/meson-build-xpack.git; \
 git clone --recurse-submodules -b xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
   ~/Downloads/meson-build-xpack.git

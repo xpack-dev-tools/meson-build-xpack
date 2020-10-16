@@ -84,7 +84,7 @@ For more details please read the
 
 ### Version information
 
-The version strings used by the Ninja project are three number string
+The version strings used by the Meson project are three number string
 like `0.55.3`; to this string the xPack distribution adds a four number,
 but since semver allows only three numbers, all additional ones can
 be added only as pre-release strings, separated by a dash,
