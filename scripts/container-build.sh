@@ -192,6 +192,8 @@ prepare_xbb_env
 
 prepare_xbb_extras
 
+tests_initialize
+
 # -----------------------------------------------------------------------------
 
 if [ ! -z "${LINUX_INSTALL_RELATIVE_PATH}" ]
