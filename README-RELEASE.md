@@ -36,6 +36,8 @@ but in the version specific file (below).
 - open the `CHANGELOG.md` file
 - check if all previous fixed issues are in
 - add a new entry like _v0.55.3-2 prepared_
+- commit commit with a message like _CHANGELOG: prepare v0.55.3-2_
+- `npm version v0.55.3-2.1`; the first 4 nu
 
 Note: if you missed to update the `CHANGELOG.md` before starting the build,
 edit the file and rerun the build, it should take only a few minutes to
@@ -45,6 +47,7 @@ recreate the archives with the correct file.
 
 - open the `common-versions-source.sh` file
 - add a new `if` with the new version before the existing code
+- check the Python version, and possibly bump to newer one
 
 ## Push the build script
 
