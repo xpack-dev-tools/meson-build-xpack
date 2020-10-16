@@ -240,13 +240,6 @@ main(int argc, char* argv[])
   // Cleanups. 
   // Normally all allocated wide strings must be freed,
   // but before exit it makes not much sense.
-  PyMem_RawFree(new_wpath);
-  PyMem_RawFree(wpath);
-  for (int i=0; i < argc; ++i) {
-    PyMem_RawFree(wargv[i]);
-  }
-  PyMem_RawFree(wargv0);
-  PyMem_RawFree(wself_exe_path);
 
   return 0;
 }
