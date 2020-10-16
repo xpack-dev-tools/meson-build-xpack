@@ -25,6 +25,14 @@ recreate the archives with the correct file.
 
 The `VERSION` file should refer to the actual release.
 
+### Clean the destination folder
+
+Clear the folder where the binaries from all build machines will be collected.
+
+```console
+$ rm -f ~/Downloads/xpack-binaries/meson/*
+```
+
 ### Push the build script
 
 In this Git repo:

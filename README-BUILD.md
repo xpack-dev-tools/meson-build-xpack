@@ -187,7 +187,7 @@ $ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 or, for development builds:
 
 ```console
-$ bash ~/Downloads/cmake-xpack.git/scripts/build.sh --linux64 --linux32 --win64 --win32 --develop
+$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --linux64 --linux32 --win64 --win32 --develop
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -331,8 +331,9 @@ $ (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
 Instead of `--all`, you can use any combination of:
 
 ```
---win32 --win64 --linux32 --linux64
---arm --arm64
+--linux32 --linux64
+--arm32 --arm64
+--win32 --win64 
 ```
 
 #### `clean`

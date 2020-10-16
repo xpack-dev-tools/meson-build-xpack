@@ -32,7 +32,7 @@ To enable the travis tests:
 
 - login to https://travis-ci.org/ with the GitHub credentials
 - in the user settings, select the **3rd Party xpack Dev Tools** organization
-- enable the **meson-build** project
+- enable the **meson-build-xpack** project
 - in Setting, disable **Build pushed branches** and **Build pull requests**
 
 ## Test work flow
