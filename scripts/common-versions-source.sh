@@ -15,14 +15,6 @@
 
 function build_versions()
 {
-  # The \x2C is a comma in hex; without this trick the regular expression
-  # that processes this string in the Makefile, silently fails and the 
-  # bfdver.h file remains empty.
-  BRANDING="${BRANDING}\x2C ${TARGET_MACHINE}"
-
-  # NINJA_BUILD_GIT_BRANCH=${NINJA_BUILD_GIT_BRANCH:-"master"}
-  # NINJA_BUILD_GIT_COMMIT=${NINJA_BUILD_GIT_COMMIT:-"HEAD"}
-
   MESON_VERSION="$(echo "${RELEASE_VERSION}" | sed -e 's|-[0-9]*||')"
 
   # Keep them in sync with combo archive content.
