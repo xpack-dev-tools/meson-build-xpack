@@ -262,7 +262,7 @@ no terminating `/` is required
   GitHub release; the fifth number is the npm specific version
 - `npm pack` and check the content of the archive, which should list
   only the `package.json`, the `README.md`, `LICENSE` and `CHANGELOG.md`
-- push all changes to GitHub
+- push the `xpack-develop` branch to GitHub
 - `npm publish --tag next` (use `--access public` when publishing for
   the first time)
 
