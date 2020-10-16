@@ -98,7 +98,7 @@ with caution, and prefer exact matches, like `0.55.3-1.1`.
 ## Maintainer info
 
 - [How to build](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/README-BUILD.md)
-- [How to publish](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/README-PUBLISH.md)
+- [How to make new releases](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/README-RELEASE.md)
 
 ## Support
 
