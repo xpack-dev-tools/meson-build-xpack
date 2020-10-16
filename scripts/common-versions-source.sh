@@ -22,7 +22,6 @@ function build_versions()
 
   # NINJA_BUILD_GIT_BRANCH=${NINJA_BUILD_GIT_BRANCH:-"master"}
   # NINJA_BUILD_GIT_COMMIT=${NINJA_BUILD_GIT_COMMIT:-"HEAD"}
-  README_OUT_FILE_NAME=${README_OUT_FILE_NAME:-"README-${RELEASE_VERSION}.md"}
 
   MESON_VERSION="$(echo "${RELEASE_VERSION}" | sed -e 's|-[0-9]*||')"
 
@@ -31,6 +30,11 @@ function build_versions()
   then
 
     # -------------------------------------------------------------------------
+
+    if [ "${RELEASE_VERSION}" == "0.53.3-1" ]
+    then
+      README_OUT_FILE_NAME=${README_OUT_FILE_NAME:-"README-${RELEASE_VERSION}.md"}
+    fi
 
     PYTHON_VERSION="3.8.5"
   
