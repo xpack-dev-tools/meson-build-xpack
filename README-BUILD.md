@@ -187,7 +187,8 @@ $ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 or, for development builds:
 
 ```console
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --linux64 --linux32 --win64 --win32 --develop
+$ rm -rf ~/Work/meson-build-*
+$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32 
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -261,6 +262,13 @@ $ sudo rm -rf ~/Work/meson-build-*
 $ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
+or, for development builds:
+
+```console
+$ rm -rf ~/Work/meson-build-*
+$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
+```
+
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
 `screen -r meson`; to kill the session use `Ctrl-a` `Ctrl-k` and confirm.
 
@@ -300,6 +308,13 @@ $ screen -S meson
 
 $ rm -rf ~/Work/meson-build-*
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
+```
+
+or, for development builds:
+
+```console
+$ rm -rf ~/Work/meson-build-*
+$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --osx
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
