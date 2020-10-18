@@ -195,16 +195,20 @@ network connection or a computer entering sleep.
 
 ```console
 $ screen -S meson
-
-$ sudo rm -rf ~/Work/meson-build-*
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
-or, for development builds:
+Run the development builds on the development machine:
 
 ```console
 $ rm -rf ~/Work/meson-build-*
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
+```
+
+When ready, run the build on the production machine:
+
+```console
+$ sudo rm -rf ~/Work/meson-build-*
+$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -224,14 +228,6 @@ total 72744
 -rw-rw-r-- 1 ilg ilg      107 Oct 16 20:04 xpack-meson-build-0.55.3-2-win32-x32.zip.sha
 -rw-rw-r-- 1 ilg ilg 19749186 Oct 16 19:56 xpack-meson-build-0.55.3-2-win32-x64.zip
 -rw-rw-r-- 1 ilg ilg      107 Oct 16 19:56 xpack-meson-build-0.55.3-2-win32-x64.zip.sha
-```
-
-To copy the files from the build machine to the current development
-machine, either use NFS to mount the entire folder, or open the `deploy`
-folder in a terminal and use `scp`:
-
-```console
-$ (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
 ```
 
 #### Build the Arm GNU/Linux binaries
@@ -273,16 +269,20 @@ network connection or a computer entering sleep.
 
 ```console
 $ screen -S meson
-
-$ sudo rm -rf ~/Work/meson-build-*
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
-or, for development builds:
+Run the development builds on the development machine:
 
 ```console
 $ rm -rf ~/Work/meson-build-*
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
+```
+
+When ready, run the build on the production machine:
+
+```console
+$ sudo rm -rf ~/Work/meson-build-*
+$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -300,14 +300,6 @@ total 34452
 -rw-rw-r-- 1 ilg ilg      110 Oct 16 18:11 xpack-meson-build-0.55.3-2-linux-arm.tar.gz.sha
 ```
 
-To copy the files from the build machine to the current development
-machine, either use NFS to mount the entire folder, or open the `deploy`
-folder in a terminal and use `scp`:
-
-```console
-$ (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
-```
-
 #### Build the macOS binary
 
 The current platform for macOS production builds is a macOS 10.10.5
@@ -321,16 +313,20 @@ To build the latest macOS version:
 
 ```console
 $ screen -S meson
-
-$ rm -rf ~/Work/meson-build-*
-$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
 ```
 
-or, for development builds:
+Run the development builds on the development machine:
 
 ```console
 $ rm -rf ~/Work/meson-build-*
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --osx
+```
+
+When ready, run the build on the production machine:
+
+```console
+$ rm -rf ~/Work/meson-build-*
+$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -345,14 +341,6 @@ $ cd ~/Work/meson-build-*/deploy
 total 33680
 -rw-r--r--  1 ilg  staff  17239748 Oct 16 20:02 xpack-meson-build-0.55.3-2-darwin-x64.tar.gz
 -rw-r--r--  1 ilg  staff       111 Oct 16 20:02 xpack-meson-build-0.55.3-2-darwin-x64.tar.gz.sha
-```
-
-To copy the files from the build machine to the current development
-machine, either use NFS to mount the entire folder, or open the `deploy`
-folder in a terminal and use `scp`:
-
-```console
-$ (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
 ```
 
 ### Subsequent runs
