@@ -83,11 +83,17 @@ function build_meson()
       LDFLAGS+=" -L${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"
     elif [ "${TARGET_PLATFORM}" == "darwin" ]
     then
-      LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib -fno-semantic-interposition"
+      LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib"
+      if [[ "${CC}" =~ gcc* ]]
+      then
+        LDFLAGS+=" -fno-semantic-interposition"
+      fi
     elif [ "${TARGET_PLATFORM}" == "linux" ]
     then
       # ${LIBS_INSTALL_FOLDER_PATH}/lib/libpython3.8.a
-      LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib -fno-semantic-interposition -Xlinker -export-dynamic"
+      LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib "
+      LDFLAGS+=" -fno-semantic-interposition"
+      LDFLAGS+=" -Xlinker -export-dynamic"
       LDFLAGS+=" -Wl,-rpath,${LD_LIBRARY_PATH}"
     fi
     if [ "${IS_DEVELOP}" == "y" ]
