@@ -23,7 +23,7 @@ Check GitHub issues and pull requests:
 
 - https://github.com/xpack-dev-tools/meson-build-xpack/issues
 
-and fix them; assign them to a milestone (like `v0.55.3-2`).
+and fix them; assign them to a milestone (like `0.55.3-2`).
 
 ### Check `README.md`
 
@@ -37,7 +37,6 @@ but in the version specific file (below).
 - check if all previous fixed issues are in
 - add a new entry like _v0.55.3-2 prepared_
 - commit commit with a message like _CHANGELOG: prepare v0.55.3-2_
-- `npm version v0.55.3-2.1`; the first 4 nu
 
 Note: if you missed to update the `CHANGELOG.md` before starting the build,
 edit the file and rerun the build, it should take only a few minutes to
@@ -51,18 +50,9 @@ recreate the archives with the correct file.
 
 ## Build
 
-### Clean the destination folder
+### Development run the build scripts
 
-On the development machine clear the folder where binaries from all
-build machines will be collected.
-
-```bash
-rm -f ~/Downloads/xpack-binaries/meson/*
-```
-
-### Pre-run the build scripts
-
-Before the real build, run a test build on the development machine:
+Before the real build, run a test build on the development machine (`wks`):
 
 ```bash
 sudo rm -rf ~/Work/meson-build-*
@@ -85,18 +75,18 @@ From here it'll be cloned on the production machines.
 
 Move to the three production machines.
 
-On the macOS build machine
+On the macOS build machine (`xbbm`):
 
 - empty the trash bin
 - create three new terminals
 
-Connect to the Intel Linux:
+Connect to the Intel Linux (`xbbi`):
 
 ```bash
 caffeinate ssh xbbi
 ```
 
-Connect to the Arm Linux:
+Connect to the Arm Linux (`xbba`):
 
 ```bash
 caffeinate ssh xbba
@@ -118,7 +108,7 @@ On all machines, remove any previous build:
 sudo rm -rf ~/Work/meson-build-*
 ```
 
-On the macOS machine:
+On the macOS machine (`xbbm`):
 
 ```bash
 caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
@@ -126,7 +116,7 @@ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
 
 A typical run takes about 15 minutes.
 
-On the Linux machines:
+On the Linux machines (`xbbi` and `xbba`):
 
 ```bash
 bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
@@ -135,7 +125,18 @@ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 A typical run on the Intel machine takes about 15 minutes;
 on the Arm machine it takes about 80 minutes.
 
-Copy the binaries to the development machine.
+### Clean the destination folder for the test binaries
+
+On the development machine (`wks`) clear the folder where binaries from all
+build machines will be collected.
+
+```bash
+rm -f ~/Downloads/xpack-binaries/meson/*
+```
+
+Note: this step is very important, to avoid using test binaries!
+
+### Copy the binaries to the development machine.
 
 On all three machines:
 
@@ -143,14 +144,15 @@ On all three machines:
 (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
 ```
 
-## Test
+## Testing
 
 TBD
 
 ## Create a new GitHub pre-release
 
+- in `CHANGELOG.md`, add release date
 - commit and push the `xpack-develop` branch
-- go to the [GitHub Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases) page
+- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases) page
 - click the **Draft a new release** button
 - name the tag like **v0.55.3-2** (mind the dash in the middle!)
 - select the `xpack-develop` branch
@@ -164,7 +166,8 @@ TBD
 - **enable** the **pre-release** button
 - click the **Publish Release** button
 
-Note: at this moment the system should send a notification to all clients watching this project.
+Note: at this moment the system should send a notification to all clients
+watching this project.
 
 ## Run the Travis tests
 
@@ -182,15 +185,17 @@ For more details, see `tests/scripts/README.md`.
 
 ## Prepare a new blog post
 
-In the `xpack.github.io` web Git:
+In the `xpack/web-jekyll` GitHub repo:
 
-- select the `xpack-develop` branch
+- select the `develop` branch
 - add a new file to `_posts/meson-build/releases`
 - name the file like `2020-10-16-meson-build-v0-55-3-2-released.md`
 - name the post like: **xPack Meson Build v0.55.3-2 released**.
 - as `download_url` use the tagged URL like `https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v0.55.3-2/`
 - update the `date:` field with the current date
 - update the Travis URLs using the actual test pages
+- update the SHA sums via copy/paste from the original build machines
+(it is very important to use the originals!)
 
 If any, refer to closed
 [issues](https://github.com/xpack-dev-tools/meson-build-xpack/issues)
@@ -229,16 +234,18 @@ b25987e4153e42384ff6273ba228c3eaa7a61a2a6cc8f7a3fbf800099c3f6a49
 xpack-meson-build-v0.55.3-2-win32-x64.zip
 ```
 
-If you missed this, `cat` the content of the `.sha` files:
+## Check the SHA sums
 
-```console
-$ ~Downloads/xpack-binaries/meson
-$ cat *.sha
+On the development machine (`wks`):
+
+```bash
+~Downloads/xpack-binaries/meson
+cat *.sha
 ```
 
 ## Update the preview Web
 
-- commit the `develop` branch of `xpack.github.io` project; use a message
+- commit the `develop` branch of `xpack/web-jekyll` GitHub repo; use a message
   like **xPack Meson Build v0.55.3-2 released**
 - wait for the GitHub Pages build to complete
 - the preview web is https://xpack.github.io/web-preview/
@@ -247,12 +254,14 @@ $ cat *.sha
 
 - select the `xpack-develop` branch
 - open the `package.json` file
-- open [GitHub Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases)
-  and select the latest release
+- open the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases)
+  page and select the latest release
 - check the download counter, it should match the number of tests
 - update the `baseUrl:` with the file URLs (including the tag/version);
-no terminating `/` is required
-- from the web release, copy the SHA & file names
+  no terminating `/` is required
+- from the release, copy the SHA & file names
+- compare the SHA sums with those shown by `cat *.sha`
+- check the executable names
 - commit all changes, use a message like
   `package.json: update urls for v0.55.3-2 release` (without `v`)
 - check the latest commits `npm run git-log`
@@ -268,7 +277,7 @@ no terminating `/` is required
 
 ## Test if the npm binaries can be installed with xpm
 
-Run the `tests/scripts/trigger-travis-xpm-install.sh` file, this
+Run the `tests/scripts/trigger-travis-xpm-install.sh` script, this
 will install the package on Intel Linux 64-bit, macOS and Windows 64-bit.
 
 The test results are available from:
@@ -335,7 +344,7 @@ When the release is considered stable, promote it as `latest`:
 
 ## Create the final GitHub release
 
-- go to the [GitHub Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases) page
+- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases) page
 - check the download counter, it should match the number of tests
 - add a link to the Web page `[Continue reading »]()`; use an same blog URL
 - **disable** the **pre-release** button

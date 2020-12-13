@@ -1,4 +1,4 @@
-# How to build the xPack Meson Build
+# How to build the xPack Meson Build binaries
 
 ## Introduction
 
@@ -40,6 +40,8 @@ The prerequisites are common to all binary builds. Please follow the
 instructions in the separate
 [Prerequisites for building binaries](https://xpack.github.io/xbb/prerequisites/)
 page and return when ready.
+
+Note: Building the Arm binaries requires an Arm machine.
 
 ## Download the build scripts
 
@@ -128,7 +130,8 @@ release pages:
 
 ### README-DEVELOP.md
 
-The details on how to prepare the development environment for Meson Build are in the
+The details on how to prepare the development environment for a native build
+are in the
 [`README-DEVELOP.md`](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/README-DEVELOP.md) file.
 
 ## How to build distributions
@@ -144,7 +147,7 @@ separately on a macOS system.
 
 The current platform for GNU/Linux and Windows production builds is a
 Debian 10, running on an Intel NUC8i7BEH mini PC with 32 GB of RAM
-and 512 GB of fast M.2 SSD.
+and 512 GB of fast M.2 SSD. The machine name is `xbbi`.
 
 ```console
 $ ssh xbbi
@@ -197,14 +200,14 @@ network connection or a computer entering sleep.
 $ screen -S meson
 ```
 
-Run the development builds on the development machine:
+Run the development builds on the development machine (`wks`):
 
 ```console
-$ rm -rf ~/Work/meson-build-*
+$ sudo rm -rf ~/Work/meson-build-*
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
 ```
 
-When ready, run the build on the production machine:
+When ready, run the build on the production machine (`xbbi`):
 
 ```console
 $ sudo rm -rf ~/Work/meson-build-*
@@ -232,9 +235,14 @@ total 72744
 
 #### Build the Arm GNU/Linux binaries
 
+The supported Arm architectures are:
+
+- `armhf` for 32-bit devices
+- `arm64` for 64-bit devices
+
 The current platform for Arm GNU/Linux production builds is a
 Debian 9, running on an ROCK Pi 4 SBC with 4 GB of RAM
-and 256 GB of fast M.2 SSD.
+and 256 GB of fast M.2 SSD. The machine name is `xbba`.
 
 ```console
 $ ssh xbba
@@ -274,11 +282,11 @@ $ screen -S meson
 Run the development builds on the development machine:
 
 ```console
-$ rm -rf ~/Work/meson-build-*
+$ sudo rm -rf ~/Work/meson-build-*
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
 ```
 
-When ready, run the build on the production machine:
+When ready, run the build on the production machine (`xbba`):
 
 ```console
 $ sudo rm -rf ~/Work/meson-build-*
@@ -300,10 +308,11 @@ total 34452
 -rw-rw-r-- 1 ilg ilg      110 Oct 16 18:11 xpack-meson-build-0.55.3-2-linux-arm.tar.gz.sha
 ```
 
-#### Build the macOS binary
+#### Build the macOS binaries
 
 The current platform for macOS production builds is a macOS 10.10.5
-running on a MacBook Pro with 32 GB of RAM and a fast SSD.
+running on a MacBook Pro with 32 GB of RAM and a fast SSD. The machine
+name is `xbbm`.
 
 ```console
 $ ssh xbbm
@@ -315,17 +324,17 @@ To build the latest macOS version:
 $ screen -S meson
 ```
 
-Run the development builds on the development machine:
+Run the development builds on the development machine (`wks`):
 
 ```console
-$ rm -rf ~/Work/meson-build-*
+$ sudo rm -rf ~/Work/meson-build-*
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --osx
 ```
 
-When ready, run the build on the production machine:
+When ready, run the build on the production machine (`xbbm`):
 
 ```console
-$ rm -rf ~/Work/meson-build-*
+$ sudo rm -rf ~/Work/meson-build-*
 $ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
 ```
 
@@ -354,6 +363,11 @@ Instead of `--all`, you can use any combination of:
 --arm32 --arm64
 --win32 --win64 
 ```
+
+Please note that, due to the specifics of the GCC build process, the
+Windows build requires the corresponding GNU/Linux build, so `--win32`
+should be run after or together with `--linux32` and `--win64` after
+or together with `--linux64`.
 
 #### `clean`
 
@@ -409,7 +423,7 @@ However, for an interrupted build, this step is skipped, and files in
 the install folder will remain owned by root. Thus, before removing
 the build folder, it might be necessary to run a recursive `chown`.
 
-## Test
+## Testing
 
 A simple test is performed by the script at the end, by launching the
 executable to check if all shared/dynamic libraries are correctly used.

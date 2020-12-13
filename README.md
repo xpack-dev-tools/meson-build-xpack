@@ -76,7 +76,7 @@ For all platforms, the **xPack Meson Build** binaries are released as portable
 archives that can be installed in any location.
 
 The archives can be downloaded from the
-[GitHub Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
+GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
 page.
 
 For more details please read the
