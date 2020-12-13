@@ -170,7 +170,7 @@ function build_meson()
               -f "${APP_PREFIX}/lib/${python_with_version}/" \
               || true
           else
-            run_verbose "${LIBS_INSTALL_FOLDER_PATH}/bin/python3" \
+            run_verbose "${LIBS_INSTALL_FOLDER_PATH}/bin/python3.${PYTHON3_VERSION_MINOR}" \
               -m compileall \
               -j "${JOBS}" \
               -f "${APP_PREFIX}/lib/${python_with_version}/" \
