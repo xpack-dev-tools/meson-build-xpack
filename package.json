@@ -1,7 +1,7 @@
 {
   "name": "@xpack-dev-tools/meson-build",
   "version": "0.55.3-2.1",
-  "description": "An xPack with Meson Build",
+  "description": "A binary xPack with Meson Build",
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,9 +12,9 @@
     "url": "git+https://github.com/xpack-dev-tools/meson-build-xpack.git"
   },
   "bugs": {
-    "url": "https://github.com/xpack-dev-tools/meson-build-xpack/issues"
+    "url": "https://github.com/xpack-dev-tools/meson-build-xpack/issues/"
   },
-  "homepage": "https://github.com/xpack-dev-tools/meson-build-xpack",
+  "homepage": "https://github.com/xpack-dev-tools/meson-build-xpack/",
   "keywords": [
     "xpack",
     "meson",
@@ -23,7 +23,7 @@
   "author": {
     "name": "Liviu Ionescu",
     "email": "ilg@livius.net",
-    "url": "https://github.com/ilg-ul"
+    "url": "https://github.com/ilg-ul/"
   },
   "license": "MIT",
   "config": {},
