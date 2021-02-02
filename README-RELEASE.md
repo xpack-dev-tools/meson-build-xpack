@@ -272,7 +272,7 @@ cat *.sha
 - run `xpm-dev binaries-update`
 
 ```
-xpm-dev binaries-update -C ~/Downloads/cmake-xpack.git '0.56.2-1' "${HOME}/Downloads/xpack-binaries/meson-build"
+xpm-dev binaries-update -C ~/Downloads/meson-build-xpack.git '0.56.2-1' "${HOME}/Downloads/xpack-binaries/meson-build"
 ```
 
 - open the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases)
@@ -324,8 +324,8 @@ $ xpm install --global @xpack-dev-tools/meson-build@next
 
 Install the binaries on all platforms.
 
-```console
-$ xpm install --global @xpack-dev-tools/meson-build@next
+```sh
+xpm install --global @xpack-dev-tools/meson-build@next
 ```
 
 On GNU/Linux systems, including Raspberry Pi, use the following commands:
