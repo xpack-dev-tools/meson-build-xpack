@@ -105,10 +105,11 @@ On all machines, clone the `xpack-develop` branch:
 
 ```bash
 rm -rf ~/Downloads/meson-build-xpack.git; \
-  git clone --recurse-submodules --branch xpack-develop \
+git clone \
+  --recurse-submodules \
+  --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
   ~/Downloads/meson-build-xpack.git
-
 ```
 
 On all machines, remove any previous build:
@@ -150,7 +151,7 @@ Note: this step is very important, to avoid using test binaries!
 On all three machines:
 
 ```bash
-(cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson)
+(cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson-build)
 ```
 
 ## Testing
@@ -166,12 +167,18 @@ TBD
 - name the tag like **v0.56.2-1** (mind the dash in the middle!)
 - select the `xpack-develop` branch
 - name the release like **xPack Meson Build v0.56.2-1** (mind the dash)
-- as description
-  - add a downloads badge like `![Github Releases (by Release)](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v0.56.2-1/total.svg)`
-  - draft a short paragraph explaining what are the main changes
-  - add _At this moment these binaries are provided for tests only!_
+- as description, use:
+
+```
+![Github Releases (by Release)](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v0.56.2-1/total.svg)
+
+Version 0.56.2-1 is a new release of the **xPack Meson Build** package, following the Meson release.
+
+_At this moment these binaries are provided for tests only!_
+```
+
 - **attach binaries** and SHA (drag and drop from the
-`~/Downloads/xpack-binaries/meson/` folder)
+`~/Downloads/xpack-binaries/meson-build/` folder)
 - **enable** the **pre-release** button
 - click the **Publish Release** button
 
@@ -198,7 +205,7 @@ In the `xpack/web-jekyll` GitHub repo:
 
 - select the `develop` branch
 - add a new file to `_posts/meson-build/releases`
-- name the file like `2020-10-16-meson-build-v0-55-3-2-released.md`
+- name the file like `2020-10-16-meson-build-v0-56-2-1-released.md`
 - name the post like: **xPack Meson Build v0.56.2-1 released**.
 - as `download_url` use the tagged URL like `https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v0.56.2-1/`
 - update the `date:` field with the current date
@@ -259,30 +266,44 @@ cat *.sha
 - wait for the GitHub Pages build to complete
 - the preview web is https://xpack.github.io/web-preview/
 
-## Publish on the npmjs server
+## Update package.json binaries
 
 - select the `xpack-develop` branch
-- open the `package.json` file
+- run `xpm-dev binaries-update`
+
+```
+xpm-dev binaries-update -C ~/Downloads/cmake-xpack.git '0.56.2-1' "${HOME}/Downloads/xpack-binaries/meson-build"
+```
+
 - open the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases)
   page and select the latest release
 - check the download counter, it should match the number of tests
-- update the `baseUrl:` with the file URLs (including the tag/version);
+- open the `package.json` file
+- check the `baseUrl:` it should match the file URLs (including the tag/version);
   no terminating `/` is required
-- from the release, copy the SHA & file names
+- from the release, check the SHA & file names
 - compare the SHA sums with those shown by `cat *.sha`
 - check the executable names
 - commit all changes, use a message like
-  `package.json: update urls for v0.56.2-1 release` (without `v`)
+  `package.json: update urls for 0.56.2-1.1 release` (without `v`)
+
+## Publish on the npmjs server
+
+- select the `xpack-develop` branch
 - check the latest commits `npm run git-log`
 - update `CHANGELOG.md`; commit with a message like
   _CHANGELOG: prepare npm v0.56.2-1.1_
-- `npm version v0.56.2-1.1`; the first 4 numbers are the same as the
-  GitHub release; the fifth number is the npm specific version
 - `npm pack` and check the content of the archive, which should list
   only the `package.json`, the `README.md`, `LICENSE` and `CHANGELOG.md`
+- `npm version v0.56.2-1.1`; the first 4 numbers are the same as the
+  GitHub release; the fifth number is the npm specific version
 - push the `xpack-develop` branch to GitHub
 - `npm publish --tag next` (use `--access public` when publishing for
   the first time)
+
+The version is visible at:
+
+- https://www.npmjs.com/package/@xpack-dev-tools/meson-build?activeTab=versions
 
 ## Test if the npm binaries can be installed with xpm
 
@@ -310,7 +331,7 @@ $ xpm install --global @xpack-dev-tools/meson-build@next
 On GNU/Linux systems, including Raspberry Pi, use the following commands:
 
 ```bash
-~/opt/xPacks/@xpack-dev-tools/meson-build/0.56.2-1.1/.content/bin/meson --version
+~/.local/xPacks/@xpack-dev-tools/meson-build/0.56.2-1.1/.content/bin/meson --version
 
 TODO
 ```
