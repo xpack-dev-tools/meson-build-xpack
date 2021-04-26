@@ -30,7 +30,7 @@ common script in `helper/scripts/test-functions-source.sh`.
 
 To enable the travis tests:
 
-- login to https://travis-ci.org/ with the GitHub credentials
+- login to https://travis-ci.com/ with the GitHub credentials
 - in the user settings, select the **3rd Party xpack Dev Tools** organization
 - enable the **meson-build-xpack** project
 - in Setting, disable **Build pushed branches** and **Build pull requests**
@@ -71,7 +71,7 @@ the `tests/scripts/native-test.sh` can directly include
 
 The test results will be available at
 
-- https://travis-ci.org/github/xpack-dev-tools/meson-build-xpack
+- https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack
 
 ## `common-functions-source.sh`
 

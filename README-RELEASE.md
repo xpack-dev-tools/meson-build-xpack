@@ -13,7 +13,7 @@ Before starting the build, perform some checks and tweaks.
 
 To prepare a new release, first determine the Meson Build version
 (like `0.56.2`) and update the `scripts/VERSION` file. The format is
-`0.56.2-1`. The fourth number is the xPack release number
+`0.56.2-2`. The fourth number is the xPack release number
 of this version. A fifth number will be added when publishing
 the package on the `npm` server.
 
@@ -24,9 +24,9 @@ the package on the `npm` server.
 
 Check GitHub issues and pull requests:
 
-- https://github.com/xpack-dev-tools/meson-build-xpack/issues
+- https://github.com/xpack-dev-tools/meson-build-xpack/issues/
 
-and fix them; assign them to a milestone (like `0.56.2-1`).
+and fix them; assign them to a milestone (like `0.56.2-2`).
 
 ### Check `README.md`
 
@@ -38,8 +38,8 @@ but in the version specific file (below).
 
 - open the `CHANGELOG.md` file
 - check if all previous fixed issues are in
-- add a new entry like _v0.56.2-1 prepared_
-- commit commit with a message like _CHANGELOG: prepare v0.56.2-1_
+- add a new entry like _v0.56.2-2 prepared_
+- commit with a message like _CHANGELOG: prepare v0.56.2-2_
 
 Note: if you missed to update the `CHANGELOG.md` before starting the build,
 edit the file and rerun the build, it should take only a few minutes to
@@ -164,15 +164,15 @@ TBD
 - commit and push the `xpack-develop` branch
 - go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases) page
 - click the **Draft a new release** button
-- name the tag like **v0.56.2-1** (mind the dash in the middle!)
+- name the tag like **v0.56.2-2** (mind the dash in the middle!)
 - select the `xpack-develop` branch
-- name the release like **xPack Meson Build v0.56.2-1** (mind the dash)
+- name the release like **xPack Meson Build v0.56.2-2** (mind the dash)
 - as description, use:
 
 ```
-![Github Releases (by Release)](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v0.56.2-1/total.svg)
+![Github Releases (by Release)](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v0.56.2-2/total.svg)
 
-Version 0.56.2-1 is a new release of the **xPack Meson Build** package, following the Meson release.
+Version 0.56.2-2 is a new release of the **xPack Meson Build** package, following the Meson release.
 
 _At this moment these binaries are provided for tests only!_
 ```
@@ -195,7 +195,7 @@ Using the scripts in `tests/scripts/`, start:
 
 The test results are available from:
 
-- https://travis-ci.org/github/xpack-dev-tools/meson-build-xpack
+- https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack
 
 For more details, see `tests/scripts/README.md`.
 
@@ -206,8 +206,8 @@ In the `xpack/web-jekyll` GitHub repo:
 - select the `develop` branch
 - add a new file to `_posts/meson-build/releases`
 - name the file like `2020-10-16-meson-build-v0-56-2-1-released.md`
-- name the post like: **xPack Meson Build v0.56.2-1 released**.
-- as `download_url` use the tagged URL like `https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v0.56.2-1/`
+- name the post like: **xPack Meson Build v0.56.2-2 released**.
+- as `download_url` use the tagged URL like `https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v0.56.2-2/`
 - update the `date:` field with the current date
 - update the Travis URLs using the actual test pages
 - update the SHA sums via copy/paste from the original build machines
@@ -229,25 +229,25 @@ Copy/paste the build report at the end of the post as:
 The SHA-256 hashes for the files are:
 
 06d2251a893f932b38f41c418cdc14e51893f68553ba5a183f02001bd92d9454  
-xpack-meson-build-v0.56.2-1-darwin-x64.tar.gz
+xpack-meson-build-v0.56.2-2-darwin-x64.tar.gz
 
 a1c7e77001cb549bd6b6dc00bb0193283179667e56f652182204229b55f58bc8  
-xpack-meson-build-v0.56.2-1-linux-arm64.tar.gz
+xpack-meson-build-v0.56.2-2-linux-arm64.tar.gz
 
 c812f12b7159b7f149c211fb521c0e405de64bb087f138cda8ea5ac04be87e15  
-xpack-meson-build-v0.56.2-1-linux-arm.tar.gz
+xpack-meson-build-v0.56.2-2-linux-arm.tar.gz
 
 ebb4b08e8b94bd04b5493549b0ba2c02f1be5cc5f42c754e09a0c279ae8cc854  
-xpack-meson-build-v0.56.2-1-linux-x32.tar.gz
+xpack-meson-build-v0.56.2-2-linux-x32.tar.gz
 
 687ac941c995eab069955fd673b6cd78a6b95048cac4a92728b09be444d0118e  
-xpack-meson-build-v0.56.2-1-linux-x64.tar.gz
+xpack-meson-build-v0.56.2-2-linux-x64.tar.gz
 
 a0bde52aa8846a2a5b982031ad0bdebea55b9b3953133b363f54862473d71686  
-xpack-meson-build-v0.56.2-1-win32-x32.zip
+xpack-meson-build-v0.56.2-2-win32-x32.zip
 
 b25987e4153e42384ff6273ba228c3eaa7a61a2a6cc8f7a3fbf800099c3f6a49  
-xpack-meson-build-v0.56.2-1-win32-x64.zip
+xpack-meson-build-v0.56.2-2-win32-x64.zip
 ```
 
 ## Check the SHA sums
@@ -262,7 +262,7 @@ cat *.sha
 ## Update the preview Web
 
 - commit the `develop` branch of `xpack/web-jekyll` GitHub repo; use a message
-  like **xPack Meson Build v0.56.2-1 released**
+  like **xPack Meson Build v0.56.2-2 released**
 - wait for the GitHub Pages build to complete
 - the preview web is https://xpack.github.io/web-preview/
 
@@ -272,7 +272,7 @@ cat *.sha
 - run `xpm-dev binaries-update`
 
 ```
-xpm-dev binaries-update -C ~/Downloads/meson-build-xpack.git '0.56.2-1' "${HOME}/Downloads/xpack-binaries/meson-build"
+xpm-dev binaries-update -C ~/Downloads/meson-build-xpack.git '0.56.2-2' "${HOME}/Downloads/xpack-binaries/meson-build"
 ```
 
 - open the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases)
@@ -285,19 +285,20 @@ xpm-dev binaries-update -C ~/Downloads/meson-build-xpack.git '0.56.2-1' "${HOME}
 - compare the SHA sums with those shown by `cat *.sha`
 - check the executable names
 - commit all changes, use a message like
-  `package.json: update urls for 0.56.2-1.1 release` (without `v`)
+  `package.json: update urls for 0.56.2-2.1 release` (without `v`)
 
 ## Publish on the npmjs server
 
 - select the `xpack-develop` branch
 - check the latest commits `npm run git-log`
 - update `CHANGELOG.md`; commit with a message like
-  _CHANGELOG: prepare npm v0.56.2-1.1_
+  _CHANGELOG: prepare npm v0.56.2-2.1_
 - `npm pack` and check the content of the archive, which should list
   only the `package.json`, the `README.md`, `LICENSE` and `CHANGELOG.md`
-- `npm version v0.56.2-1.1`; the first 4 numbers are the same as the
+- `npm version v0.56.2-2.1`; the first 4 numbers are the same as the
   GitHub release; the fifth number is the npm specific version
 - push the `xpack-develop` branch to GitHub
+- push tags with `git push origin --tags`
 - `npm publish --tag next` (use `--access public` when publishing for
   the first time)
 
@@ -312,7 +313,7 @@ will install the package on Intel Linux 64-bit, macOS and Windows 64-bit.
 
 The test results are available from:
 
-- https://travis-ci.org/github/xpack-dev-tools/meson-build-xpack
+- https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack
 
 For 32-bit Windows, 32-bit Intel GNU/Linux and 32-bit Arm, install manually.
 
@@ -331,7 +332,7 @@ xpm install --global @xpack-dev-tools/meson-build@next
 On GNU/Linux systems, including Raspberry Pi, use the following commands:
 
 ```bash
-~/.local/xPacks/@xpack-dev-tools/meson-build/0.56.2-1.1/.content/bin/meson --version
+~/.local/xPacks/@xpack-dev-tools/meson-build/0.56.2-2.1/.content/bin/meson --version
 
 TODO
 ```
@@ -339,7 +340,7 @@ TODO
 On macOS, use:
 
 ```bash
-~/Library/xPacks/@xpack-dev-tools/meson-build/0.56.2-1.1/.content/bin/meson --version
+~/Library/xPacks/@xpack-dev-tools/meson-build/0.56.2-2.1/.content/bin/meson --version
 
 TODO
 ```
@@ -347,7 +348,7 @@ TODO
 On Windows use:
 
 ```
-%HOMEPATH%\AppData\Roaming\xPacks\@xpack-dev-tools\meson-build\0.56.2-1.1\.content\bin\meson --version
+%HOMEPATH%\AppData\Roaming\xPacks\@xpack-dev-tools\meson-build\0.56.2-2.1\.content\bin\meson --version
 
 TODO
 ```
@@ -362,7 +363,7 @@ TODO
 When the release is considered stable, promote it as `latest`:
 
 - `npm dist-tag ls @xpack-dev-tools/meson-build`
-- `npm dist-tag add @xpack-dev-tools/meson-build@0.56.2-1.1 latest`
+- `npm dist-tag add @xpack-dev-tools/meson-build@0.56.2-2.1 latest`
 - `npm dist-tag ls @xpack-dev-tools/meson-build`
 
 ## Update the Web
@@ -384,6 +385,6 @@ When the release is considered stable, promote it as `latest`:
 
 - in a separate browser windows, open [TweetDeck](https://tweetdeck.twitter.com/)
 - using the `@xpack_project` account
-- paste the release name like **xPack Meson Build v0.56.2-1 released**
+- paste the release name like **xPack Meson Build v0.56.2-2 released**
 - paste the link to the blog release URL
 - click the **Tweet** button
