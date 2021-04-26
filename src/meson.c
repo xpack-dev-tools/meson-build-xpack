@@ -9,6 +9,7 @@
 #endif
 
 # if defined(__APPLE__)
+#include <libproc.h>
 #include <mach-o/dyld.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -32,7 +33,11 @@ main(int argc, char* argv[])
   }
 #endif
 
+#if defined(__APPLE__)
+  char self_exe_path[PROC_PIDPATHINFO_SIZE+1];
+#else
   char self_exe_path[PATH_MAX];
+#endif
 
   int len = 0;
 
@@ -48,25 +53,13 @@ main(int argc, char* argv[])
 #define FILE_SEPARATOR '/'
 #define FILE_SEPARATOR_STR "/"
 #define PATH_SEPARATOR_STR ":"
-  char self_nsgetexe_path[PATH_MAX];
-  len = sizeof(self_nsgetexe_path) - 1;
-  // In general it may be a symbolic link, and readlink() must be used,
-  // but in this specific case it is not.
-  _NSGetExecutablePath(self_nsgetexe_path, &len);
-  self_nsgetexe_path[len] = 0;
-#if defined(DEBUG)
-  printf("self_nsgetexe_path: %s\n", self_nsgetexe_path);
-#endif
-  struct stat self_nsgetexe_stat;
-  if (lstat(self_nsgetexe_path, &self_nsgetexe_stat) < 0) {
-    fprintf(stderr, "Fatal error: cannot lstat (%s)\n", strerror(errno));
+  // The size must be at least PROC_PIDPATHINFO_SIZE, otherwise the call
+  // fails with ENOMEM (12).
+  // https://opensource.apple.com/source/Libc/Libc-498/darwin/libproc.c
+  len = proc_pidpath(getpid(), self_exe_path, sizeof(self_exe_path) - 1);
+  if ( len <= 0 ) {
+    fprintf(stderr, "Fatal error: cannot proc_pidpath (%s)\n", strerror(errno));
     exit(1);
-  }
-  if (S_ISLNK(self_nsgetexe_stat.st_mode)) {
-    len = readlink(self_nsgetexe_path, self_exe_path, sizeof(self_exe_path) - 1);
-  } else {
-    strcpy(self_exe_path, self_nsgetexe_path);
-    len = strlen(self_exe_path);
   }
 
 #elif defined(__linux__) 
