@@ -57,7 +57,7 @@ recreate the archives with the correct file.
 
 Before the real build, run a test build on the development machine (`wks`):
 
-```bash
+```sh
 sudo rm -rf ~/Work/meson-build-*
 
 caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --all
@@ -91,19 +91,19 @@ On the macOS build machine (`xbbm`):
 
 Connect to the Intel Linux (`xbbi`):
 
-```bash
+```sh
 caffeinate ssh xbbi
 ```
 
 Connect to the Arm Linux (`xbba`):
 
-```bash
+```sh
 caffeinate ssh xbba
 ```
 
 On all machines, clone the `xpack-develop` branch:
 
-```bash
+```sh
 rm -rf ~/Downloads/meson-build-xpack.git; \
 git clone \
   --recurse-submodules \
@@ -114,13 +114,13 @@ git clone \
 
 On all machines, remove any previous build:
 
-```bash
+```sh
 sudo rm -rf ~/Work/meson-build-*
 ```
 
 On the macOS machine (`xbbm`):
 
-```bash
+```sh
 caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
 ```
 
@@ -128,7 +128,7 @@ A typical run takes about 15 minutes.
 
 On the Linux machines (`xbbi` and `xbba`):
 
-```bash
+```sh
 bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
@@ -140,7 +140,7 @@ on the Arm machine it takes about 80 minutes.
 On the development machine (`wks`) clear the folder where binaries from all
 build machines will be collected.
 
-```bash
+```sh
 rm -f ~/Downloads/xpack-binaries/meson-build/*
 ```
 
@@ -150,7 +150,7 @@ Note: this step is very important, to avoid using test binaries!
 
 On all three machines:
 
-```bash
+```sh
 (cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson-build)
 ```
 
@@ -169,7 +169,7 @@ TBD
 - name the release like **xPack Meson Build v0.56.2-2** (mind the dash)
 - as description, use:
 
-```
+```markdown
 ![Github Releases (by Release)](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v0.56.2-2/total.svg)
 
 Version 0.56.2-2 is a new release of the **xPack Meson Build** package, following the Meson release.
@@ -224,7 +224,6 @@ as:
 Copy/paste the build report at the end of the post as:
 
 ```console
-
 ## Checksums
 The SHA-256 hashes for the files are:
 
@@ -254,7 +253,7 @@ xpack-meson-build-v0.56.2-2-win32-x64.zip
 
 On the development machine (`wks`):
 
-```bash
+```sh
 ~Downloads/xpack-binaries/meson
 cat *.sha
 ```
@@ -271,7 +270,7 @@ cat *.sha
 - select the `xpack-develop` branch
 - run `xpm-dev binaries-update`
 
-```
+```sh
 xpm-dev binaries-update -C ~/Downloads/meson-build-xpack.git '0.56.2-2' "${HOME}/Downloads/xpack-binaries/meson-build"
 ```
 
@@ -331,7 +330,7 @@ xpm install --global @xpack-dev-tools/meson-build@next
 
 On GNU/Linux systems, including Raspberry Pi, use the following commands:
 
-```bash
+```sh
 ~/.local/xPacks/@xpack-dev-tools/meson-build/0.56.2-2.1/.content/bin/meson --version
 
 TODO
@@ -339,7 +338,7 @@ TODO
 
 On macOS, use:
 
-```bash
+```sh
 ~/Library/xPacks/@xpack-dev-tools/meson-build/0.56.2-2.1/.content/bin/meson --version
 
 TODO
