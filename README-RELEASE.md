@@ -141,7 +141,7 @@ On the development machine (`wks`) clear the folder where binaries from all
 build machines will be collected.
 
 ```bash
-rm -f ~/Downloads/xpack-binaries/meson/*
+rm -f ~/Downloads/xpack-binaries/meson-build/*
 ```
 
 Note: this step is very important, to avoid using test binaries!
@@ -162,7 +162,7 @@ TBD
 
 - in `CHANGELOG.md`, add release date
 - commit and push the `xpack-develop` branch
-- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases) page
+- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
 - click the **Draft a new release** button
 - name the tag like **v0.56.2-2** (mind the dash in the middle!)
 - select the `xpack-develop` branch
