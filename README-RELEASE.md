@@ -221,7 +221,7 @@ git clone --recurse-submodules -b xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git  \
   ~/Downloads/meson-build-xpack.git
 
-rm ~/Work/cache/xpack-gcc-*
+rm ~/Work/cache/xpack-meson-build-*
 
 bash ~/Downloads/meson-build-xpack.git/tests/scripts/native-test.sh \
   "https://github.com/xpack-dev-tools/meson-build-xpack/releases/download/v0.57.2-1/"
