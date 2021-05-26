@@ -440,3 +440,8 @@ When the release is considered stable, promote it as `latest`:
 - paste the release name like **xPack Meson Build v0.57.2-1 released**
 - paste the link to the blog release URL
 - click the **Tweet** button
+
+## Remove pre-release binaries
+
+- got to <https://github.com/xpack-dev-tools/pre-releases/releases/tag/test>
+- remove the test binaries
