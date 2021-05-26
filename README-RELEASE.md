@@ -103,7 +103,7 @@ caffeinate ssh xbba
 On all machines, clone the `xpack-develop` branch and remove previous builds
 
 ```sh
-rm -rf ~/Downloads/meson-build-xpack.git \
+rm -rf ~/Downloads/meson-build-xpack.git; \
 git clone \
   --recurse-submodules \
   --branch xpack-develop \

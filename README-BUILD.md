@@ -56,7 +56,7 @@ Git repo.
 To download them, issues the following two commands:
 
 ```sh
-rm -rf ~/Downloads/meson-build-xpack.git \
+rm -rf ~/Downloads/meson-build-xpack.git; \
 git clone \
   --recurse-submodules \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
@@ -70,7 +70,7 @@ For development purposes, clone the `xpack-develop`
 branch:
 
 ```sh
-rm -rf ~/Downloads/meson-build-xpack.git \
+rm -rf ~/Downloads/meson-build-xpack.git; \
 git clone \
   --recurse-submodules \
   --branch xpack-develop \
