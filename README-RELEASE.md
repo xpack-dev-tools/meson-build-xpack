@@ -354,7 +354,7 @@ xpm-dev binaries-update \
 - `npm publish --tag next` (use `--access public` when publishing for
   the first time)
 
-The version is visible at:
+After a few moments the version will be visible at:
 
 - <https://www.npmjs.com/package/@xpack-dev-tools/meson-build?activeTab=versions>
 
