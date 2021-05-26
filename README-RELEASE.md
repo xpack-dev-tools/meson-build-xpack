@@ -344,7 +344,7 @@ xpm-dev binaries-update \
 - select the `xpack-develop` branch
 - check the latest commits `npm run git-log`
 - update `CHANGELOG.md`; commit with a message like
-  _CHANGELOG: prepare npm v0.57.2-1.1_
+  _CHANGELOG: publish npm v0.57.2-1.1_
 - `npm pack` and check the content of the archive, which should list
   only the `package.json`, the `README.md`, `LICENSE` and `CHANGELOG.md`
 - `npm version v0.57.2-1.1`; the first 4 numbers are the same as the
