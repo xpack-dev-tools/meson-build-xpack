@@ -9,16 +9,19 @@ various scripts.
 The location of the binaries can be either the final release or one of
 the pre-release locations:
 
-- https://github.com/xpack-dev-tools/meson-build-xpack/releases
-- https://github.com/xpack-dev-tools/pre-releases/releases
+- <https://github.com/xpack-dev-tools/meson-build-xpack/releases>
+- <https://github.com/xpack-dev-tools/pre-releases/releases>
 
 ## GitHub repo
 
 The test scripts are part of the `meson-build` xPack:
 
-```bash
-rm -rf ~/Downloads/meson-build-xpack.git; \
-git clone --recurse-submodules -b xpack-develop \
+```sh
+rm -rf ~/Downloads/meson-build-xpack.git
+
+git clone \
+  --recurse-submodules \
+  --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
   ~/Downloads/meson-build-xpack.git
 ```
@@ -30,7 +33,7 @@ common script in `helper/scripts/test-functions-source.sh`.
 
 To enable the travis tests:
 
-- login to https://travis-ci.com/ with the GitHub credentials
+- login to <https://travis-ci.com/> with the GitHub credentials
 - in the user settings, select the **3rd Party xpack Dev Tools** organization
 - enable the **meson-build-xpack** project
 - in Setting, disable **Build pushed branches** and **Build pull requests**
@@ -71,7 +74,7 @@ the `tests/scripts/native-test.sh` can directly include
 
 The test results will be available at
 
-- https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack
+- <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack>
 
 ## `common-functions-source.sh`
 
@@ -83,7 +86,7 @@ Both the native and container scripts call the public function
 The script to run the test as native on the current host mainly requires
 the URL of the folder where the archives are stored:
 
-```console
+```sh
 bash ~/Downloads/meson-build-xpack.git/tests/scripts/native-test.sh \
   https://github.com/xpack-dev-tools/pre-releases/releases/download/test/
 ```
@@ -97,7 +100,7 @@ the archive is not downloaded each time.
 
 To force a new download, remove the cached archive:
 
-```console
+```sh
 rm ~/Work/cache/xpack-meson-build-*
 ```
 
@@ -112,9 +115,9 @@ and can be started properly.
 
 Programatic access to GitHub is done via the v3 API:
 
-- https://developer.github.com/v3/
+- <https://developer.github.com/v3/>
 
-```console
+```sh
 curl -i https://api.github.com/users/ilg-ul/orgs
 
 curl -i https://api.github.com/repos/xpack-dev-tools/meson-build-xpack/releases
@@ -125,16 +128,16 @@ curl -v -X GET https://api.github.com/repos/xpack-dev-tools/meson-build-xpack/ho
 For authenticated requests, preferably create a new token and pass it
 via the environment.
 
-- https://developer.github.com/v3/#authentication
+- <https://developer.github.com/v3/#authentication>
 
 ## Trigger GitHub action
 
 To trigger a GitHub action it is necessary to send an authenticated POST
 at a specific URL:
 
-- https://developer.github.com/v3/repos/#create-a-repository-dispatch-event
+- <https://developer.github.com/v3/repos/#create-a-repository-dispatch-event>
 
-```console
+```sh
 curl \
   --include \
   --header "Authorization: token ${GITHUB_API_DISPATCH_TOKEN}" \

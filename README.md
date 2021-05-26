@@ -41,12 +41,12 @@ follow the instructions from the
 With the `xpm` tool available, installing
 the latest version of the package is quite easy:
 
-```console
-$ xpm install --global @xpack-dev-tools/meson-build@latest
+```sh
+xpm install --global @xpack-dev-tools/meson-build@latest
 ```
 
 This command will always install the latest available version,
-into the central xPacks repository, which is a platform dependent folder
+into the central xPacks store, which is a platform dependent folder
 (check the output of the `xpm` command for the actual folder used on
 your platform).
 
@@ -62,13 +62,9 @@ identify binaries installed with
 
 To remove the installed xPack, the command is similar:
 
-```console
-$ xpm uninstall --global @xpack-dev-tools/meson-build
+```sh
+xpm uninstall --global @xpack-dev-tools/meson-build
 ```
-
-(Note: not yet implemented. As a temporary workaround, simply remove the
-`xPacks/@xpack-dev-tools/meson-build` folder, or one of the the versioned
-subfolders.)
 
 ### Manual install
 

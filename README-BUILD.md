@@ -49,17 +49,13 @@ The build scripts are available in the `scripts` folder of the
 [`xpack-dev-tools/meson-build-xpack`](https://github.com/xpack-dev-tools/meson-build-xpack)
 Git repo.
 
-To download them, the following shortcut is available:
+To download them, issues the following two commands:
 
-```console
-$ curl -L https://github.com/xpack-dev-tools/meson-build-xpack/raw/xpack/scripts/git-clone.sh | bash
-```
+```sh
+rm -rf ~/Downloads/meson-build-xpack.git
 
-This small script issues the following two commands:
-
-```console
-$ rm -rf ~/Downloads/meson-build-xpack.git; \
-  git clone --recurse-submodules \
+git clone \
+  --recurse-submodules \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
   ~/Downloads/meson-build-xpack.git
 ```
@@ -67,18 +63,15 @@ $ rm -rf ~/Downloads/meson-build-xpack.git; \
 > Note: the repository uses submodules; for a successful build it is
 > mandatory to recurse the submodules.
 
-For development purposes, there is a shortcut to clone the `xpack-develop`
+For development purposes, clone the `xpack-develop`
 branch:
 
-```console
-$ curl -L https://github.com/xpack-dev-tools/meson-build-xpack/raw/xpack/scripts/git-clone-develop.sh | bash
-```
+```sh
+rm -rf ~/Downloads/meson-build-xpack.git
 
-which is a shortcut for:
-
-```console
-$ rm -rf ~/Downloads/meson-build-xpack.git; \
-  git clone --recurse-submodules --branch xpack-develop \
+git clone \
+  --recurse-submodules \
+  --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
   ~/Downloads/meson-build-xpack.git
 ```
@@ -124,7 +117,7 @@ functional changes.
 The actual changes for each version are documented in the corresponding
 release pages:
 
-- https://xpack.github.io/meson-build/releases/
+- <https://xpack.github.io/meson-build/releases/>
 
 ## How to build local/native binaries
 
@@ -149,21 +142,21 @@ The current platform for GNU/Linux and Windows production builds is a
 Debian 10, running on an Intel NUC8i7BEH mini PC with 32 GB of RAM
 and 512 GB of fast M.2 SSD. The machine name is `xbbi`.
 
-```console
-$ ssh xbbi
+```sh
+ssh xbbi
 ```
 
 Before starting a build, check if Docker is started:
 
-```console
-$ docker info
+```sh
+docker info
 ```
 
 Before running a build for the first time, it is recommended to preload the
 docker images.
 
-```console
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh preload-images
+```sh
+bash ~/Downloads/meson-build-xpack.git/scripts/build.sh preload-images
 ```
 
 The result should look similar to:
@@ -182,36 +175,36 @@ by Docker.
 
 To check the content of a Docker image:
 
-```console
-$ docker run --interactive --tty ilegeul/ubuntu:amd64-12.04-xbb-v3.2
+```sh
+docker run --interactive --tty ilegeul/ubuntu:amd64-12.04-xbb-v3.2
 ```
 
 To remove unused files:
 
-```console
-$ docker system prune --force
+```sh
+docker system prune --force
 ```
 
 Since the build takes a while, use `screen` to isolate the build session
 from unexpected events, like a broken
 network connection or a computer entering sleep.
 
-```console
-$ screen -S meson
+```sh
+screen -S meson
 ```
 
 Run the development builds on the development machine (`wks`):
 
-```console
-$ sudo rm -rf ~/Work/meson-build-*
-$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
+```sh
+sudo rm -rf ~/Work/meson-build-*
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
 ```
 
 When ready, run the build on the production machine (`xbbi`):
 
-```console
-$ sudo rm -rf ~/Work/meson-build-*
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
+```sh
+sudo rm -rf ~/Work/meson-build-*
+bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -244,21 +237,21 @@ The current platform for Arm GNU/Linux production builds is a
 Debian 9, running on an ROCK Pi 4 SBC with 4 GB of RAM
 and 256 GB of fast M.2 SSD. The machine name is `xbba`.
 
-```console
-$ ssh xbba
+```sh
+caffeinate ssh xbba
 ```
 
 Before starting a build, check if Docker is started:
 
-```console
-$ docker info
+```sh
+docker info
 ```
 
 Before running a build for the first time, it is recommended to preload the
 docker images.
 
-```console
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh preload-images
+```sh
+bash ~/Downloads/meson-build-xpack.git/scripts/build.sh preload-images
 ```
 
 The result should look similar to:
@@ -275,22 +268,22 @@ Since the build takes a while, use `screen` to isolate the build session
 from unexpected events, like a broken
 network connection or a computer entering sleep.
 
-```console
-$ screen -S meson
+```sh
+screen -S meson
 ```
 
 Run the development builds on the development machine:
 
-```console
-$ sudo rm -rf ~/Work/meson-build-*
-$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
+```sh
+sudo rm -rf ~/Work/meson-build-*
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
 ```
 
 When ready, run the build on the production machine (`xbba`):
 
-```console
-$ sudo rm -rf ~/Work/meson-build-*
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
+```sh
+sudo rm -rf ~/Work/meson-build-*
+bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -314,28 +307,28 @@ The current platform for macOS production builds is a macOS 10.10.5
 running on a MacBook Pro with 32 GB of RAM and a fast SSD. The machine
 name is `xbbm`.
 
-```console
-$ ssh xbbm
+```sh
+ssh xbbm
 ```
 
 To build the latest macOS version:
 
-```console
-$ screen -S meson
+```sh
+screen -S meson
 ```
 
 Run the development builds on the development machine (`wks`):
 
-```console
-$ sudo rm -rf ~/Work/meson-build-*
-$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --osx
+```sh
+sudo rm -rf ~/Work/meson-build-*
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --osx
 ```
 
 When ready, run the build on the production machine (`xbbm`):
 
-```console
-$ sudo rm -rf ~/Work/meson-build-*
-$ caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
+```sh
+sudo rm -rf ~/Work/meson-build-*
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -358,7 +351,7 @@ total 33680
 
 Instead of `--all`, you can use any combination of:
 
-```
+```console
 --linux32 --linux64
 --arm32 --arm64
 --win32 --win64 
@@ -373,20 +366,20 @@ or together with `--linux64`.
 
 To remove most build temporary files, use:
 
-```console
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all clean
+```sh
+bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all clean
 ```
 
 To also remove the library build temporary files, use:
 
-```console
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all cleanlibs
+```sh
+bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all cleanlibs
 ```
 
 To remove all temporary files, use:
 
-```console
-$ bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all cleanall
+```sh
+bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all cleanall
 ```
 
 Instead of `--all`, any combination of `--win32 --win64 --linux32 --linux64`
@@ -488,7 +481,7 @@ may fail.
 
 The workaround is to manually download the files from an alternate
 location (like
-https://github.com/xpack-dev-tools/files-cache/tree/master/libs),
+<https://github.com/xpack-dev-tools/files-cache/tree/master/libs>),
 place them in the XBB cache (`Work/cache`) and restart the build.
 
 ## More build details

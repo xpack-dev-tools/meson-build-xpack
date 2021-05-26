@@ -24,7 +24,7 @@ the package on the `npm` server.
 
 Check GitHub issues and pull requests:
 
-- https://github.com/xpack-dev-tools/meson-build-xpack/issues/
+- <https://github.com/xpack-dev-tools/meson-build-xpack/issues/>
 
 and fix them; assign them to a milestone (like `0.56.2-2`).
 
@@ -104,7 +104,8 @@ caffeinate ssh xbba
 On all machines, clone the `xpack-develop` branch:
 
 ```sh
-rm -rf ~/Downloads/meson-build-xpack.git; \
+rm -rf ~/Downloads/meson-build-xpack.git
+
 git clone \
   --recurse-submodules \
   --branch xpack-develop \
@@ -146,7 +147,7 @@ rm -f ~/Downloads/xpack-binaries/meson-build/*
 
 Note: this step is very important, to avoid using test binaries!
 
-### Copy the binaries to the development machine.
+### Copy the binaries to the development machine
 
 On all three machines:
 
@@ -195,7 +196,7 @@ Using the scripts in `tests/scripts/`, start:
 
 The test results are available from:
 
-- https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack
+- <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack>
 
 For more details, see `tests/scripts/README.md`.
 
@@ -214,7 +215,7 @@ In the `xpack/web-jekyll` GitHub repo:
 (it is very important to use the originals!)
 
 If any, refer to closed
-[issues](https://github.com/xpack-dev-tools/meson-build-xpack/issues)
+[issues](https://github.com/xpack-dev-tools/meson-build-xpack/issues/)
 as:
 
 - **[Issue:\[#1\]\(...\)]**.
@@ -263,7 +264,7 @@ cat *.sha
 - commit the `develop` branch of `xpack/web-jekyll` GitHub repo; use a message
   like **xPack Meson Build v0.56.2-2 released**
 - wait for the GitHub Pages build to complete
-- the preview web is https://xpack.github.io/web-preview/
+- the preview web is <https://xpack.github.io/web-preview/news/>
 
 ## Update package.json binaries
 
@@ -271,10 +272,13 @@ cat *.sha
 - run `xpm-dev binaries-update`
 
 ```sh
-xpm-dev binaries-update -C ~/Downloads/meson-build-xpack.git '0.56.2-2' "${HOME}/Downloads/xpack-binaries/meson-build"
+xpm-dev binaries-update \
+  -C "${HOME}/Downloads/meson-build-xpack.git" \
+  '0.56.2-2' \
+  "${HOME}/Downloads/xpack-binaries/meson-build"
 ```
 
-- open the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases)
+- open the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
   page and select the latest release
 - check the download counter, it should match the number of tests
 - open the `package.json` file
@@ -303,7 +307,7 @@ xpm-dev binaries-update -C ~/Downloads/meson-build-xpack.git '0.56.2-2' "${HOME}
 
 The version is visible at:
 
-- https://www.npmjs.com/package/@xpack-dev-tools/meson-build?activeTab=versions
+- <https://www.npmjs.com/package/@xpack-dev-tools/meson-build?activeTab=versions>
 
 ## Test if the npm binaries can be installed with xpm
 
@@ -312,12 +316,12 @@ will install the package on Intel Linux 64-bit, macOS and Windows 64-bit.
 
 The test results are available from:
 
-- https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack
+- <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack>
 
 For 32-bit Windows, 32-bit Intel GNU/Linux and 32-bit Arm, install manually.
 
-```console
-$ xpm install --global @xpack-dev-tools/meson-build@next
+```sh
+xpm install --global @xpack-dev-tools/meson-build@next
 ```
 
 ## Test the npm binaries
@@ -346,8 +350,8 @@ TODO
 
 On Windows use:
 
-```
-%HOMEPATH%\AppData\Roaming\xPacks\@xpack-dev-tools\meson-build\0.56.2-2.1\.content\bin\meson --version
+```doscon
+%USERPROFILE%\AppData\Roaming\xPacks\@xpack-dev-tools\meson-build\0.56.2-2.1\.content\bin\meson --version
 
 TODO
 ```
@@ -369,12 +373,12 @@ When the release is considered stable, promote it as `latest`:
 
 - in the `master` branch, merge the `develop` branch
 - wait for the GitHub Pages build to complete
-- the result is in https://xpack.github.io/news/
+- the result is in <https://xpack.github.io/news/>
 - remember the post URL, since it must be updated in the release page
 
 ## Create the final GitHub release
 
-- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases) page
+- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
 - check the download counter, it should match the number of tests
 - add a link to the Web page `[Continue reading »]()`; use an same blog URL
 - **disable** the **pre-release** button

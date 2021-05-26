@@ -9,7 +9,7 @@ For details, see
 
 The xPack Meson Build generally follows the official
 [Meson](http://mesonbuild.com) build
-[releases](https://github.com/mesonbuild/meson/releases).
+[releases](https://github.com/mesonbuild/meson/releases/).
 
 The current version is based on:
 
