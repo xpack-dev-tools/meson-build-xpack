@@ -14,11 +14,15 @@ for GNU/Linux and Windows or a custom folder for MacOS).
 
 There are two types of builds:
 
-- local/native builds, which use the tools available on the
+- **local/native builds**, which use the tools available on the
   host machine; generally the binaries do not run on a different system
-  distribution/version; intended mostly for development purposes.
-- distribution builds, which create the archives distributed as
+  distribution/version; intended mostly for development purposes;
+- **distribution builds**, which create the archives distributed as
   binaries; expected to run on most modern systems.
+
+This page documents the distribution builds.
+
+For native builds, see the `build-native.sh` script. (to be added)
 
 ## Repositories
 
@@ -52,8 +56,7 @@ Git repo.
 To download them, issues the following two commands:
 
 ```sh
-rm -rf ~/Downloads/meson-build-xpack.git
-
+rm -rf ~/Downloads/meson-build-xpack.git \
 git clone \
   --recurse-submodules \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
@@ -67,8 +70,7 @@ For development purposes, clone the `xpack-develop`
 branch:
 
 ```sh
-rm -rf ~/Downloads/meson-build-xpack.git
-
+rm -rf ~/Downloads/meson-build-xpack.git \
 git clone \
   --recurse-submodules \
   --branch xpack-develop \
@@ -103,8 +105,8 @@ not be accepted by bash.
 
 ## Versioning
 
-The version string is an extension to semver, the format looks like `0.56.2-2`.
-It includes the three digits with the original Meson version (0.56.2), a fourth
+The version string is an extension to semver, the format looks like `0.57.2-1`.
+It includes the three digits with the original Meson version (0.57.2), a fourth
 digit with the xPack release number.
 
 When publishing on the **npmjs.com** server, a fifth digit is appended.
@@ -143,7 +145,7 @@ Debian 10, running on an Intel NUC8i7BEH mini PC with 32 GB of RAM
 and 512 GB of fast M.2 SSD. The machine name is `xbbi`.
 
 ```sh
-ssh xbbi
+caffeinate ssh xbbi
 ```
 
 Before starting a build, check if Docker is started:
@@ -200,13 +202,6 @@ sudo rm -rf ~/Work/meson-build-*
 caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
 ```
 
-When ready, run the build on the production machine (`xbbi`):
-
-```sh
-sudo rm -rf ~/Work/meson-build-*
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
-```
-
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
 `screen -r meson-build`; to kill the session use `Ctrl-a` `Ctrl-k` and confirm.
 
@@ -216,17 +211,17 @@ archives and their SHA signatures, created in the `deploy` folder:
 ```console
 $ cd ~/Work/meson-build-*/deploy
 total 72744
--rw-rw-r-- 1 ilg ilg 18083731 Oct 16 20:04 xpack-meson-build-0.56.2-2-linux-x32.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Oct 16 20:04 xpack-meson-build-0.56.2-2-linux-x32.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 17885078 Oct 16 19:56 xpack-meson-build-0.56.2-2-linux-x64.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Oct 16 19:56 xpack-meson-build-0.56.2-2-linux-x64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 18748719 Oct 16 20:04 xpack-meson-build-0.56.2-2-win32-x32.zip
--rw-rw-r-- 1 ilg ilg      107 Oct 16 20:04 xpack-meson-build-0.56.2-2-win32-x32.zip.sha
--rw-rw-r-- 1 ilg ilg 19749186 Oct 16 19:56 xpack-meson-build-0.56.2-2-win32-x64.zip
--rw-rw-r-- 1 ilg ilg      107 Oct 16 19:56 xpack-meson-build-0.56.2-2-win32-x64.zip.sha
+-rw-rw-r-- 1 ilg ilg 18083731 Oct 16 20:04 xpack-meson-build-0.57.2-1-linux-x32.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Oct 16 20:04 xpack-meson-build-0.57.2-1-linux-x32.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 17885078 Oct 16 19:56 xpack-meson-build-0.57.2-1-linux-x64.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Oct 16 19:56 xpack-meson-build-0.57.2-1-linux-x64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 18748719 Oct 16 20:04 xpack-meson-build-0.57.2-1-win32-x32.zip
+-rw-rw-r-- 1 ilg ilg      107 Oct 16 20:04 xpack-meson-build-0.57.2-1-win32-x32.zip.sha
+-rw-rw-r-- 1 ilg ilg 19749186 Oct 16 19:56 xpack-meson-build-0.57.2-1-win32-x64.zip
+-rw-rw-r-- 1 ilg ilg      107 Oct 16 19:56 xpack-meson-build-0.57.2-1-win32-x64.zip.sha
 ```
 
-#### Build the Arm GNU/Linux binaries
+### Build the Arm GNU/Linux binaries
 
 The supported Arm architectures are:
 
@@ -272,10 +267,9 @@ network connection or a computer entering sleep.
 screen -S meson
 ```
 
-Run the development builds on the development machine:
+or, for development builds:
 
 ```sh
-sudo rm -rf ~/Work/meson-build-*
 caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
 ```
 
@@ -295,20 +289,20 @@ archives and their SHA signatures, created in the `deploy` folder:
 ```console
 $ cd ~/Work/meson-build-*/deploy
 total 34452
--rw-rw-r-- 1 ilg ilg 17846357 Oct 16 17:21 xpack-meson-build-0.56.2-2-linux-arm64.tar.gz
--rw-rw-r-- 1 ilg ilg      112 Oct 16 17:21 xpack-meson-build-0.56.2-2-linux-arm64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 17417308 Oct 16 18:11 xpack-meson-build-0.56.2-2-linux-arm.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Oct 16 18:11 xpack-meson-build-0.56.2-2-linux-arm.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 17846357 Oct 16 17:21 xpack-meson-build-0.57.2-1-linux-arm64.tar.gz
+-rw-rw-r-- 1 ilg ilg      112 Oct 16 17:21 xpack-meson-build-0.57.2-1-linux-arm64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 17417308 Oct 16 18:11 xpack-meson-build-0.57.2-1-linux-arm.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Oct 16 18:11 xpack-meson-build-0.57.2-1-linux-arm.tar.gz.sha
 ```
 
-#### Build the macOS binaries
+### Build the macOS binaries
 
 The current platform for macOS production builds is a macOS 10.10.5
 running on a MacBook Pro with 32 GB of RAM and a fast SSD. The machine
 name is `xbbm`.
 
 ```sh
-ssh xbbm
+caffeinate ssh xbbm
 ```
 
 To build the latest macOS version:
@@ -341,13 +335,13 @@ archive and its SHA signature, created in the `deploy` folder:
 ```console
 $ cd ~/Work/meson-build-*/deploy
 total 33680
--rw-r--r--  1 ilg  staff  17239748 Oct 16 20:02 xpack-meson-build-0.56.2-2-darwin-x64.tar.gz
--rw-r--r--  1 ilg  staff       111 Oct 16 20:02 xpack-meson-build-0.56.2-2-darwin-x64.tar.gz.sha
+-rw-r--r--  1 ilg  staff  17239748 Oct 16 20:02 xpack-meson-build-0.57.2-1-darwin-x64.tar.gz
+-rw-r--r--  1 ilg  staff       111 Oct 16 20:02 xpack-meson-build-0.57.2-1-darwin-x64.tar.gz.sha
 ```
 
-### Subsequent runs
+## Subsequent runs
 
-#### Separate platform specific builds
+### Separate platform specific builds
 
 Instead of `--all`, you can use any combination of:
 
@@ -357,12 +351,12 @@ Instead of `--all`, you can use any combination of:
 --win32 --win64 
 ```
 
-Please note that, due to the specifics of the GCC build process, the
-Windows build requires the corresponding GNU/Linux build, so `--win32`
+Please note that, due to the specifics of the build process, the
+Windows build may require the corresponding GNU/Linux build, so `--win32`
 should be run after or together with `--linux32` and `--win64` after
 or together with `--linux64`.
 
-#### `clean`
+### `clean`
 
 To remove most build temporary files, use:
 
@@ -387,7 +381,7 @@ will remove the more specific folders.
 
 For production builds it is recommended to completely remove the build folder.
 
-#### `--develop`
+### `--develop`
 
 For performance reasons, the actual build folders are internal to each
 Docker run, and are not persistent. This gives the best speed, but has
@@ -396,7 +390,7 @@ the disadvantage that interrupted builds cannot be resumed.
 For development builds, it is possible to define the build folders in
 the host file system, and resume an interrupted build.
 
-#### `--debug`
+### `--debug`
 
 For development builds, it is also possible to create everything with
 `-g -O0` and be able to run debug sessions.
@@ -406,7 +400,7 @@ For development builds, it is also possible to create everything with
 By default, the build steps use all available cores. If, for any reason,
 parallel builds fail, it is possible to reduce the load.
 
-#### Interrupted builds
+### Interrupted builds
 
 The Docker scripts run with root privileges. This is generally not a
 problem, since at the end of the script the output files are reassigned
@@ -427,8 +421,8 @@ program from there. For example on macOS the output should
 look like:
 
 ```console
-$ /Users/ilg/Downloads/xPacks/meson-build/0.56.2-2/bin/meson --version
-0.56.2
+$ /Users/ilg/Downloads/xPacks/meson-build/0.57.2-1/bin/meson --version
+0.57.2
 ```
 
 ## Travis tests
@@ -444,8 +438,8 @@ After install, the package should create a structure like this (macOS files;
 only the first two depth levels are shown):
 
 ```console
-$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.56.2-2.1/.content/
-/Users/ilg/Library/xPacks/@xpack-dev-tools/meson-build/0.56.2-2.1/.content/
+$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.57.2-1.1/.content/
+/Users/ilg/Library/xPacks/@xpack-dev-tools/meson-build/0.57.2-1.1/.content/
 ├── README.md
 ├── bin
 │   ├── libcrypt.2.dylib
