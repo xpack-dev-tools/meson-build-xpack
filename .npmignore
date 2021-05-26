@@ -13,7 +13,6 @@ tests/
 
 README-*
 *.tgz
-CHANGELOG.*
 LICENSE-*
 
 extras/
