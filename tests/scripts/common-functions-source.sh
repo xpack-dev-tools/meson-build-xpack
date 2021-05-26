@@ -19,9 +19,8 @@
 
 function run_tests()
 {
-  time run_app "${app_folder_path}/bin/meson" --version
-
-  run_app "${app_folder_path}/bin/meson" --help
+  # Call the function defined in the build code.
+  test_meson
 }
 
 # -----------------------------------------------------------------------------
