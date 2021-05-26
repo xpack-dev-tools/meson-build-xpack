@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xpack-dev-tools/meson-build-xpack.git"
+    "url": "https://github.com/xpack-dev-tools/meson-build-xpack.git"
   },
   "bugs": {
     "url": "https://github.com/xpack-dev-tools/meson-build-xpack/issues/"
