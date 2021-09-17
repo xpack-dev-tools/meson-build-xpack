@@ -27,12 +27,15 @@ function build_meson()
   # Sep 11 2020, "0.55.3"
 
   local meson_src_folder_name="meson-${meson_version}"
-  local meson_folder_name="${meson_src_folder_name}"
 
   # GitHub release archive.
   local meson_archive_file_name="${meson_src_folder_name}.tar.gz"
   # local meson_url="https://github.com/mesonbuild/meson/archive/${meson_version}.tar.gz"
   local meson_url="https://github.com/mesonbuild/meson/releases/download/${meson_version}/${meson_archive_file_name}"
+
+  local meson_folder_name="${meson_src_folder_name}"
+
+  mkdir -pv "${LOGS_FOLDER_PATH}/${meson_folder_name}"
 
   cd "${SOURCES_FOLDER_PATH}"
 
@@ -50,9 +53,6 @@ function build_meson()
     mkdir -p "${BUILD_FOLDER_PATH}/${meson_folder_name}"
     cd "${BUILD_FOLDER_PATH}/${meson_folder_name}"
 
-    mkdir -pv "${LOGS_FOLDER_PATH}/${meson_folder_name}"
-
-    xbb_activate
     xbb_activate_installed_dev
 
     local exe=""
@@ -96,10 +96,6 @@ function build_meson()
       LDFLAGS+=" -Xlinker -export-dynamic"
       LDFLAGS+=" -Wl,-rpath,${LD_LIBRARY_PATH}"
     fi
-    if [ "${IS_DEVELOP}" == "y" ]
-    then
-      LDFLAGS+=" -v"
-    fi
 
     # Python3 uses these two libraries.
     if [ "${TARGET_PLATFORM}" == "win32" ]
@@ -128,7 +124,10 @@ function build_meson()
     export LDFLAGS
     export LIBS
 
-    env | sort
+    if [ "${IS_DEVELOP}" == "y" ]
+    then
+      env | sort
+    fi
 
     # Bring the meson source files into the build folder.
     cp -v "${BUILD_GIT_PATH}"/src/* .
@@ -145,7 +144,7 @@ function build_meson()
     install -v -m755 -c meson${exe} "${APP_PREFIX}/bin"
 
     show_libs "${APP_PREFIX}/bin/meson"
-    prepare_app_libraries "${APP_PREFIX}/bin/meson"
+    # prepare_app_libraries "${APP_PREFIX}/bin/meson"
 
     local python_with_version="python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"
     if [ ! -d "${APP_PREFIX}/lib/${python_with_version}/" ]
@@ -216,7 +215,7 @@ function build_meson()
           # on macOS the libraries use .so too.
           for file_path in "${APP_PREFIX}/lib/${python_with_version}"/lib-dynload/*.so
           do
-            prepare_app_libraries "${file_path}"
+            : # prepare_app_libraries "${file_path}"
           done
         fi
       )

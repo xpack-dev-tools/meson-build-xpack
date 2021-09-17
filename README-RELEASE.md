@@ -35,7 +35,7 @@ and fix them; assign them to a milestone (like `0.57.2-1`).
 
 Normally `README.md` should not need changes, but better check.
 Information related to the new version should not be included here,
-but in the version specific file (below).
+but in the version specific release page.
 
 ### Update version in `README` files
 
@@ -64,23 +64,24 @@ recreate the archives with the correct file.
 
 ### Development run the build scripts
 
-Before the real build, run a test build on the development machine (`wks`):
+Before the real build, run a test build on the development machine (`wks`)
+or the production machine (`xbbm`):
 
 ```sh
 sudo rm -rf ~/Work/meson-build-*
 
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --all
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --all
 
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --osx
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --osx
 
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --win64 
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux64 --win64 
 
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux32 --win32
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux32 --win32
 ```
 
-Work on the scripts until all 4 platforms pass the build.
+Work on the scripts until all platforms pass the build.
 
-## Push the build script
+## Push the build scripts
 
 In this Git repo:
 
@@ -105,10 +106,10 @@ On all machines, clone the `xpack-develop` branch and remove previous builds
 ```sh
 rm -rf ~/Downloads/meson-build-xpack.git; \
 git clone \
-  --recurse-submodules \
   --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
-  ~/Downloads/meson-build-xpack.git
+  ~/Downloads/meson-build-xpack.git; \
+git -C ~/Downloads/meson-build-xpack.git submodule update --init --recursive
 
 sudo rm -rf ~/Work/meson-build-*
 ```
@@ -116,7 +117,7 @@ sudo rm -rf ~/Work/meson-build-*
 On the macOS machine (`xbbm`):
 
 ```sh
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --osx
 ```
 
 A typical run takes about 15 minutes.
@@ -124,12 +125,12 @@ A typical run takes about 15 minutes.
 On `xbbi`:
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all
 
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --linux64
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --win64
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --linux32
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --win32
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --linux64
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --win64
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --linux32
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --win32
 ```
 
 A typical run on the Intel machine takes about 15 minutes.
@@ -137,10 +138,10 @@ A typical run on the Intel machine takes about 15 minutes.
 On `xbba`:
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all
 
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --arm64
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --arm32
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --arm64
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --arm32
 ```
 
 A typical run on the Arm machine takes about 80 minutes.
@@ -167,21 +168,28 @@ On all three machines:
 ## Run the pre-release native tests
 
 Publish the archives on the
-[pre-release](https://github.com/xpack-dev-tools/pre-releases/releases/tag/test)
+[pre-release](https://github.com/xpack-dev-tools/pre-releases/releases/tag/test/)
 project, and run the native tests on all platforms:
 
 ```sh
 rm -rf ~/Downloads/meson-build-xpack.git; \
 git clone \
-  --recurse-submodules \
   --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git  \
-  ~/Downloads/meson-build-xpack.git
+  ~/Downloads/meson-build-xpack.git; \
+git -C ~/Downloads/meson-build-xpack.git submodule update --init --recursive
 
-rm ~/Work/cache/xpack-meson-build-*
+rm -rf ~/Work/cache/xpack-meson-build-*
 
 bash ~/Downloads/meson-build-xpack.git/tests/scripts/native-test.sh \
   "https://github.com/xpack-dev-tools/pre-releases/releases/download/test/"
+```
+
+For early experimental releases, use:
+
+```sh
+bash ~/Downloads/meson-build-xpack.git/tests/scripts/native-test.sh \
+  "https://github.com/xpack-dev-tools/pre-releases/releases/download/experimental/"
 ```
 
 ## Create a new GitHub pre-release
@@ -217,11 +225,13 @@ Run the native tests on all platforms:
 
 ```sh
 rm -rf ~/Downloads/meson-build-xpack.git; \
-git clone --recurse-submodules -b xpack-develop \
+git clone \
+  --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git  \
-  ~/Downloads/meson-build-xpack.git
+  ~/Downloads/meson-build-xpack.git; \
+git -C ~/Downloads/meson-build-xpack.git submodule update --init --recursive
 
-rm ~/Work/cache/xpack-meson-build-*
+rm -rf ~/Work/cache/xpack-meson-build-*
 
 bash ~/Downloads/meson-build-xpack.git/tests/scripts/native-test.sh \
   "https://github.com/xpack-dev-tools/meson-build-xpack/releases/download/v0.57.2-1/"

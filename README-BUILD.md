@@ -26,11 +26,11 @@ For native builds, see the `build-native.sh` script. (to be added)
 
 ## Repositories
 
-- `https://github.com/xpack-dev-tools/meson-build-xpack.git` - the URL of the
-  [xPack Meson Build fork](https://github.com/xpack-dev-tools/meson-build-xpack) project
-- `https://github.com/xpack-dev-tools/build-helper` - the URL of the
+- <https://github.com/xpack-dev-tools/meson-build-xpack.git> -
+  the URL of the xPack build scripts repository
+- <https://github.com/xpack-dev-tools/build-helper> - the URL of the
   xPack build helper, used as the `scripts/helper` submodule
-- `https://github.com/mesonbuild/meson` - the URL of the original Meson repo
+- <https://github.com/mesonbuild/meson> - the URL of the original Meson repo
 
 ### Branches
 
@@ -53,14 +53,14 @@ The build scripts are available in the `scripts` folder of the
 [`xpack-dev-tools/meson-build-xpack`](https://github.com/xpack-dev-tools/meson-build-xpack)
 Git repo.
 
-To download them, issues the following two commands:
+To download them, issue the following two commands:
 
 ```sh
 rm -rf ~/Downloads/meson-build-xpack.git; \
 git clone \
-  --recurse-submodules \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
-  ~/Downloads/meson-build-xpack.git
+  ~/Downloads/meson-build-xpack.git; \
+git -C ~/Downloads/meson-build-xpack.git submodule update --init --recursive
 ```
 
 > Note: the repository uses submodules; for a successful build it is
@@ -72,10 +72,10 @@ branch:
 ```sh
 rm -rf ~/Downloads/meson-build-xpack.git; \
 git clone \
-  --recurse-submodules \
   --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
-  ~/Downloads/meson-build-xpack.git
+  ~/Downloads/meson-build-xpack.git; \
+git -C ~/Downloads/meson-build-xpack.git submodule update --init --recursive
 ```
 
 ## The `Work` folder
@@ -158,7 +158,7 @@ Before running a build for the first time, it is recommended to preload the
 docker images.
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh preload-images
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh preload-images
 ```
 
 The result should look similar to:
@@ -199,7 +199,7 @@ Run the development builds on the development machine (`wks`):
 
 ```sh
 sudo rm -rf ~/Work/meson-build-*
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -226,11 +226,11 @@ total 72744
 The supported Arm architectures are:
 
 - `armhf` for 32-bit devices
-- `arm64` for 64-bit devices
+- `aarch64` for 64-bit devices
 
 The current platform for Arm GNU/Linux production builds is a
-Debian 9, running on an ROCK Pi 4 SBC with 4 GB of RAM
-and 256 GB of fast M.2 SSD. The machine name is `xbba`.
+Raspberry Pi OS 10, running on a Raspberry Pi Compute Module 4, with
+8 GB of RAM and 256 GB of fast M.2 SSD. The machine name is `xbba`.
 
 ```sh
 caffeinate ssh xbba
@@ -246,7 +246,7 @@ Before running a build for the first time, it is recommended to preload the
 docker images.
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh preload-images
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh preload-images
 ```
 
 The result should look similar to:
@@ -270,14 +270,14 @@ screen -S meson
 or, for development builds:
 
 ```sh
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
 ```
 
 When ready, run the build on the production machine (`xbba`):
 
 ```sh
 sudo rm -rf ~/Work/meson-build-*
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -297,9 +297,9 @@ total 34452
 
 ### Build the macOS binaries
 
-The current platform for macOS production builds is a macOS 10.10.5
-running on a MacBook Pro with 32 GB of RAM and a fast SSD. The machine
-name is `xbbm`.
+The current platform for macOS production builds is a macOS 10.13.6
+running on a MacBook Pro 2011 with 32 GB of RAM and a fast SSD.
+The machine name is `xbbm`.
 
 ```sh
 caffeinate ssh xbbm
@@ -315,14 +315,14 @@ Run the development builds on the development machine (`wks`):
 
 ```sh
 sudo rm -rf ~/Work/meson-build-*
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --develop --without-pdf --disable-tests --osx
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --osx
 ```
 
 When ready, run the build on the production machine (`xbbm`):
 
 ```sh
 sudo rm -rf ~/Work/meson-build-*
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --osx
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --osx
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -361,19 +361,19 @@ or together with `--linux64`.
 To remove most build temporary files, use:
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all clean
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all clean
 ```
 
 To also remove the library build temporary files, use:
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all cleanlibs
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all cleanlibs
 ```
 
 To remove all temporary files, use:
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/build.sh --all cleanall
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all cleanall
 ```
 
 Instead of `--all`, any combination of `--win32 --win64 --linux32 --linux64`

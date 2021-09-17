@@ -17,45 +17,53 @@ function build_versions()
 {
   MESON_VERSION="$(echo "${RELEASE_VERSION}" | sed -e 's|-[0-9]*||')"
 
+  if [ "${TARGET_PLATFORM}" == "win32" ]
+  then
+    prepare_gcc_env "${CROSS_COMPILE_PREFIX}-"
+  fi
+
   # Keep them in sync with combo archive content.
   if [[ "${RELEASE_VERSION}" =~ 0\.57\.2-* ]]
   then
 
     # -------------------------------------------------------------------------
+    (
+      xbb_activate
 
-    # https://www.python.org/ftp/python/
-    # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
+      # https://www.python.org/ftp/python/
+      # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 
-    PYTHON3_VERSION="3.8.6"
-  
-    if [ "${TARGET_PLATFORM}" == "win32" ]
-    then
-      # Shortcut, use the existing pyton.exe instead of building
-      # if from sources. It also downloads the sources.
-      download_python3_win "${PYTHON3_VERSION}"
-    else
-      # On macOS, to prevent Python picking system libraries,
-      # provide controlled versions of them.
-      build_zlib "1.2.8"
-      build_bzip2 "1.0.8"
-      build_xz "5.2.5"
+      PYTHON3_VERSION="3.8.6"
+    
+      if [ "${TARGET_PLATFORM}" == "win32" ]
+      then
+        # Shortcut, use the existing pyton.exe instead of building
+        # if from sources. It also downloads the sources.
+        download_python3_win "${PYTHON3_VERSION}"
+      else
+        # On macOS, to prevent Python picking system libraries,
+        # provide controlled versions of them.
+        build_zlib "1.2.8"
+        build_bzip2 "1.0.8"
+        build_xz "5.2.5"
 
-      build_libmpdec "2.5.0"
-      build_expat "2.2.9"
-      build_libffi "3.3"
+        build_libmpdec "2.5.0"
+        build_expat "2.2.9"
+        build_libffi "3.3"
 
-      build_libxcrypt "4.4.17"
-      build_openssl "1.1.1h"
+        build_libxcrypt "4.4.17"
+        build_openssl "1.1.1h"
 
-      build_ncurses "6.2"
-      build_readline "8.0" # ncurses
+        build_ncurses "6.2"
+        build_readline "8.0" # ncurses
 
-      build_sqlite "3.32.3"
+        build_sqlite "3.32.3"
 
-      build_python3 "${PYTHON3_VERSION}"
-    fi
+        build_python3 "${PYTHON3_VERSION}"
+      fi
 
-    build_meson "${MESON_VERSION}"
+      build_meson "${MESON_VERSION}"
+    )
 
     # -------------------------------------------------------------------------
   elif [[ "${RELEASE_VERSION}" =~ 0\.56\.2-* ]]
@@ -63,39 +71,43 @@ function build_versions()
 
     # -------------------------------------------------------------------------
 
-    # https://www.python.org/ftp/python/
-    # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
+    (
+      xbb_activate
 
-    PYTHON3_VERSION="3.8.6"
-  
-    if [ "${TARGET_PLATFORM}" == "win32" ]
-    then
-      # Shortcut, use the existing pyton.exe instead of building
-      # if from sources. It also downloads the sources.
-      download_python3_win "${PYTHON3_VERSION}"
-    else
-      # On macOS, to prevent Python picking system libraries,
-      # provide controlled versions of them.
-      build_zlib "1.2.8"
-      build_bzip2 "1.0.8"
-      build_xz "5.2.5"
+      # https://www.python.org/ftp/python/
+      # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 
-      build_libmpdec "2.5.0"
-      build_expat "2.2.9"
-      build_libffi "3.3"
+      PYTHON3_VERSION="3.8.6"
+    
+      if [ "${TARGET_PLATFORM}" == "win32" ]
+      then
+        # Shortcut, use the existing pyton.exe instead of building
+        # if from sources. It also downloads the sources.
+        download_python3_win "${PYTHON3_VERSION}"
+      else
+        # On macOS, to prevent Python picking system libraries,
+        # provide controlled versions of them.
+        build_zlib "1.2.8"
+        build_bzip2 "1.0.8"
+        build_xz "5.2.5"
 
-      build_libxcrypt "4.4.17"
-      build_openssl "1.1.1h"
+        build_libmpdec "2.5.0"
+        build_expat "2.2.9"
+        build_libffi "3.3"
 
-      build_ncurses "6.2"
-      build_readline "8.0" # ncurses
+        build_libxcrypt "4.4.17"
+        build_openssl "1.1.1h"
 
-      build_sqlite "3.32.3"
+        build_ncurses "6.2"
+        build_readline "8.0" # ncurses
 
-      build_python3 "${PYTHON3_VERSION}"
-    fi
+        build_sqlite "3.32.3"
 
-    build_meson "${MESON_VERSION}"
+        build_python3 "${PYTHON3_VERSION}"
+      fi
+
+      build_meson "${MESON_VERSION}"
+    )
 
     # -------------------------------------------------------------------------
   elif [[ "${RELEASE_VERSION}" =~ 0\.55\.3-* ]]
@@ -103,46 +115,49 @@ function build_versions()
 
     # -------------------------------------------------------------------------
 
-    # https://www.python.org/ftp/python/
-    # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
+    (
+      xbb_activate
 
-    if [ "${RELEASE_VERSION}" == "0.53.3-1" ]
-    then
-      README_OUT_FILE_NAME=${README_OUT_FILE_NAME:-"README-${RELEASE_VERSION}.md"}
-      PYTHON3_VERSION="3.8.5"
-    else
-      PYTHON3_VERSION="3.8.6"
-    fi
+      # https://www.python.org/ftp/python/
+      # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 
-  
-    if [ "${TARGET_PLATFORM}" == "win32" ]
-    then
-      # Shortcut, use the existing pyton.exe instead of building
-      # if from sources. It also downloads the sources.
-      download_python3_win "${PYTHON3_VERSION}"
-    else
-      # On macOS, to prevent Python picking system libraries,
-      # provide controlled versions of them.
-      build_zlib "1.2.8"
-      build_bzip2 "1.0.8"
-      build_xz "5.2.5"
+      if [ "${RELEASE_VERSION}" == "0.53.3-1" ]
+      then
+        README_OUT_FILE_NAME=${README_OUT_FILE_NAME:-"README-${RELEASE_VERSION}.md"}
+        PYTHON3_VERSION="3.8.5"
+      else
+        PYTHON3_VERSION="3.8.6"
+      fi
+    
+      if [ "${TARGET_PLATFORM}" == "win32" ]
+      then
+        # Shortcut, use the existing pyton.exe instead of building
+        # if from sources. It also downloads the sources.
+        download_python3_win "${PYTHON3_VERSION}"
+      else
+        # On macOS, to prevent Python picking system libraries,
+        # provide controlled versions of them.
+        build_zlib "1.2.8"
+        build_bzip2 "1.0.8"
+        build_xz "5.2.5"
 
-      build_libmpdec "2.5.0"
-      build_expat "2.2.9"
-      build_libffi "3.3"
+        build_libmpdec "2.5.0"
+        build_expat "2.2.9"
+        build_libffi "3.3"
 
-      build_libxcrypt "4.4.17"
-      build_openssl "1.1.1h"
+        build_libxcrypt "4.4.17"
+        build_openssl "1.1.1h"
 
-      build_ncurses "6.2"
-      build_readline "8.0" # ncurses
+        build_ncurses "6.2"
+        build_readline "8.0" # ncurses
 
-      build_sqlite "3.32.3"
+        build_sqlite "3.32.3"
 
-      build_python3 "${PYTHON3_VERSION}"
-    fi
+        build_python3 "${PYTHON3_VERSION}"
+      fi
 
-    build_meson "${MESON_VERSION}"
+      build_meson "${MESON_VERSION}"
+    )
 
     # -------------------------------------------------------------------------
   else
