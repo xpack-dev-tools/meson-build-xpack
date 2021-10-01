@@ -64,6 +64,12 @@ This location is configurable via the environment variable
 `XPACKS_REPO_FOLDER`; for more details please check the
 [xpm folders](https://xpack.github.io/xpm/folders/) page.
 
+It is also possible to install Meson Build globally, in the user home folder:
+
+```sh
+xpm install --global @xpack-dev-tools/meson-build@latest
+```
+
 #### Uninstall
 
 To remove the links from the current project:
@@ -71,13 +77,13 @@ To remove the links from the current project:
 ```sh
 cd my-project
 
-xpm uninstall @xpack-dev-tools/gcc
+xpm uninstall @xpack-dev-tools/meson-build
 ```
 
 To completely remove the package from the global store: 
 
 ```sh
-xpm uninstall --global @xpack-dev-tools/gcc
+xpm uninstall --global @xpack-dev-tools/meson-build
 ```
 
 ### Manual install

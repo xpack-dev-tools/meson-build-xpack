@@ -257,7 +257,7 @@ Using the scripts in `tests/scripts/`, start:
 
 The test results are available from:
 
-- <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack>
+- <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack/>
 
 For more details, see `tests/scripts/README.md`.
 
@@ -375,7 +375,7 @@ will install the package on Intel Linux 64-bit, macOS and Windows 64-bit.
 
 The test results are available from:
 
-- <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack>
+- <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack/>
 
 For 32-bit Windows, 32-bit Intel GNU/Linux and 32-bit Arm, install manually.
 
