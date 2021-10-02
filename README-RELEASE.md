@@ -2,9 +2,9 @@
 
 ## Release schedule
 
-The xPack Meson release schedule is generally one minor release
-behind the original GitHub
-[releases](https://github.com/mesonbuild/meson/releases/).
+This distribution is generally one minor release behind the upstream [releases](https://github.com/mesonbuild/meson/releases/).
+In practical terms, when the minor release number changes, it awaits a few
+more weeks to get the latest patch release.
 
 ## Prepare the build
 
@@ -12,14 +12,17 @@ Before starting the build, perform some checks and tweaks.
 
 ### Check Git
 
+In the `xpack-dev-tools/meson-build-xpack` Git repo:
+
 - switch to the `xpack-develop` branch
 - if needed, merge the `xpack` branch
 
+No need to add a tag here, it'll be added when the release is created.
+
 ### Increase the version
 
-To prepare a new release, first determine the Meson Build version
-(like `0.57.2`) and update the `scripts/VERSION` file. The format is
-`0.57.2-1`. The fourth number is the xPack release number
+Determine the version (like `0.57.2`) and update the `scripts/VERSION`
+file; the format is `0.57.2-1`. The fourth number is the xPack release number
 of this version. A fifth number will be added when publishing
 the package on the `npm` server.
 
@@ -60,6 +63,10 @@ recreate the archives with the correct file.
 - add a new `if` with the new version before the existing code
 - check the Python version, and possibly bump to newer one
 
+### Update helper
+
+With Sourcetree, go to the helper repo and update to the latest master commit.
+
 ## Build
 
 ### Development run the build scripts
@@ -70,13 +77,27 @@ or the production machine (`xbbm`):
 ```sh
 sudo rm -rf ~/Work/meson-build-*
 
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --all
-
 caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --osx
+```
 
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux64 --win64 
+Similarly on the Intel Linux (`xbbi`):
 
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux32 --win32
+```sh
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux64 
+
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux32 
+
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --win64
+
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --win32
+```
+
+And on the Arm Linux (`xbba`):
+
+```sh
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --arm64
+
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --arm32 
 ```
 
 Work on the scripts until all platforms pass the build.
@@ -101,245 +122,156 @@ caffeinate ssh xbbi
 caffeinate ssh xbba
 ```
 
-On all machines, clone the `xpack-develop` branch and remove previous builds
+Start the runner on all three machines:
 
 ```sh
-rm -rf ~/Downloads/meson-build-xpack.git; \
-git clone \
-  --branch xpack-develop \
-  https://github.com/xpack-dev-tools/meson-build-xpack.git \
-  ~/Downloads/meson-build-xpack.git; \
-git -C ~/Downloads/meson-build-xpack.git submodule update --init --recursive
-
-sudo rm -rf ~/Work/meson-build-*
+~/actions-runner/run.sh
 ```
 
-On the macOS machine (`xbbm`):
+Check that both the project Git and the submodule are pushed to GitHub.
+
+To trigger the GitHub Actions build, use the xPack action:
+
+- `trigger-workflow-build`
+
+This is equivalent to:
 
 ```sh
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --osx
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/trigger-workflow-build.sh
 ```
 
-A typical run takes about 15 minutes.
+This script requires the `GITHUB_API_DISPATCH_TOKEN` to be present
+in the environment.
 
-On `xbbi`:
+This command uses the `xpack-develop` branch of this repo.
+
+The builds take about 14 minutes to complete.
+
+The workflow result and logs are available from the
+[Actions](https://github.com/xpack-dev-tools/meson-build-xpack/actions/) page.
+
+The resulting binaries are available for testing from
+[pre-releases/test](https://github.com/xpack-dev-tools/pre-releases/releases/tag/test/).
+
+## Testing
+
+### CI tests
+
+The automation is provided by GitHub Actions.
+
+To trigger the GitHub Actions tests, use the xPack actions:
+
+- `trigger-workflow-test-prime`
+- `trigger-workflow-test-docker-linux-intel`
+- `trigger-workflow-test-docker-linux-arm`
+
+These are equivalent to:
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all
-
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --linux64
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --win64
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --linux32
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --win32
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/tests/trigger-workflow-test-prime.sh
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/tests/trigger-workflow-test-docker-linux-intel.sh
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/tests/trigger-workflow-test-docker-linux-arm.sh
 ```
 
-A typical run on the Intel machine takes about 15 minutes.
+These scripts require the `GITHUB_API_DISPATCH_TOKEN` to be present
+in the environment.
 
-On `xbba`:
+These actions use the `xpack-develop` branch of this repo and the
+[pre-releases/test](https://github.com/xpack-dev-tools/pre-releases/releases/tag/test/)
+binaries.
+
+The tests results are available from the
+[Actions](https://github.com/xpack-dev-tools/meson-build-xpack/actions/) page.
+
+Since GitHub Actions provides a single version of macOS, the
+multi-version macOS tests run on Travis.
+
+To trigger the Travis test, use the xPack action:
+
+- `trigger-travis-macos`
+
+This is equivalent to:
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all
-
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --arm64
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --arm32
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/tests/trigger-travis-macos.sh
 ```
 
-A typical run on the Arm machine takes about 80 minutes.
+This script requires the `TRAVIS_COM_TOKEN` to be present in the environment.
 
-### Clean the destination folder for the test binaries
+The test results are available from
+[travis-ci.com](https://app.travis-ci.com/github/xpack-dev-tools/meson-build-xpack/builds/).
 
-On the development machine (`wks`) clear the folder where binaries from all
-build machines will be collected.
+### Manual tests
+
+Install the binaries on all platforms.
+
+On GNU/Linux systems, including Raspberry Pi, use the following commands:
 
 ```sh
-rm -f ~/Downloads/xpack-binaries/meson-build/*
+.../xpack-meson-build-0.57.2-1/bin/meson-build --version
+0.57.2
 ```
 
-Note: this step is very important, to avoid using test binaries!
-
-### Copy the binaries to the development machine
-
-On all three machines:
+On macOS, use:
 
 ```sh
-(cd ~/Work/meson-build-*/deploy; scp * ilg@wks:Downloads/xpack-binaries/meson-build)
+.../xpack-meson-build-0.57.2-1/bin/meson-build --version
+0.57.2
 ```
 
-## Run the pre-release native tests
+On Windows use:
 
-Publish the archives on the
-[pre-release](https://github.com/xpack-dev-tools/pre-releases/releases/tag/test/)
-project, and run the native tests on all platforms:
-
-```sh
-rm -rf ~/Downloads/meson-build-xpack.git; \
-git clone \
-  --branch xpack-develop \
-  https://github.com/xpack-dev-tools/meson-build-xpack.git  \
-  ~/Downloads/meson-build-xpack.git; \
-git -C ~/Downloads/meson-build-xpack.git submodule update --init --recursive
-
-rm -rf ~/Work/cache/xpack-meson-build-*
-
-bash ~/Downloads/meson-build-xpack.git/tests/scripts/native-test.sh \
-  "https://github.com/xpack-dev-tools/pre-releases/releases/download/test/"
+```doscon
+...\xpack-meson-build-0.57.2-1\bin\meson-build --version
+0.57.2
 ```
 
-For early experimental releases, use:
-
-```sh
-bash ~/Downloads/meson-build-xpack.git/tests/scripts/native-test.sh \
-  "https://github.com/xpack-dev-tools/pre-releases/releases/download/experimental/"
-```
-
-## Create a new GitHub pre-release
+## Create a new GitHub pre-release draft
 
 - in `CHANGELOG.md`, add release date
 - commit and push the `xpack-develop` branch
-- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
-- click the **Draft a new release** button
-- name the tag like **v0.57.2-1** (mind the dash in the middle!)
-- select the `xpack-develop` branch
-- name the release like **xPack Meson Build v0.57.2-1** (mind the dash)
-- as description, use:
+- run the xPack action `trigger-workflow-publish-release`
 
-```markdown
-![Github Releases (by Release)](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v0.57.2-1/total.svg)
-
-Version 0.57.2-1 is a new release of the **xPack Meson Build** package, following the Meson release.
-
-_At this moment these binaries are provided for tests only!_
-```
-
-- **attach binaries** and SHA (drag and drop from the
-  `~/Downloads/xpack-binaries/*` folder will do it)
-- **enable** the **pre-release** button
-- click the **Publish Release** button
-
-Note: at this moment the system should send a notification to all clients
-watching this project.
-
-## Run the native tests
-
-Run the native tests on all platforms:
-
-```sh
-rm -rf ~/Downloads/meson-build-xpack.git; \
-git clone \
-  --branch xpack-develop \
-  https://github.com/xpack-dev-tools/meson-build-xpack.git  \
-  ~/Downloads/meson-build-xpack.git; \
-git -C ~/Downloads/meson-build-xpack.git submodule update --init --recursive
-
-rm -rf ~/Work/cache/xpack-meson-build-*
-
-bash ~/Downloads/meson-build-xpack.git/tests/scripts/native-test.sh \
-  "https://github.com/xpack-dev-tools/meson-build-xpack/releases/download/v0.57.2-1/"
-```
-
-## Run the release CI tests
-
-Using the scripts in `tests/scripts/`, start:
-
-TODO:
-
-The test results are available from:
-
-- TODO
-
-For more details, see `tests/scripts/README.md`.
-
-Using the scripts in `tests/scripts/`, start:
-
-- trigger-travis-quick.mac.command (optional)
-- trigger-travis-stable.mac.command
-- trigger-travis-latest.mac.command
-
-The test results are available from:
-
-- <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack/>
-
-For more details, see `tests/scripts/README.md`.
+The result is a
+[draft pre-release](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
+tagged like **v0.57.2-1** (mind the dash in the middle!) and
+named like **xPack Meson Build v0.57.2-1** (mind the dash),
+with all binaries attached.
 
 ## Prepare a new blog post
+
+Run the xPack action `generate-jekyll-post`; this will leave a file
+on the Desktop.
 
 In the `xpack/web-jekyll` GitHub repo:
 
 - select the `develop` branch
-- add a new file to `_posts/meson-build/releases`
-- name the file like `2020-10-16-meson-build-v0-56-2-1-released.md`
-- name the post like: **xPack Meson Build v0.57.2-1 released**.
-- as `download_url` use the tagged URL like `https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v0.57.2-1/`
-- update the `date:` field with the current date
-- update the Travis URLs using the actual test pages
-- update the SHA sums via copy/paste from the original build machines
-(it is very important to use the originals!)
+- copy the new file to `_posts/releases/meson-build`
 
 If any, refer to closed
-[issues](https://github.com/xpack-dev-tools/meson-build-xpack/issues/)
-as:
-
-- **[Issue:\[#1\]\(...\)]**.
-
-## Update the SHA sums
-
-On the development machine (`wks`):
-
-```sh
-cat ~/Downloads/xpack-binaries/meson-build/*.sha
-```
-
-Copy/paste the build report at the end of the post as:
-
-```console
-## Checksums
-The SHA-256 hashes for the files are:
-
-06d2251a893f932b38f41c418cdc14e51893f68553ba5a183f02001bd92d9454  
-xpack-meson-build-v0.57.2-1-darwin-x64.tar.gz
-
-a1c7e77001cb549bd6b6dc00bb0193283179667e56f652182204229b55f58bc8  
-xpack-meson-build-v0.57.2-1-linux-arm64.tar.gz
-
-c812f12b7159b7f149c211fb521c0e405de64bb087f138cda8ea5ac04be87e15  
-xpack-meson-build-v0.57.2-1-linux-arm.tar.gz
-
-ebb4b08e8b94bd04b5493549b0ba2c02f1be5cc5f42c754e09a0c279ae8cc854  
-xpack-meson-build-v0.57.2-1-linux-x32.tar.gz
-
-687ac941c995eab069955fd673b6cd78a6b95048cac4a92728b09be444d0118e  
-xpack-meson-build-v0.57.2-1-linux-x64.tar.gz
-
-a0bde52aa8846a2a5b982031ad0bdebea55b9b3953133b363f54862473d71686  
-xpack-meson-build-v0.57.2-1-win32-x32.zip
-
-b25987e4153e42384ff6273ba228c3eaa7a61a2a6cc8f7a3fbf800099c3f6a49  
-xpack-meson-build-v0.57.2-1-win32-x64.zip
-```
+[issues](https://github.com/xpack-dev-tools/meson-build-xpack/issues/).
 
 ## Update the preview Web
 
-- commit the `develop` branch of `xpack/web-jekyll` GitHub repo; use a message
-  like **xPack Meson Build v0.57.2-1 released**
-- push
+- commit the `develop` branch of `xpack/web-jekyll` GitHub repo;
+  use a message like **xPack Meson Build v0.57.2-1 released**
+- push to GitHub
 - wait for the GitHub Pages build to complete
 - the preview web is <https://xpack.github.io/web-preview/news/>
+
+## Create the pre-release
+
+- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
+- perform the final edits and check if everything is fine
+- save the release
+
+Note: at this moment the system should send a notification to all clients
+watching this project.
 
 ## Update package.json binaries
 
 - select the `xpack-develop` branch
-- run `xpm-dev binaries-update`
-
-```sh
-xpm-dev binaries-update \
-  -C "${HOME}/Downloads/meson-build-xpack.git" \
-  '0.57.2-1' \
-  "${HOME}/Downloads/xpack-binaries/meson-build"
-```
-
-- open the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
-  page and select the latest release
-- check the download counter, it should match the number of tests
+- run the xPack action `update-package-binaries`
 - open the `package.json` file
 - check the `baseUrl:` it should match the file URLs (including the tag/version);
   no terminating `/` is required
@@ -349,16 +281,17 @@ xpm-dev binaries-update \
 - commit all changes, use a message like
   `package.json: update urls for 0.57.2-1.1 release` (without `v`)
 
-## Publish on the npmjs server
+## Publish on the npmjs.com server
 
 - select the `xpack-develop` branch
 - check the latest commits `npm run git-log`
 - update `CHANGELOG.md`; commit with a message like
   _CHANGELOG: publish npm v0.57.2-1.1_
 - `npm pack` and check the content of the archive, which should list
-  only the `package.json`, the `README.md`, `LICENSE` and `CHANGELOG.md`
-- `npm version v0.57.2-1.1`; the first 4 numbers are the same as the
-  GitHub release; the fifth number is the npm specific version
+  only the `package.json`, the `README.md`, `LICENSE` and `CHANGELOG.md`;
+  possibly adjust `.npmignore`
+- `npm version 0.57.2-1.1`; the first 5 numbers are the same as the
+  GitHub release; the sixth number is the npm specific version
 - push the `xpack-develop` branch to GitHub
 - push tags with `git push origin --tags`
 - `npm publish --tag next` (use `--access public` when publishing for
@@ -370,55 +303,17 @@ After a few moments the version will be visible at:
 
 ## Test if the npm binaries can be installed with xpm
 
-Run the `tests/scripts/trigger-travis-xpm-install.sh` script, this
-will install the package on Intel Linux 64-bit, macOS and Windows 64-bit.
+Run the `scripts/tests/trigger-travis-xpm-install.sh` script, this
+will install the package via `xpm install` on all supported platforms.
 
 The test results are available from:
 
 - <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack/>
 
-For 32-bit Windows, 32-bit Intel GNU/Linux and 32-bit Arm, install manually.
-
-```sh
-xpm install --global @xpack-dev-tools/meson-build@next
-```
-
-## Test the npm binaries
-
-Install the binaries on all platforms.
-
-```sh
-xpm install --global @xpack-dev-tools/meson-build@next
-```
-
-On GNU/Linux systems, including Raspberry Pi, use the following commands:
-
-```sh
-~/.local/xPacks/@xpack-dev-tools/meson-build/0.57.2-1.1/.content/bin/meson --version
-
-TODO
-```
-
-On macOS, use:
-
-```sh
-~/Library/xPacks/@xpack-dev-tools/meson-build/0.57.2-1.1/.content/bin/meson --version
-
-TODO
-```
-
-On Windows use:
-
-```doscon
-%USERPROFILE%\AppData\Roaming\xPacks\@xpack-dev-tools\meson-build\0.57.2-1.1\.content\bin\meson --version
-
-TODO
-```
-
 ## Update the repo
 
 - merge `xpack-develop` into `xpack`
-- push
+- push to GitHub
 
 ## Tag the npm package as `latest`
 
@@ -448,10 +343,11 @@ When the release is considered stable, promote it as `latest`:
 - in a separate browser windows, open [TweetDeck](https://tweetdeck.twitter.com/)
 - using the `@xpack_project` account
 - paste the release name like **xPack Meson Build v0.57.2-1 released**
-- paste the link to the blog release URL
+- paste the link to the Web page
+  [release](https://xpack.github.io/meson-build/releases/)
 - click the **Tweet** button
 
 ## Remove pre-release binaries
 
-- got to <https://github.com/xpack-dev-tools/pre-releases/releases/tag/test>
+- go to <https://github.com/xpack-dev-tools/pre-releases/releases/tag/test/>
 - remove the test binaries

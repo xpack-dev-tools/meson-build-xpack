@@ -133,10 +133,8 @@ are in the
 
 ### Build
 
-Although it is perfectly possible to build all binaries in a single step
-on a macOS system, due to Docker specifics, it is faster to build the
-GNU/Linux and Windows binaries on a GNU/Linux system and the macOS binary
-separately on a macOS system.
+The builds currently run on 3 dedicated machines (Intel GNU/Linux,
+Arm GNU/Linux and Intel macOS). A fourth machine for Arm macOS is planned.
 
 #### Build the Intel GNU/Linux and Windows binaries
 
@@ -193,13 +191,16 @@ network connection or a computer entering sleep.
 
 ```sh
 screen -S meson
+
+sudo rm -rf ~/Work/meson-build-*
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --all
 ```
 
-Run the development builds on the development machine (`wks`):
+or, for development builds:
 
 ```sh
 sudo rm -rf ~/Work/meson-build-*
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux64 --linux32 --win64 --win32
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -265,19 +266,16 @@ network connection or a computer entering sleep.
 
 ```sh
 screen -S meson
+
+sudo rm -rf ~/Work/meson-build-*
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --all
 ```
 
 or, for development builds:
 
 ```sh
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
-```
-
-When ready, run the build on the production machine (`xbba`):
-
-```sh
 sudo rm -rf ~/Work/meson-build-*
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --arm32 --arm64
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -309,20 +307,16 @@ To build the latest macOS version:
 
 ```sh
 screen -S meson
+
+rm -rf ~/Work/meson-build-*
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --osx
 ```
 
-Run the development builds on the development machine (`wks`):
+or, for development builds:
 
 ```sh
-sudo rm -rf ~/Work/meson-build-*
+rm -rf ~/Work/meson-build-*
 caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --osx
-```
-
-When ready, run the build on the production machine (`xbbm`):
-
-```sh
-sudo rm -rf ~/Work/meson-build-*
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --osx
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use
@@ -346,15 +340,15 @@ total 33680
 Instead of `--all`, you can use any combination of:
 
 ```console
+--win32 --win64
 --linux32 --linux64
---arm32 --arm64
---win32 --win64 
 ```
 
-Please note that, due to the specifics of the build process, the
-Windows build may require the corresponding GNU/Linux build, so `--win32`
-should be run after or together with `--linux32` and `--win64` after
-or together with `--linux64`.
+On Arm, instead of `--all`, you can use:
+
+```console
+--arm32 --arm64
+```
 
 ### `clean`
 
@@ -379,7 +373,11 @@ bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --all cleanall
 Instead of `--all`, any combination of `--win32 --win64 --linux32 --linux64`
 will remove the more specific folders.
 
-For production builds it is recommended to completely remove the build folder.
+For production builds it is recommended to **completely remove the build folder**:
+
+```sh
+rm -rf ~/Work/meson-build-*
+```
 
 ### `--develop`
 
@@ -425,13 +423,6 @@ $ /Users/ilg/Downloads/xPacks/meson-build/0.57.2-1/bin/meson --version
 0.57.2
 ```
 
-## Travis tests
-
-A multi-platform validation test for all binary archives can be performed
-using Travis CI.
-
-For details please see `tests/scripts/README.md`.
-
 ## Installed folders
 
 After install, the package should create a structure like this (macOS files;
@@ -442,19 +433,30 @@ $ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.57.2-1.1/.
 /Users/ilg/Library/xPacks/@xpack-dev-tools/meson-build/0.57.2-1.1/.content/
 ├── README.md
 ├── bin
-│   ├── libcrypt.2.dylib
-│   ├── libgcc_s.1.dylib
-│   ├── libpython3.8.dylib
 │   └── meson
 ├── distro-info
 │   ├── CHANGELOG.md
 │   ├── licenses
 │   ├── patches
 │   └── scripts
-└── lib
-    └── python3.8
+├── lib
+│   └── python3.8
+└── libexec
+    ├── libcrypt.2.dylib
+    ├── libcrypto.1.1.dylib
+    ├── libgcc_s.1.dylib
+    ├── liblzma.5.dylib
+    ├── libncurses.6.dylib
+    ├── libpanel.6.dylib
+    ├── libpython3.8.dylib
+    ├── libreadline.8.0.dylib
+    ├── libreadline.8.dylib -> libreadline.8.0.dylib
+    ├── libsqlite3.0.dylib
+    ├── libssl.1.1.dylib
+    ├── libz.1.2.8.dylib
+    └── libz.1.dylib -> libz.1.2.8.dylib
 
-7 directories, 6 files
+8 directories, 16 files
 ```
 
 No other files are installed in any system folders or other locations.

@@ -3,6 +3,14 @@
 
 # The xPack Meson Build
 
+A standalone cross-platform (Windows/macOS/Linux) Meson Build
+binary distribution, intended for reproducible builds.
+
+In addition to the the binary archives and the package meta data,
+this project also includes the build scripts.
+
+## Overview
+
 This open source project is hosted on GitHub as
 [`xpack-dev-tools/meson-build-xpack`](https://github.com/xpack-dev-tools/meson-build-xpack)
 and provides the platform specific binaries for the
@@ -15,6 +23,12 @@ The binaries can be installed automatically as **binary xPacks** or manually as
 
 In addition to the package meta data, this project also includes
 the build scripts.
+
+## Release schedule
+
+This distribution is generally one minor release behind the upstream releases.
+In practical terms, when the minor release number changes, it awaits a few
+more weeks to get the latest patch release.
 
 ## User info
 
@@ -39,7 +53,8 @@ follow the instructions from the
 #### Install
 
 With the `xpm` tool available, installing
-the latest version of the package is quite easy:
+the latest version of the package and adding it as
+a dependency for a project is quite easy:
 
 ```sh
 cd my-project
@@ -88,7 +103,8 @@ xpm uninstall --global @xpack-dev-tools/meson-build
 
 ### Manual install
 
-For all platforms, the **xPack Meson Build** binaries are released as portable
+For all platforms, the **xPack Meson Build**
+binaries are released as portable
 archives that can be installed in any location.
 
 The archives can be downloaded from the
