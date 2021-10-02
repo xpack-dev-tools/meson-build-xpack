@@ -49,183 +49,192 @@ function build_meson()
       "${meson_src_folder_name}"
   )
 
-  (
-    mkdir -p "${BUILD_FOLDER_PATH}/${meson_folder_name}"
-    cd "${BUILD_FOLDER_PATH}/${meson_folder_name}"
+  local meson_stamp_file_path="${INSTALL_FOLDER_PATH}/stamp-meson-installed"
+  if [ ! -f "${meson_stamp_file_path}" ]
+  then
+    (
+      mkdir -p "${BUILD_FOLDER_PATH}/${meson_folder_name}"
+      cd "${BUILD_FOLDER_PATH}/${meson_folder_name}"
 
-    xbb_activate_installed_dev
+      xbb_activate_installed_dev
 
-    local exe=""
-    if [ "${TARGET_PLATFORM}" == "win32" ]
-    then
-      prepare_gcc_env "${CROSS_COMPILE_PREFIX}-"
-      exe=".exe"
-    fi
-
-    # gcc-xbb -pthread 
-    # -L/Host/Users/ilg/Work/meson-build-0.55.1-1/linux-x64/install/libs/lib64
-    # -L/Host/Users/ilg/Work/meson-build-0.55.1-1/linux-x64/install/libs/lib  
-    # -O2 -Wl,--gc-sections -fno-semantic-interposition -v   
-    # -Xlinker -export-dynamic -o python.exe Programs/python.o libpython3.8.a 
-    # -lcrypt -lpthread -ldl  -lutil -lrt -lm   -lm 
-
-    if [ "${TARGET_PLATFORM}" == "win32" ]
-    then
-      CPPFLAGS="${XBB_CPPFLAGS} -I${BUILD_FOLDER_PATH}/${meson_folder_name} -I${SOURCES_FOLDER_PATH}/Python-${PYTHON3_VERSION}/Include -DPy_BUILD_CORE_BUILTIN=1"
-    else
-      CPPFLAGS="${XBB_CPPFLAGS} -I${LIBS_INSTALL_FOLDER_PATH}/include/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -DPy_BUILD_CORE_BUILTIN=1"
-    fi
-    CFLAGS="${XBB_CFLAGS_NO_W}"
-    CXXFLAGS="${XBB_CXXFLAGS_NO_W}"
-    LDFLAGS="${XBB_LDFLAGS_APP_STATIC_GCC}"
-    if [ "${TARGET_PLATFORM}" == "win32" ]
-    then
-      LDFLAGS+=" -L${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"
-    elif [ "${TARGET_PLATFORM}" == "darwin" ]
-    then
-      LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib"
-      if [[ "${CC}" =~ gcc* ]]
+      local exe=""
+      if [ "${TARGET_PLATFORM}" == "win32" ]
       then
-        LDFLAGS+=" -fno-semantic-interposition"
+        prepare_gcc_env "${CROSS_COMPILE_PREFIX}-"
+        exe=".exe"
       fi
-    elif [ "${TARGET_PLATFORM}" == "linux" ]
-    then
-      # ${LIBS_INSTALL_FOLDER_PATH}/lib/libpython3.8.a
-      LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib "
-      LDFLAGS+=" -fno-semantic-interposition"
-      LDFLAGS+=" -Xlinker -export-dynamic"
-      LDFLAGS+=" -Wl,-rpath,${LD_LIBRARY_PATH}"
-    fi
 
-    # Python3 uses these two libraries.
-    if [ "${TARGET_PLATFORM}" == "win32" ]
-    then
-      LIBS="-lpython${PYTHON3_VERSION_MAJOR} -lpython${PYTHON3_VERSION_MAJOR_MINOR}"
-    elif [ "${TARGET_PLATFORM}" == "darwin" ]
-    then
-      LIBS="-lpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -lcrypt -lpthread -ldl  -lutil -lm"
-    elif [ "${TARGET_PLATFORM}" == "linux" ]
-    then
-      # LIBS="${LIBS_INSTALL_FOLDER_PATH}/lib/libpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}.a ${LIBS_INSTALL_FOLDER_PATH}/lib/libcrypt.a -lpthread -ldl  -lutil -lrt -lm"
-      LIBS="-lpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -lcrypt -lpthread -ldl  -lutil -lrt -lm"
-    fi
+      # gcc-xbb -pthread 
+      # -L/Host/Users/ilg/Work/meson-build-0.55.1-1/linux-x64/install/libs/lib64
+      # -L/Host/Users/ilg/Work/meson-build-0.55.1-1/linux-x64/install/libs/lib  
+      # -O2 -Wl,--gc-sections -fno-semantic-interposition -v   
+      # -Xlinker -export-dynamic -o python.exe Programs/python.o libpython3.8.a 
+      # -lcrypt -lpthread -ldl  -lutil -lrt -lm   -lm 
 
-    CPPFLAGS+=" -DPYTHON_VERSION_MAJOR=${PYTHON3_VERSION_MAJOR}"
-    CPPFLAGS+=" -DPYTHON_VERSION_MINOR=${PYTHON3_VERSION_MINOR}"
+      if [ "${TARGET_PLATFORM}" == "win32" ]
+      then
+        CPPFLAGS="${XBB_CPPFLAGS} -I${BUILD_FOLDER_PATH}/${meson_folder_name} -I${SOURCES_FOLDER_PATH}/Python-${PYTHON3_VERSION}/Include -DPy_BUILD_CORE_BUILTIN=1"
+      else
+        CPPFLAGS="${XBB_CPPFLAGS} -I${LIBS_INSTALL_FOLDER_PATH}/include/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -DPy_BUILD_CORE_BUILTIN=1"
+      fi
+      CFLAGS="${XBB_CFLAGS_NO_W}"
+      CXXFLAGS="${XBB_CXXFLAGS_NO_W}"
+      LDFLAGS="${XBB_LDFLAGS_APP_STATIC_GCC}"
+      if [ "${TARGET_PLATFORM}" == "win32" ]
+      then
+        LDFLAGS+=" -L${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"
+      elif [ "${TARGET_PLATFORM}" == "darwin" ]
+      then
+        LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib"
+        if [[ "${CC}" =~ gcc* ]]
+        then
+          LDFLAGS+=" -fno-semantic-interposition"
+        fi
+      elif [ "${TARGET_PLATFORM}" == "linux" ]
+      then
+        # ${LIBS_INSTALL_FOLDER_PATH}/lib/libpython3.8.a
+        LDFLAGS+=" -L${LIBS_INSTALL_FOLDER_PATH}/lib "
+        LDFLAGS+=" -fno-semantic-interposition"
+        LDFLAGS+=" -Xlinker -export-dynamic"
+        LDFLAGS+=" -Wl,-rpath,${LD_LIBRARY_PATH}"
+      fi
 
-    if [ "${IS_DEBUG}" == "y" ]
-    then
-      CPPFLAGS+=" -DDEBUG"
-    fi
+      # Python3 uses these two libraries.
+      if [ "${TARGET_PLATFORM}" == "win32" ]
+      then
+        LIBS="-lpython${PYTHON3_VERSION_MAJOR} -lpython${PYTHON3_VERSION_MAJOR_MINOR}"
+      elif [ "${TARGET_PLATFORM}" == "darwin" ]
+      then
+        LIBS="-lpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -lcrypt -lpthread -ldl  -lutil -lm"
+      elif [ "${TARGET_PLATFORM}" == "linux" ]
+      then
+        # LIBS="${LIBS_INSTALL_FOLDER_PATH}/lib/libpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}.a ${LIBS_INSTALL_FOLDER_PATH}/lib/libcrypt.a -lpthread -ldl  -lutil -lrt -lm"
+        LIBS="-lpython${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR} -lcrypt -lpthread -ldl  -lutil -lrt -lm"
+      fi
 
-    export CPPFLAGS
-    export CFLAGS
-    export CXXFLAGS
-    export LDFLAGS
-    export LIBS
+      CPPFLAGS+=" -DPYTHON_VERSION_MAJOR=${PYTHON3_VERSION_MAJOR}"
+      CPPFLAGS+=" -DPYTHON_VERSION_MINOR=${PYTHON3_VERSION_MINOR}"
 
-    if [ "${IS_DEVELOP}" == "y" ]
-    then
-      env | sort
-    fi
+      if [ "${IS_DEBUG}" == "y" ]
+      then
+        CPPFLAGS+=" -DDEBUG"
+      fi
 
-    # Bring the meson source files into the build folder.
-    cp -v "${BUILD_GIT_PATH}"/src/* .
+      export CPPFLAGS
+      export CFLAGS
+      export CXXFLAGS
+      export LDFLAGS
+      export LIBS
 
-    if [ "${TARGET_PLATFORM}" == "win32" ]
-    then
-      cp -v "${BUILD_GIT_PATH}/extras/includes/pyconfig-win-${PYTHON3_VERSION}.h" \
-        "pyconfig.h"
-    fi
+      if [ "${IS_DEVELOP}" == "y" ]
+      then
+        env | sort
+      fi
 
-    run_verbose make meson${exe} V=1
+      # Bring the meson source files into the build folder.
+      cp -v "${BUILD_GIT_PATH}"/src/* .
 
-    mkdir -pv "${APP_PREFIX}/bin"    
-    install -v -m755 -c meson${exe} "${APP_PREFIX}/bin"
+      if [ "${TARGET_PLATFORM}" == "win32" ]
+      then
+        cp -v "${BUILD_GIT_PATH}/extras/includes/pyconfig-win-${PYTHON3_VERSION}.h" \
+          "pyconfig.h"
+      fi
 
-    show_libs "${APP_PREFIX}/bin/meson"
-    # prepare_app_libraries "${APP_PREFIX}/bin/meson"
+      run_verbose make meson${DOT_EXE} V=1
 
-    local python_with_version="python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"
-    if [ ! -d "${APP_PREFIX}/lib/${python_with_version}/" ]
-    then
-      (
-        mkdir -pv "${APP_PREFIX}/lib/${python_with_version}/"
+      mkdir -pv "${APP_PREFIX}/bin"    
+      install -v -m755 -c meson${DOT_EXE} "${APP_PREFIX}/bin"
 
-        echo
-        echo "Copying .py files from the standard Python library..."
+      show_libs "${APP_PREFIX}/bin/meson"
+      # prepare_app_libraries "${APP_PREFIX}/bin/meson"
 
-        # Copy all .py from the original source package.
-        cp -r "${SOURCES_FOLDER_PATH}/${PYTHON3_SRC_FOLDER_NAME}"/Lib/* \
-          "${APP_PREFIX}/lib/${python_with_version}/"
-
-        echo "Copying mesonbuild .py code..."
-        mkdir -pv "${APP_PREFIX}/lib/${python_with_version}/mesonbuild/"
-        cp -r "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}"/mesonbuild/* \
-          "${APP_PREFIX}/lib/${python_with_version}/mesonbuild/"
-
+      local python_with_version="python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"
+      if [ ! -d "${APP_PREFIX}/lib/${python_with_version}/" ]
+      then
         (
-          echo "Compiling all python & meson sources..."
-          # Compiling tests fails, ignore the errors.
+          mkdir -pv "${APP_PREFIX}/lib/${python_with_version}/"
+
+          echo
+          echo "Copying .py files from the standard Python library..."
+
+          # Copy all .py from the original source package.
+          cp -r "${SOURCES_FOLDER_PATH}/${PYTHON3_SRC_FOLDER_NAME}"/Lib/* \
+            "${APP_PREFIX}/lib/${python_with_version}/"
+
+          echo "Copying mesonbuild .py code..."
+          mkdir -pv "${APP_PREFIX}/lib/${python_with_version}/mesonbuild/"
+          cp -r "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}"/mesonbuild/* \
+            "${APP_PREFIX}/lib/${python_with_version}/mesonbuild/"
+
+          (
+            echo "Compiling all python & meson sources..."
+            # Compiling tests fails, ignore the errors.
+            if [ "${TARGET_PLATFORM}" == "win32" ]
+            then
+              run_verbose "${WORK_FOLDER_PATH}/${LINUX_INSTALL_RELATIVE_PATH}/libs/bin/python3" \
+                -m compileall \
+                -j "${JOBS}" \
+                -f "${APP_PREFIX}/lib/${python_with_version}/" \
+                || true
+            else
+              run_verbose "${LIBS_INSTALL_FOLDER_PATH}/bin/python3.${PYTHON3_VERSION_MINOR}" \
+                -m compileall \
+                -j "${JOBS}" \
+                -f "${APP_PREFIX}/lib/${python_with_version}/" \
+                || true
+
+            fi
+
+            # For just in case.
+            find "${APP_PREFIX}/lib/${python_with_version}/" \
+              \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
+              -exec rm -v {} \;
+          )
+
+          echo "Replacing .py files with .pyc files..."
+          move_pyc "${APP_PREFIX}/lib/${python_with_version}"
+
+          mkdir -pv "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
+
+          echo
+          echo "Copying Python shared libraries..."
+
           if [ "${TARGET_PLATFORM}" == "win32" ]
           then
-            run_verbose "${WORK_FOLDER_PATH}/${LINUX_INSTALL_RELATIVE_PATH}/libs/bin/python3" \
-              -m compileall \
-              -j "${JOBS}" \
-              -f "${APP_PREFIX}/lib/${python_with_version}/" \
-              || true
+            # Copy the Windows specific DLLs (.pyd) to the separate folder;
+            # they are dynamically loaded by Python.
+            cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"/*.pyd \
+              "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
+            # Copy the usual DLLs too; the python*.dll are used, do not remove them.
+            cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"/*.dll \
+              "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
           else
-            run_verbose "${LIBS_INSTALL_FOLDER_PATH}/bin/python3.${PYTHON3_VERSION_MINOR}" \
-              -m compileall \
-              -j "${JOBS}" \
-              -f "${APP_PREFIX}/lib/${python_with_version}/" \
-              || true
+            # Copy dynamically loaded modules and rename folder.
+            cp -r "${LIBS_INSTALL_FOLDER_PATH}/lib/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"/lib-dynload/* \
+              "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
 
+            echo "Preparing Python shared libraries..."
+            # on macOS the libraries use .so too.
+            for file_path in "${APP_PREFIX}/lib/${python_with_version}"/lib-dynload/*.so
+            do
+              : # prepare_app_libraries "${file_path}"
+            done
           fi
-
-          # For just in case.
-          find "${APP_PREFIX}/lib/${python_with_version}/" \
-            \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
-            -exec rm -v {} \;
         )
+      fi
 
-        echo "Replacing .py files with .pyc files..."
-        move_pyc "${APP_PREFIX}/lib/${python_with_version}"
+      copy_license \
+        "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}" \
+        "${meson_folder_name}"
 
-        mkdir -pv "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
+    )
 
-        echo
-        echo "Copying Python shared libraries..."
+    touch "${meson_stamp_file_path}"
 
-        if [ "${TARGET_PLATFORM}" == "win32" ]
-        then
-          # Copy the Windows specific DLLs (.pyd) to the separate folder;
-          # they are dynamically loaded by Python.
-          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"/*.pyd \
-            "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
-          # Copy the usual DLLs too; the python*.dll are used, do not remove them.
-          cp -v "${SOURCES_FOLDER_PATH}/${PYTHON3_WIN_SRC_FOLDER_NAME}"/*.dll \
-            "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
-        else
-          # Copy dynamically loaded modules and rename folder.
-          cp -r "${LIBS_INSTALL_FOLDER_PATH}/lib/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"/lib-dynload/* \
-            "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
-
-          echo "Preparing Python shared libraries..."
-          # on macOS the libraries use .so too.
-          for file_path in "${APP_PREFIX}/lib/${python_with_version}"/lib-dynload/*.so
-          do
-            : # prepare_app_libraries "${file_path}"
-          done
-        fi
-      )
-    fi
-
-    copy_license \
-      "${SOURCES_FOLDER_PATH}/${meson_src_folder_name}" \
-      "${meson_folder_name}"
-
-  )
+  else
+    echo "Component meson already installed."
+  fi
 
   tests_add "test_meson"
 }
