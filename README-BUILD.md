@@ -53,7 +53,7 @@ The build scripts are available in the `scripts` folder of the
 [`xpack-dev-tools/meson-build-xpack`](https://github.com/xpack-dev-tools/meson-build-xpack)
 Git repo.
 
-To download them, issue the following two commands:
+To download them, issue the following commands:
 
 ```sh
 rm -rf ~/Downloads/meson-build-xpack.git; \
@@ -419,7 +419,7 @@ program from there. For example on macOS the output should
 look like:
 
 ```console
-$ /Users/ilg/Downloads/xPacks/meson-build/0.57.2-1/bin/meson --version
+$ .../xpack-meson-build-0.57.2-1/bin/meson --version
 0.57.2
 ```
 
