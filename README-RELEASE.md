@@ -19,10 +19,17 @@ In the `xpack-dev-tools/meson-build-xpack` Git repo:
 
 No need to add a tag here, it'll be added when the release is created.
 
+### Check the latest upstream release
+
+Check the Meson Build GitHub [releases](https://github.com/mesonbuild/meson/releases/)
+and compare the the xPack [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/).
+Find the latest release and go 1 minor release back; the purpose is
+to find the one which looks old enought to not receive further updates.
+
 ### Increase the version
 
-Determine the version (like `0.57.2`) and update the `scripts/VERSION`
-file; the format is `0.57.2-1`. The fourth number is the xPack release number
+Determine the version (like `0.58.2`) and update the `scripts/VERSION`
+file; the format is `0.58.2-1`. The fourth number is the xPack release number
 of this version. A fifth number will be added when publishing
 the package on the `npm` server.
 
@@ -32,7 +39,7 @@ Check GitHub issues and pull requests:
 
 - <https://github.com/xpack-dev-tools/meson-build-xpack/issues/>
 
-and fix them; assign them to a milestone (like `0.57.2-1`).
+and fix them; assign them to a milestone (like `0.58.2-1`).
 
 ### Check `README.md`
 
@@ -50,8 +57,8 @@ but in the version specific release page.
 
 - open the `CHANGELOG.md` file
 - check if all previous fixed issues are in
-- add a new entry like _v0.57.2-1 prepared_
-- commit with a message like _prepare v0.57.2-1_
+- add a new entry like _- v0.58.2-1 prepared_
+- commit with a message like _prepare v0.58.2-1_
 
 Note: if you missed to update the `CHANGELOG.md` before starting the build,
 edit the file and rerun the build, it should take only a few minutes to
@@ -77,27 +84,27 @@ or the production machine (`xbbm`):
 ```sh
 sudo rm -rf ~/Work/meson-build-*
 
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --osx
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --osx
 ```
 
 Similarly on the Intel Linux (`xbbi`):
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux64 
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --linux64 
 
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --linux32 
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --linux32 
 
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --win64
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --win64
 
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --win32
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --win32
 ```
 
 And on the Arm Linux (`xbba`):
 
 ```sh
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --arm64
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --arm64
 
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --disable-tests --arm32 
+bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --arm32 
 ```
 
 Work on the scripts until all platforms pass the build.
@@ -208,35 +215,37 @@ Install the binaries on all platforms.
 On GNU/Linux systems, including Raspberry Pi, use the following commands:
 
 ```sh
-.../xpack-meson-build-0.57.2-1/bin/meson-build --version
-0.57.2
+.../xpack-meson-build-0.58.2-1/bin/meson-build --version
+0.58.2
 ```
 
 On macOS, use:
 
 ```sh
-.../xpack-meson-build-0.57.2-1/bin/meson-build --version
-0.57.2
+.../xpack-meson-build-0.58.2-1/bin/meson-build --version
+0.58.2
 ```
 
 On Windows use:
 
 ```doscon
-...\xpack-meson-build-0.57.2-1\bin\meson-build --version
-0.57.2
+...\xpack-meson-build-0.58.2-1\bin\meson-build --version
+0.58.2
 ```
 
 ## Create a new GitHub pre-release draft
 
-- in `CHANGELOG.md`, add release date
+- in `CHANGELOG.md`, add the release date and a message like _- v0.58.2-1 released_
 - commit and push the `xpack-develop` branch
 - run the xPack action `trigger-workflow-publish-release`
 
 The result is a
 [draft pre-release](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
-tagged like **v0.57.2-1** (mind the dash in the middle!) and
-named like **xPack Meson Build v0.57.2-1** (mind the dash),
+tagged like **v0.58.2-1** (mind the dash in the middle!) and
+named like **xPack Meson Build v0.58.2-1** (mind the dash),
 with all binaries attached.
+
+- edit the draft and attach it to the `xpack-develop` branch (important!)
 
 ## Prepare a new blog post
 
@@ -254,7 +263,7 @@ If any, refer to closed
 ## Update the preview Web
 
 - commit the `develop` branch of `xpack/web-jekyll` GitHub repo;
-  use a message like **xPack Meson Build v0.57.2-1 released**
+  use a message like **xPack Meson Build v0.58.2-1 released**
 - push to GitHub
 - wait for the GitHub Pages build to complete
 - the preview web is <https://xpack.github.io/web-preview/news/>
@@ -263,7 +272,10 @@ If any, refer to closed
 
 - go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
 - perform the final edits and check if everything is fine
-- save the release
+- temporarily fill in the _Continue Reading »_ with the URL of the
+  web-preview release
+- keep the pre-release button enabled
+- publish the release
 
 Note: at this moment the system should send a notification to all clients
 watching this project.
@@ -279,18 +291,18 @@ watching this project.
 - compare the SHA sums with those shown by `cat *.sha`
 - check the executable names
 - commit all changes, use a message like
-  `package.json: update urls for 0.57.2-1.1 release` (without `v`)
+  `package.json: update urls for 0.58.2-1.1 release` (without `v`)
 
 ## Publish on the npmjs.com server
 
 - select the `xpack-develop` branch
 - check the latest commits `npm run git-log`
-- update `CHANGELOG.md`; commit with a message like
-  _CHANGELOG: publish npm v0.57.2-1.1_
+- update `CHANGELOG.md`, add a line like _- v0.58.2-1.1 published on npmjs.com_
+- commit with a message like _CHANGELOG: publish npm v0.58.2-1.1_
 - `npm pack` and check the content of the archive, which should list
   only the `package.json`, the `README.md`, `LICENSE` and `CHANGELOG.md`;
   possibly adjust `.npmignore`
-- `npm version 0.57.2-1.1`; the first 5 numbers are the same as the
+- `npm version 0.58.2-1.1`; the first 5 numbers are the same as the
   GitHub release; the sixth number is the npm specific version
 - push the `xpack-develop` branch to GitHub
 - push tags with `git push origin --tags`
@@ -303,12 +315,11 @@ After a few moments the version will be visible at:
 
 ## Test if the npm binaries can be installed with xpm
 
-Run the `scripts/tests/trigger-travis-xpm-install.sh` script, this
+Run the xPack action `trigger-workflow-test-xpm`, this
 will install the package via `xpm install` on all supported platforms.
 
-The test results are available from:
-
-- <https://travis-ci.com/github/xpack-dev-tools/meson-build-xpack/>
+The tests results are available from the
+[Actions](https://github.com/xpack-dev-tools/meson-build-xpack/actions/) page.
 
 ## Update the repo
 
@@ -320,7 +331,7 @@ The test results are available from:
 When the release is considered stable, promote it as `latest`:
 
 - `npm dist-tag ls @xpack-dev-tools/meson-build`
-- `npm dist-tag add @xpack-dev-tools/meson-build@0.57.2-1.1 latest`
+- `npm dist-tag add @xpack-dev-tools/meson-build@0.58.2-1.1 latest`
 - `npm dist-tag ls @xpack-dev-tools/meson-build`
 
 ## Update the Web
@@ -335,6 +346,7 @@ When the release is considered stable, promote it as `latest`:
 - go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
 - check the download counter, it should match the number of tests
 - add a link to the Web page `[Continue reading »]()`; use an same blog URL
+- remove the _tests only_ notice
 - **disable** the **pre-release** button
 - click the **Update Release** button
 
@@ -342,7 +354,7 @@ When the release is considered stable, promote it as `latest`:
 
 - in a separate browser windows, open [TweetDeck](https://tweetdeck.twitter.com/)
 - using the `@xpack_project` account
-- paste the release name like **xPack Meson Build v0.57.2-1 released**
+- paste the release name like **xPack Meson Build v0.58.2-1 released**
 - paste the link to the Web page
   [release](https://xpack.github.io/meson-build/releases/)
 - click the **Tweet** button
