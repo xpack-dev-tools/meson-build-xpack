@@ -34,7 +34,13 @@ function build_versions()
       # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 
       PYTHON3_VERSION="3.9.7" # "3.8.12"
-    
+      if [ ! -f "${BUILD_GIT_PATH}/extras/includes/pyconfig-win-${PYTHON3_VERSION}.h" ]
+      then
+        echo
+        echo "Missing extras/includes/pyconfig-win-${PYTHON3_VERSION}.h"
+        exit 1
+      fi
+
       if [ "${TARGET_PLATFORM}" == "win32" ]
       then
         # Shortcut, use the existing pyton.exe instead of building
