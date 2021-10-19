@@ -286,9 +286,22 @@ function move_pyc()
 
 function test_meson()
 {
-  time run_app "${APP_PREFIX}/bin/meson" --version
+  echo
+  echo "Running the binaries..."
 
-  run_app "${APP_PREFIX}/bin/meson" --help
+  if [ -d "xpacks/.bin" ]
+  then
+    TEST_PREFIX="$(pwd)/xpacks/.bin"
+  elif [ -d "${APP_PREFIX}/bin" ]
+  then
+    TEST_PREFIX="${APP_PREFIX}/bin"
+  else
+    echo "Wrong folder."
+    exit 1
+  fi
+  time run_app "${TEST_PREFIX}/meson" --version
+
+  run_app "${TEST_PREFIX}/meson" --help
   # TODO: Add a minimal test.
 }
 
