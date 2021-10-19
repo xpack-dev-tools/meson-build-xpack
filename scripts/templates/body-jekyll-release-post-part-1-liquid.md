@@ -8,7 +8,11 @@ summary: "Version {{ RELEASE_VERSION }} is a maintenance release; it fixes <...>
 summary: "Version {{ RELEASE_VERSION }} is a new release; it follows the upstream release."
 
 version: {{ RELEASE_VERSION }}
+upstream_version: 0.58.2
+upstream_release_date: "Jul 20th, 2021"
 npm_subversion: 1
+python_version: 3.9
+python_subversion: 7
 download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v{{ RELEASE_VERSION }}/
 
 date:   {{ RELEASE_DATE }}
@@ -120,9 +124,9 @@ The current version is based on:
 
 TODO: update commit id and date.
 
-- Meson Build release 0.11.0
-[<xxxxxxx>](https://github.com/mesonbuild/meson/releases/tag/<xxxxxxxxxxxxx>)
-from <ddddddddd>.
+- Meson Build release
+[{% raw %}{{ page.upstream_version }}{% endraw %}](https://github.com/mesonbuild/meson/releases/tag/{% raw %}{{ page.upstream_version }}{% endraw %})
+from {% raw %}{{ page.upstream_release_date }}{% endraw %}.
 
 ## Changes
 
@@ -142,8 +146,8 @@ Compared to the upstream version, there are no functional changes.
 
 ## Embedded Python
 
-To simplify dependency management, this release embeds a Python
-3.8.6 instance.
+To simplify dependency management, this release embeds a **Python
+{% raw %}{{ page.python_version }}.{{ page.python_subversion }}{% endraw %}** instance.
 
 The `meson` executable is a standard ELF/EXE which includes the Python
 run-time; the `main()` function prepares the Python environment and then
@@ -156,12 +160,12 @@ invokes the Meson main:
 
 The Python library is located in the standard location:
 
-- `lib/python3.8`
-- `lib/python3.8/lib-dynload` (the platform dependent files)
+- `lib/python{% raw %}{{ page.python_version }}{% endraw %}`
+- `lib/python{% raw %}{{ page.python_version }}{% endraw %}/lib-dynload` (the platform dependent files)
 
 The Meson files are located in:
 
-- `lib/python3.8/mesonbuild`
+- `lib/python{% raw %}{{ page.python_version }}{% endraw %}/mesonbuild`
 
 To speed up execution, all Python files are compiled and are
 available only as `.pyc`.
