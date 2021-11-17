@@ -291,17 +291,17 @@ function test_meson()
 
   if [ -d "xpacks/.bin" ]
   then
-    TEST_PREFIX="$(pwd)/xpacks/.bin"
+    TEST_BIN_PATH="$(pwd)/xpacks/.bin"
   elif [ -d "${APP_PREFIX}/bin" ]
   then
-    TEST_PREFIX="${APP_PREFIX}/bin"
+    TEST_BIN_PATH="${APP_PREFIX}/bin"
   else
     echo "Wrong folder."
     exit 1
   fi
-  time run_app "${TEST_PREFIX}/meson" --version
+  time run_app "${TEST_BIN_PATH}/meson" --version
 
-  run_app "${TEST_PREFIX}/meson" --help
+  run_app "${TEST_BIN_PATH}/meson" --help
   # TODO: Add a minimal test.
 }
 
