@@ -21,10 +21,12 @@ No need to add a tag here, it'll be added when the release is created.
 
 ### Check the latest upstream release
 
-Check the Meson Build GitHub [releases](https://github.com/mesonbuild/meson/releases/)
-and compare the the xPack [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/).
-Find the latest release and go 1 minor release back; the purpose is
+Check the Meson Build GitHub [Releases](https://github.com/mesonbuild/meson/releases/)
+and compare the the xPack [Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/).
+Find the latest upstream release and go 1 minor release back; the purpose is
 to find the one which looks old enought to not receive further updates.
+Generally, based on past release schedule, when a 0.X.2 is released, the
+previous minor is probably no longer updated and can be released.
 
 ### Increase the version
 
@@ -139,7 +141,7 @@ Check that both the project Git and the submodule are pushed to GitHub.
 
 To trigger the GitHub Actions build, use the xPack action:
 
-- `trigger-workflow-build`
+- `trigger-workflow-build-all`
 
 This is equivalent to:
 
@@ -180,7 +182,7 @@ bash ~/Downloads/meson-build-xpack.git/scripts/helper/tests/trigger-workflow-tes
 bash ~/Downloads/meson-build-xpack.git/scripts/helper/tests/trigger-workflow-test-docker-linux-arm.sh
 ```
 
-These scripts require the `GITHUB_API_DISPATCH_TOKEN` to be present
+These scripts require the `GITHUB_API_DISPATCH_TOKEN` variable to be present
 in the environment.
 
 These actions use the `xpack-develop` branch of this repo and the
@@ -203,7 +205,8 @@ This is equivalent to:
 bash ~/Downloads/meson-build-xpack.git/scripts/helper/tests/trigger-travis-macos.sh
 ```
 
-This script requires the `TRAVIS_COM_TOKEN` to be present in the environment.
+This script requires the `TRAVIS_COM_TOKEN` variable to be present
+in the environment.
 
 The test results are available from
 [travis-ci.com](https://app.travis-ci.com/github/xpack-dev-tools/meson-build-xpack/builds/).
@@ -212,14 +215,7 @@ The test results are available from
 
 Install the binaries on all platforms.
 
-On GNU/Linux systems, including Raspberry Pi, use the following commands:
-
-```sh
-.../xpack-meson-build-0.58.2-1/bin/meson-build --version
-0.58.2
-```
-
-On macOS, use:
+On GNU/Linux and macOS systems, use:
 
 ```sh
 .../xpack-meson-build-0.58.2-1/bin/meson-build --version
@@ -246,6 +242,7 @@ named like **xPack Meson Build v0.58.2-1** (mind the dash),
 with all binaries attached.
 
 - edit the draft and attach it to the `xpack-develop` branch (important!)
+- save the draft (do **not** publish yet!)
 
 ## Prepare a new blog post
 
@@ -270,7 +267,7 @@ If any, refer to closed
 
 ## Create the pre-release
 
-- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
+- go to the GitHub [Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
 - perform the final edits and check if everything is fine
 - temporarily fill in the _Continue Reading »_ with the URL of the
   web-preview release
@@ -334,6 +331,10 @@ When the release is considered stable, promote it as `latest`:
 - `npm dist-tag add @xpack-dev-tools/meson-build@0.58.2-1.1 latest`
 - `npm dist-tag ls @xpack-dev-tools/meson-build`
 
+In case the previous version is not functional and needs to be unpublished:
+
+- `npm unpublish @xpack-dev-tools/meson-build@0.58.2-1.X`
+
 ## Update the Web
 
 - in the `master` branch, merge the `develop` branch
@@ -343,7 +344,7 @@ When the release is considered stable, promote it as `latest`:
 
 ## Create the final GitHub release
 
-- go to the GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
+- go to the GitHub [Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/) page
 - check the download counter, it should match the number of tests
 - add a link to the Web page `[Continue reading »]()`; use an same blog URL
 - remove the _tests only_ notice

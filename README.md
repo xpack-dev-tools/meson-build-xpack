@@ -3,7 +3,7 @@
 
 # The xPack Meson Build
 
-A standalone cross-platform (Windows/macOS/Linux) Meson Build
+A standalone cross-platform (Windows/macOS/Linux) **Meson Build**
 binary distribution, intended for reproducible builds.
 
 In addition to the the binary archives and the package meta data,
@@ -108,7 +108,7 @@ binaries are released as portable
 archives that can be installed in any location.
 
 The archives can be downloaded from the
-GitHub [releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
+GitHub [Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
 page.
 
 For more details please read the
@@ -117,15 +117,15 @@ For more details please read the
 ### Version information
 
 The version strings used by the Meson project are three number string
-like `0.55.3`; to this string the xPack distribution adds a four number,
+like `0.58.2`; to this string the xPack distribution adds a four number,
 but since semver allows only three numbers, all additional ones can
 be added only as pre-release strings, separated by a dash,
-like `0.55.3-1`. When published as a npm package, the version gets
-a fifth number, like `0.55.3-1.1`.
+like `0.58.2-1`. When published as a npm package, the version gets
+a fifth number, like `0.58.2-1.1`.
 
 Since adherance of third party packages to semver is not guaranteed,
-it is recommended to use semver expressions like `^0.55.3` and `~0.55.3`
-with caution, and prefer exact matches, like `0.55.3-1.1`.
+it is recommended to use semver expressions like `^0.58.2` and `~0.58.2`
+with caution, and prefer exact matches, like `0.58.2-1.1`.
 
 ## Maintainer info
 
