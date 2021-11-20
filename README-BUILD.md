@@ -105,7 +105,7 @@ not be accepted by bash.
 
 ## Versioning
 
-The version string is an extension to semver, the format looks like `0.58.2-1`.
+The version string is an extension to semver, the format looks like `0.58.2-2`.
 It includes the three digits with the original Meson version (0.58.2), a fourth
 digit with the xPack release number.
 
@@ -211,14 +211,14 @@ archives and their SHA signatures, created in the `deploy` folder:
 ```console
 $ cd ~/Work/meson-build-*/deploy
 total 72744
--rw-rw-r-- 1 ilg ilg 18083731 Oct 16 20:04 xpack-meson-build-0.58.2-1-linux-x32.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Oct 16 20:04 xpack-meson-build-0.58.2-1-linux-x32.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 17885078 Oct 16 19:56 xpack-meson-build-0.58.2-1-linux-x64.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Oct 16 19:56 xpack-meson-build-0.58.2-1-linux-x64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 18748719 Oct 16 20:04 xpack-meson-build-0.58.2-1-win32-x32.zip
--rw-rw-r-- 1 ilg ilg      107 Oct 16 20:04 xpack-meson-build-0.58.2-1-win32-x32.zip.sha
--rw-rw-r-- 1 ilg ilg 19749186 Oct 16 19:56 xpack-meson-build-0.58.2-1-win32-x64.zip
--rw-rw-r-- 1 ilg ilg      107 Oct 16 19:56 xpack-meson-build-0.58.2-1-win32-x64.zip.sha
+-rw-rw-r-- 1 ilg ilg 18083731 Oct 16 20:04 xpack-meson-build-0.58.2-2-linux-x32.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Oct 16 20:04 xpack-meson-build-0.58.2-2-linux-x32.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 17885078 Oct 16 19:56 xpack-meson-build-0.58.2-2-linux-x64.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Oct 16 19:56 xpack-meson-build-0.58.2-2-linux-x64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 18748719 Oct 16 20:04 xpack-meson-build-0.58.2-2-win32-x32.zip
+-rw-rw-r-- 1 ilg ilg      107 Oct 16 20:04 xpack-meson-build-0.58.2-2-win32-x32.zip.sha
+-rw-rw-r-- 1 ilg ilg 19749186 Oct 16 19:56 xpack-meson-build-0.58.2-2-win32-x64.zip
+-rw-rw-r-- 1 ilg ilg      107 Oct 16 19:56 xpack-meson-build-0.58.2-2-win32-x64.zip.sha
 ```
 
 ### Build the Arm GNU/Linux binaries
@@ -285,10 +285,10 @@ archives and their SHA signatures, created in the `deploy` folder:
 ```console
 $ cd ~/Work/meson-build-*/deploy
 total 34452
--rw-rw-r-- 1 ilg ilg 17846357 Oct 16 17:21 xpack-meson-build-0.58.2-1-linux-arm64.tar.gz
--rw-rw-r-- 1 ilg ilg      112 Oct 16 17:21 xpack-meson-build-0.58.2-1-linux-arm64.tar.gz.sha
--rw-rw-r-- 1 ilg ilg 17417308 Oct 16 18:11 xpack-meson-build-0.58.2-1-linux-arm.tar.gz
--rw-rw-r-- 1 ilg ilg      110 Oct 16 18:11 xpack-meson-build-0.58.2-1-linux-arm.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 17846357 Oct 16 17:21 xpack-meson-build-0.58.2-2-linux-arm64.tar.gz
+-rw-rw-r-- 1 ilg ilg      112 Oct 16 17:21 xpack-meson-build-0.58.2-2-linux-arm64.tar.gz.sha
+-rw-rw-r-- 1 ilg ilg 17417308 Oct 16 18:11 xpack-meson-build-0.58.2-2-linux-arm.tar.gz
+-rw-rw-r-- 1 ilg ilg      110 Oct 16 18:11 xpack-meson-build-0.58.2-2-linux-arm.tar.gz.sha
 ```
 
 ### Build the macOS binaries
@@ -327,8 +327,8 @@ archive and its SHA signature, created in the `deploy` folder:
 ```console
 $ cd ~/Work/meson-build-*/deploy
 total 33680
--rw-r--r--  1 ilg  staff  17239748 Oct 16 20:02 xpack-meson-build-0.58.2-1-darwin-x64.tar.gz
--rw-r--r--  1 ilg  staff       111 Oct 16 20:02 xpack-meson-build-0.58.2-1-darwin-x64.tar.gz.sha
+-rw-r--r--  1 ilg  staff  17239748 Oct 16 20:02 xpack-meson-build-0.58.2-2-darwin-x64.tar.gz
+-rw-r--r--  1 ilg  staff       111 Oct 16 20:02 xpack-meson-build-0.58.2-2-darwin-x64.tar.gz.sha
 ```
 
 ## Subsequent runs
@@ -417,7 +417,7 @@ program from there. For example on macOS the output should
 look like:
 
 ```console
-$ .../xpack-meson-build-0.58.2-1/bin/meson --version
+$ .../xpack-meson-build-0.58.2-2/bin/meson --version
 0.58.2
 ```
 
@@ -427,8 +427,8 @@ After install, the package should create a structure like this (macOS files;
 only the first two depth levels are shown):
 
 ```console
-$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.58.2-1.1/.content/
-/Users/ilg/Library/xPacks/@xpack-dev-tools/meson-build/0.58.2-1.1/.content/
+$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.58.2-2.1/.content/
+/Users/ilg/Library/xPacks/@xpack-dev-tools/meson-build/0.58.2-2.1/.content/
 ├── README.md
 ├── bin
 │   └── meson
