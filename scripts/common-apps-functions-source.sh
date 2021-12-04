@@ -213,7 +213,7 @@ function build_meson()
             cp -r "${LIBS_INSTALL_FOLDER_PATH}/lib/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"/lib-dynload/* \
               "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
           fi
-        )
+        ) 2>&1 | tee "${LOGS_FOLDER_PATH}/${meson_folder_name}/build-output-$(ndate).txt"
       fi
 
       copy_license \
