@@ -49,7 +49,7 @@ function build_meson()
       "${meson_src_folder_name}"
   )
 
-  local meson_stamp_file_path="${INSTALL_FOLDER_PATH}/stamp-meson-installed"
+  local meson_stamp_file_path="${INSTALL_FOLDER_PATH}/stamp-${meson_folder_name}-installed"
   if [ ! -f "${meson_stamp_file_path}" ]
   then
     (
