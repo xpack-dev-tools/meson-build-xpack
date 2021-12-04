@@ -3,12 +3,12 @@
 #   (https://xpack.github.io)
 # Copyright (c) 2020 Liviu Ionescu.
 #
-# Permission to use, copy, modify, and/or distribute this software 
+# Permission to use, copy, modify, and/or distribute this software
 # for any purpose is hereby granted, under the terms of the MIT license.
 # -----------------------------------------------------------------------------
 
-# Helper script used in the second edition of the xPack build 
-# scripts. As the name implies, it should contain only functions and 
+# Helper script used in the second edition of the xPack build
+# scripts. As the name implies, it should contain only functions and
 # should be included with 'source' by the container build scripts.
 
 # -----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ function build_meson()
     # When extracting on macOS, tar reports an error related to the symlink,
     # but the extracted content seems fine.
     # tar: meson-0.55.1/test cases/common/227 fs module/a_symlink: Cannot utime: No such file or directory
-  
+
     download_and_extract "${meson_url}" "${meson_archive_file_name}" \
       "${meson_src_folder_name}"
   )
@@ -65,12 +65,12 @@ function build_meson()
         exe=".exe"
       fi
 
-      # gcc-xbb -pthread 
+      # gcc-xbb -pthread
       # -L/Host/Users/ilg/Work/meson-build-0.55.1-1/linux-x64/install/libs/lib64
-      # -L/Host/Users/ilg/Work/meson-build-0.55.1-1/linux-x64/install/libs/lib  
-      # -O2 -Wl,--gc-sections -fno-semantic-interposition -v   
-      # -Xlinker -export-dynamic -o python.exe Programs/python.o libpython3.8.a 
-      # -lcrypt -lpthread -ldl  -lutil -lrt -lm   -lm 
+      # -L/Host/Users/ilg/Work/meson-build-0.55.1-1/linux-x64/install/libs/lib
+      # -O2 -Wl,--gc-sections -fno-semantic-interposition -v
+      # -Xlinker -export-dynamic -o python.exe Programs/python.o libpython3.8.a
+      # -lcrypt -lpthread -ldl  -lutil -lrt -lm   -lm
 
       if [ "${TARGET_PLATFORM}" == "win32" ]
       then
@@ -143,11 +143,10 @@ function build_meson()
 
       run_verbose make meson${DOT_EXE} V=1
 
-      mkdir -pv "${APP_PREFIX}/bin"    
+      mkdir -pv "${APP_PREFIX}/bin"
       install -v -m755 -c meson${DOT_EXE} "${APP_PREFIX}/bin"
 
       show_libs "${APP_PREFIX}/bin/meson"
-      # prepare_app_libraries "${APP_PREFIX}/bin/meson"
 
       local python_with_version="python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"
       if [ ! -d "${APP_PREFIX}/lib/${python_with_version}/" ]
@@ -213,13 +212,6 @@ function build_meson()
             # Copy dynamically loaded modules and rename folder.
             cp -r "${LIBS_INSTALL_FOLDER_PATH}/lib/python${PYTHON3_VERSION_MAJOR}.${PYTHON3_VERSION_MINOR}"/lib-dynload/* \
               "${APP_PREFIX}/lib/${python_with_version}/lib-dynload/"
-
-            echo "Preparing Python shared libraries..."
-            # on macOS the libraries use .so too.
-            for file_path in "${APP_PREFIX}/lib/${python_with_version}"/lib-dynload/*.so
-            do
-              : # prepare_app_libraries "${file_path}"
-            done
           fi
         )
       fi
@@ -251,7 +243,7 @@ function process_pyc()
 
   # echo "${folder_path}" "${file_name}"
 
-  if [ -f "${folder_path}/${file_name}.py" ] 
+  if [ -f "${folder_path}/${file_name}.py" ]
   then
     mv "${file_path}" "${folder_path}/${file_name}.pyc"
     rm "${folder_path}/${file_name}.py"
