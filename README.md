@@ -95,7 +95,7 @@ cd my-project
 xpm uninstall @xpack-dev-tools/meson-build
 ```
 
-To completely remove the package from the global store: 
+To completely remove the package from the global store:
 
 ```sh
 xpm uninstall --global @xpack-dev-tools/meson-build
@@ -117,15 +117,15 @@ For more details please read the
 ### Version information
 
 The version strings used by the Meson project are three number string
-like `0.58.2`; to this string the xPack distribution adds a four number,
+like `0.59.4`; to this string the xPack distribution adds a four number,
 but since semver allows only three numbers, all additional ones can
 be added only as pre-release strings, separated by a dash,
-like `0.58.2-2`. When published as a npm package, the version gets
-a fifth number, like `0.58.2-2.1`.
+like `0.59.4-1`. When published as a npm package, the version gets
+a fifth number, like `0.59.4-1.1`.
 
 Since adherance of third party packages to semver is not guaranteed,
-it is recommended to use semver expressions like `^0.58.2` and `~0.58.2`
-with caution, and prefer exact matches, like `0.58.2-2.1`.
+it is recommended to use semver expressions like `^0.59.4` and `~0.59.4`
+with caution, and prefer exact matches, like `0.59.4-1.1`.
 
 ## Maintainer info
 
