@@ -307,14 +307,14 @@ To build the latest macOS version:
 screen -S meson
 
 rm -rf ~/Work/meson-build-*
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --osx
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --macos
 ```
 
 or, for development builds:
 
 ```sh
 rm -rf ~/Work/meson-build-*
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --without-html --disable-tests --osx
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --without-html --disable-tests --macos
 ```
 
 To detach from the session, use `Ctrl-a` `Ctrl-d`; to reattach use

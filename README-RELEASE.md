@@ -86,7 +86,7 @@ or the production machine (`xbbmi`):
 ```sh
 sudo rm -rf ~/Work/meson-build-*
 
-caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --osx
+caffeinate bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --macos
 ```
 
 Similarly on the Intel Linux (`xbbli`):
