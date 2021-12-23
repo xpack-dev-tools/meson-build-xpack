@@ -25,8 +25,8 @@ Check the Meson Build GitHub [Releases](https://github.com/mesonbuild/meson/rele
 and compare the the xPack [Releases](https://github.com/xpack-dev-tools/meson-build-xpack/releases/).
 Find the latest upstream release and go 1 minor release back; the purpose is
 to find the one which looks old enought to not receive further updates.
-Generally, based on past release schedule, when a 0.X.2 is released, the
-previous minor is probably no longer updated and can be released.
+Generally, based on past release schedule, when a 0.X.3 is released, the
+previous 0.X-1.Y is probably no longer updated and can be released.
 
 ### Increase the version
 
