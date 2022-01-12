@@ -1,5 +1,5 @@
 ---
-title:  xPack Meson Build {{ RELEASE_VERSION }} released
+title:  xPack Meson Build v{{ RELEASE_VERSION }} released
 
 TODO: select one summary
 
