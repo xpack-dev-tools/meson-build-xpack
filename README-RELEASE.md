@@ -94,11 +94,10 @@ Similarly on the Intel Linux (`xbbli`):
 ```sh
 bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --linux64
 
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --linux32
+
 
 bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --win64
 
-bash ~/Downloads/meson-build-xpack.git/scripts/helper/build.sh --develop --win32
 ```
 
 And on the Arm Linux (`xbbla`):
