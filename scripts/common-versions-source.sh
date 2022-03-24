@@ -60,7 +60,7 @@ function build_versions()
         build_libxcrypt "4.4.26" # "4.4.17"
         build_openssl "1.1.1l" # "1.1.1h"
 
-        # export NCURSES_DISABLE_WIDEC="y"
+        export NCURSES_DISABLE_WIDEC="y"
         build_ncurses "6.3"
 
         build_readline "8.1" # "8.0" # ncurses
