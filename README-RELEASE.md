@@ -26,12 +26,12 @@ and compare the the xPack [Releases](https://github.com/xpack-dev-tools/meson-bu
 Find the latest upstream release and go 1 minor release back; the purpose is
 to find the one which looks old enought to not receive further updates.
 Generally, based on past release schedule, when a 0.X.3 is released, the
-previous 0.X-1.Y is probably no longer updated and can be released.
+previous 0.(X-1).Y is probably no longer updated and can be released.
 
 ### Increase the version
 
-Determine the version (like `0.59.4`) and update the `scripts/VERSION`
-file; the format is `0.59.4-1`. The fourth number is the xPack release number
+Determine the version (like `0.60.3`) and update the `scripts/VERSION`
+file; the format is `0.60.3-1`. The fourth number is the xPack release number
 of this version. A fifth number will be added when publishing
 the package on the `npm` server.
 
@@ -41,7 +41,7 @@ Check GitHub issues and pull requests:
 
 - <https://github.com/xpack-dev-tools/meson-build-xpack/issues/>
 
-and fix them; assign them to a milestone (like `0.59.4-1`).
+and fix them; assign them to a milestone (like `0.60.3-1`).
 
 ### Check `README.md`
 
@@ -59,8 +59,8 @@ but in the version specific release page.
 
 - open the `CHANGELOG.md` file
 - check if all previous fixed issues are in
-- add a new entry like _- v0.59.4-1 prepared_
-- commit with a message like _prepare v0.59.4-1_
+- add a new entry like _- v0.60.3-1 prepared_
+- commit with a message like _prepare v0.60.3-1_
 
 Note: if you missed to update the `CHANGELOG.md` before starting the build,
 edit the file and rerun the build, it should take only a few minutes to
@@ -84,7 +84,7 @@ Before the real build, run a test build on the development machine (`wks`)
 or the production machines (`xbbma`, `xbbmi`):
 
 ```sh
-sudo rm -rf ~/Work/meson-build-*
+sudo rm -rf ~/Work/meson-build-0.60.3-1-*
 
 caffeinate bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --macos
 ```
@@ -93,8 +93,6 @@ Similarly on the Intel Linux (`xbbli`):
 
 ```sh
 bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --linux64
-
-
 
 bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --win64
 
@@ -217,27 +215,27 @@ Install the binaries on all platforms.
 On GNU/Linux and macOS systems, use:
 
 ```sh
-.../xpack-meson-build-0.59.4-1/bin/meson-build --version
-0.59.4
+.../xpack-meson-build-0.60.3-1/bin/meson-build --version
+0.60.3
 ```
 
 On Windows use:
 
 ```doscon
-...\xpack-meson-build-0.59.4-1\bin\meson-build --version
-0.59.4
+...\xpack-meson-build-0.60.3-1\bin\meson-build --version
+0.60.3
 ```
 
 ## Create a new GitHub pre-release draft
 
-- in `CHANGELOG.md`, add the release date and a message like _- v0.59.4-1 released_
+- in `CHANGELOG.md`, add the release date and a message like _- v0.60.3-1 released_
 - commit and push the `xpack-develop` branch
 - run the xPack action `trigger-workflow-publish-release`
 
 The result is a
 [draft pre-release](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
-tagged like **v0.59.4-1** (mind the dash in the middle!) and
-named like **xPack Meson Build v0.59.4-1** (mind the dash),
+tagged like **v0.60.3-1** (mind the dash in the middle!) and
+named like **xPack Meson Build v0.60.3-1** (mind the dash),
 with all binaries attached.
 
 - edit the draft and attach it to the `xpack-develop` branch (important!)
@@ -259,7 +257,7 @@ If any, refer to closed
 ## Update the preview Web
 
 - commit the `develop` branch of `xpack/web-jekyll` GitHub repo;
-  use a message like **xPack Meson Build v0.59.4-1 released**
+  use a message like **xPack Meson Build v0.60.3-1 released**
 - push to GitHub
 - wait for the GitHub Pages build to complete
 - the preview web is <https://xpack.github.io/web-preview/news/>
@@ -288,18 +286,18 @@ watching this project.
 - compare the SHA sums with those shown by `cat *.sha`
 - check the executable names
 - commit all changes, use a message like
-  `package.json: update urls for 0.59.4-1.1 release` (without `v`)
+  `package.json: update urls for 0.60.3-1.1 release` (without `v`)
 
 ## Publish on the npmjs.com server
 
 - select the `xpack-develop` branch
 - check the latest commits `npm run git-log`
-- update `CHANGELOG.md`, add a line like _- v0.59.4-1.1 published on npmjs.com_
-- commit with a message like _CHANGELOG: publish npm v0.59.4-1.1_
+- update `CHANGELOG.md`, add a line like _- v0.60.3-1.1 published on npmjs.com_
+- commit with a message like _CHANGELOG: publish npm v0.60.3-1.1_
 - `npm pack` and check the content of the archive, which should list
   only the `package.json`, the `README.md`, `LICENSE` and `CHANGELOG.md`;
   possibly adjust `.npmignore`
-- `npm version 0.59.4-1.1`; the first 5 numbers are the same as the
+- `npm version 0.60.3-1.1`; the first 5 numbers are the same as the
   GitHub release; the sixth number is the npm specific version
 - the commits and the tag should have beed pushed by the `postversion` script;
   if not, push them with `git push origin --tags`
@@ -328,12 +326,12 @@ The tests results are available from the
 When the release is considered stable, promote it as `latest`:
 
 - `npm dist-tag ls @xpack-dev-tools/meson-build`
-- `npm dist-tag add @xpack-dev-tools/meson-build@0.59.4-1.1 latest`
+- `npm dist-tag add @xpack-dev-tools/meson-build@0.60.3-1.1 latest`
 - `npm dist-tag ls @xpack-dev-tools/meson-build`
 
 In case the previous version is not functional and needs to be unpublished:
 
-- `npm unpublish @xpack-dev-tools/meson-build@0.59.4-1.X`
+- `npm unpublish @xpack-dev-tools/meson-build@0.60.3-1.X`
 
 ## Update the Web
 
@@ -355,7 +353,7 @@ In case the previous version is not functional and needs to be unpublished:
 
 - in a separate browser windows, open [TweetDeck](https://tweetdeck.twitter.com/)
 - using the `@xpack_project` account
-- paste the release name like **xPack Meson Build v0.59.4-1 released**
+- paste the release name like **xPack Meson Build v0.60.3-1 released**
 - paste the link to the Web page
   [release](https://xpack.github.io/meson-build/releases/)
 - click the **Tweet** button
