@@ -33,7 +33,7 @@ function build_versions()
       # https://www.python.org/ftp/python/
       # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 
-      PYTHON3_VERSION="3.9.7" # "3.8.12"
+      PYTHON3_VERSION="3.10.4"
       if [ ! -f "${BUILD_GIT_PATH}/extras/includes/pyconfig-win-${PYTHON3_VERSION}.h" ]
       then
         echo
@@ -60,12 +60,27 @@ function build_versions()
         build_libxcrypt "4.4.26" # "4.4.17"
         build_openssl "1.1.1l" # "1.1.1h"
 
+        # export NCURSES_DISABLE_WIDEC="y"
         build_ncurses "6.3"
+
         build_readline "8.1" # "8.0" # ncurses
 
         build_sqlite "3360000" # "3.32.3"
 
-        build_python3 "${PYTHON3_VERSION}"
+        PYTHON3_VERSION_MAJOR=$(echo ${PYTHON3_VERSION} | sed -e 's|\([0-9]\)\..*|\1|')
+        PYTHON3_VERSION_MINOR=$(echo ${PYTHON3_VERSION} | sed -e 's|\([0-9]\)\.\([0-9][0-9]*\)\..*|\2|')
+        PYTHON3_VERSION_MAJOR_MINOR=${PYTHON3_VERSION_MAJOR}${PYTHON3_VERSION_MINOR}
+
+        PYTHON3_SRC_FOLDER_NAME="Python-${PYTHON3_VERSION}"
+
+        (
+          if [ "${TARGET_PLATFORM}" == "darwin" ]
+          then
+            prepare_clang_env ""
+          fi
+
+          build_python3 "${PYTHON3_VERSION}"
+        )
       fi
 
       build_meson "${MESON_VERSION}"
