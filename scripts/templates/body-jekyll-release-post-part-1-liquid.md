@@ -8,11 +8,11 @@ summary: "Version **{{ RELEASE_VERSION }}** is a maintenance release; it fixes <
 summary: "Version **{{ RELEASE_VERSION }}** is a new release; it follows the upstream release."
 
 version: {{ RELEASE_VERSION }}
-upstream_version: 0.58.2
-upstream_release_date: "Jul 20th, 2021"
-npm_subversion: 1
-python_version: 3.9
-python_subversion: 7
+upstream_version: "0.58.2"
+upstream_release_date: "Dec 22nd, 2021"
+npm_subversion: "1"
+python_version: "3.10"
+python_subversion: "4"
 download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v{{ RELEASE_VERSION }}/
 
 date:   {{ RELEASE_DATE }}
