@@ -33,6 +33,8 @@ function build_versions()
       # https://www.python.org/ftp/python/
       # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 
+      # For the latest stable see:
+      # https://www.python.org/downloads/
       PYTHON3_VERSION="3.10.4"
       if [ ! -f "${BUILD_GIT_PATH}/extras/includes/pyconfig-win-${PYTHON3_VERSION}.h" ]
       then
