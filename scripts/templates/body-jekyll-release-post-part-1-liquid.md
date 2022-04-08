@@ -7,7 +7,7 @@ summary: "Version **{{ RELEASE_VERSION }}** is a maintenance release; it fixes <
 
 summary: "Version **{{ RELEASE_VERSION }}** is a new release; it follows the upstream release."
 
-version: {{ RELEASE_VERSION }}
+version: "{{ RELEASE_VERSION }}"
 upstream_version: "0.58.2"
 upstream_release_date: "Dec 22nd, 2021"
 npm_subversion: "1"
