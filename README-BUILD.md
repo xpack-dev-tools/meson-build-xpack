@@ -190,14 +190,14 @@ network connection or a computer entering sleep.
 ```sh
 screen -S meson
 
-sudo rm -rf ~/Work/meson-build-*
+sudo rm -rf ~/Work/meson-build-*-*
 bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --all
 ```
 
 or, for development builds:
 
 ```sh
-sudo rm -rf ~/Work/meson-build-*
+sudo rm -rf ~/Work/meson-build-*-*
 bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --without-html --disable-tests --linux64 --win64
 ```
 
@@ -261,14 +261,14 @@ network connection or a computer entering sleep.
 ```sh
 screen -S meson
 
-sudo rm -rf ~/Work/meson-build-*
+sudo rm -rf ~/Work/meson-build-*-*
 bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --all
 ```
 
 or, for development builds:
 
 ```sh
-sudo rm -rf ~/Work/meson-build-*
+sudo rm -rf ~/Work/meson-build-*-*
 bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --without-html --disable-tests --arm32 --arm64
 ```
 
@@ -307,14 +307,14 @@ To build the latest macOS version:
 ```sh
 screen -S meson
 
-rm -rf ~/Work/meson-build-*
+rm -rf ~/Work/meson-build-*-*
 caffeinate bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --macos
 ```
 
 or, for development builds:
 
 ```sh
-rm -rf ~/Work/meson-build-*
+rm -rf ~/Work/meson-build-*-*
 caffeinate bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --without-pdf --without-html --disable-tests --macos
 ```
 
@@ -374,7 +374,7 @@ will remove the more specific folders.
 For production builds it is recommended to **completely remove the build folder**:
 
 ```sh
-rm -rf ~/Work/meson-build-*
+rm -rf ~/Work/meson-build-*-*
 ```
 
 ### `--develop`
