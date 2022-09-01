@@ -169,11 +169,11 @@ This command uses the `xpack-develop` branch of this repo.
 
 The builds take about 75 minutes to complete:
 
-- `xbbmi`: ? min
-- `xbbma`: ? min
-- `xbbli`: ? min (Windows included)
-- `xbbla64`: ? min
-- `xbbla32`: ? min
+- `xbbmi`: 0h14
+- `xbbma`: 0h08
+- `xbbli`: 0h08 (Windows included)
+- `xbbla64`: 0h29
+- `xbbla32`: 0h48
 
 The workflow result and logs are available from the
 [Actions](https://github.com/xpack-dev-tools/meson-build-xpack/actions/) page.
