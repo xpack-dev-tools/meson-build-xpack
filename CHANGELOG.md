@@ -4,7 +4,7 @@ Entries in this file are in reverse chronological order.
 
 ## 2022-09-01
 
-- v0.61.5-1 prepared
+- v0.61.5-1 released
 
 ## 2022-03-24
 
