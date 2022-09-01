@@ -8,5 +8,32 @@
   "spellright.language": [
     "en_GB"
   ],
-  "spellright.notificationClass": "warning"
+  "spellright.notificationClass": "warning",
+  "cSpell.ignoreWords": [
+    "Ionescu",
+    "Liviu",
+    "RPATH",
+    "Somsubhra",
+    "UCRT",
+    "aarch",
+    "armv",
+    "caffeinate",
+    "dynload",
+    "endraw",
+    "libexec",
+    "mesonbuild",
+    "mesonmain",
+    "npmignore",
+    "npmjs",
+    "postversion",
+    "readelf",
+    "runpath",
+    "wksi",
+    "xbbla",
+    "xbbli",
+    "xbbma",
+    "xbbmi",
+    "xpack",
+    "xpacks"
+  ]
 }
