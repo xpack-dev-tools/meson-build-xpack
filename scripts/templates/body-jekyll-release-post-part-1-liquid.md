@@ -8,11 +8,11 @@ summary: "Version **{{ RELEASE_VERSION }}** is a maintenance release; it fixes <
 summary: "Version **{{ RELEASE_VERSION }}** is a new release; it follows the upstream release."
 
 version: "{{ RELEASE_VERSION }}"
-upstream_version: "0.58.2"
-upstream_release_date: "Dec 22nd, 2021"
+upstream_version: "0.61.5"
+upstream_release_date: "13 Aug 2022"
 npm_subversion: "1"
 python_version: "3.10"
-python_subversion: "4"
+python_subversion: "6"
 download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v{{ RELEASE_VERSION }}/
 
 date:   {{ RELEASE_DATE }}
@@ -124,8 +124,6 @@ The xPack Meson Build generally follows the official
 [Meson Build](http://mesonbuild.org) releases.
 
 The current version is based on:
-
-TODO: update commit id and date.
 
 - Meson Build release
 [{% raw %}{{ page.upstream_version }}{% endraw %}](https://github.com/mesonbuild/meson/releases/tag/{% raw %}{{ page.upstream_version }}{% endraw %})
