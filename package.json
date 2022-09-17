@@ -55,17 +55,9 @@
           "fileName": "xpack-meson-build-0.61.5-1-linux-arm.tar.gz",
           "sha256": "5a5ec86d14b7c843d418f0767a73c7e2788625abf18bdd8e1b5d44cfed2d05ea"
         },
-        "linux-ia32": {
-          "fileName": "xpack-meson-build-0.59.4-1-linux-ia32.tar.gz",
-          "sha256": "2b21c8e75caeeebed1c0d769f5199d53f1ef4261332768a035279a8beab38989"
-        },
         "linux-x64": {
           "fileName": "xpack-meson-build-0.61.5-1-linux-x64.tar.gz",
           "sha256": "c928e4d38ee3ca8e5b0aaf236b87d4581df5fb1b47153d40f280246287fd252f"
-        },
-        "win32-ia32": {
-          "fileName": "xpack-meson-build-0.59.4-1-win32-ia32.zip",
-          "sha256": "18b4aa2323e9ca72dc6433fb0cf3ed70432cf1ed7c0755c613c8980f848f70ae"
         },
         "win32-x64": {
           "fileName": "xpack-meson-build-0.61.5-1-win32-x64.zip",
