@@ -21,6 +21,7 @@
     "dynload",
     "endraw",
     "libexec",
+    "liquidjs",
     "mesonbuild",
     "mesonmain",
     "npmignore",

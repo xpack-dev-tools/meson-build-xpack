@@ -1,19 +1,19 @@
 ---
-title:  xPack Meson Build v{{ RELEASE_VERSION }} released
+title:  xPack Meson Build v{{ XBB_RELEASE_VERSION }} released
 
 TODO: select one summary
 
-summary: "Version **{{ RELEASE_VERSION }}** is a maintenance release; it fixes <...>."
+summary: "Version **{{ XBB_RELEASE_VERSION }}** is a maintenance release; it fixes <...>."
 
-summary: "Version **{{ RELEASE_VERSION }}** is a new release; it follows the upstream release."
+summary: "Version **{{ XBB_RELEASE_VERSION }}** is a new release; it follows the upstream release."
 
-version: "{{ RELEASE_VERSION }}"
+version: "{{ XBB_RELEASE_VERSION }}"
 upstream_version: "0.61.5"
 upstream_release_date: "13 Aug 2022"
 npm_subversion: "1"
 python_version: "3.10"
 python_subversion: "6"
-download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v{{ RELEASE_VERSION }}/
+download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v{{ XBB_RELEASE_VERSION }}/
 
 date:   {{ RELEASE_DATE }}
 

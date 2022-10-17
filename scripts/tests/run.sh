@@ -3,14 +3,27 @@
 #   (https://xpack.github.io)
 # Copyright (c) 2020 Liviu Ionescu.
 #
-# Permission to use, copy, modify, and/or distribute this software 
+# Permission to use, copy, modify, and/or distribute this software
 # for any purpose is hereby granted, under the terms of the MIT license.
 # -----------------------------------------------------------------------------
 
-# Helper script used in the second edition of the xPack build 
-# scripts. As the name implies, it should contain only functions and 
-# should be included with 'source' by the container build scripts.
+# -----------------------------------------------------------------------------
+# Common functions used in various tests.
+#
+# Requires
+# - app_folder_path
+# - test_folder_path
+# - archive_platform (win32|linux|darwin)
 
 # -----------------------------------------------------------------------------
+
+function tests_run_all()
+{
+  local test_bin_path="$1"
+
+  (
+    test_meson "${test_bin_path}"
+  )
+}
 
 # -----------------------------------------------------------------------------

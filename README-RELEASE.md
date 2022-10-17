@@ -35,6 +35,7 @@ git -C ${HOME}/Work/meson-build-xpack.git submodule update --init --recursive
 In the `xpack-dev-tools/meson-build-xpack` Git repo:
 
 - switch to the `xpack-develop` branch
+- pull new changes
 - if needed, merge the `xpack` branch
 
 No need to add a tag here, it'll be added when the release is created.
@@ -75,8 +76,7 @@ but in the version specific release page.
 
 ### Update version in `README` files
 
-- update version in `README-RELEASE.md`
-- update version in `README-BUILD.md`
+- update version in `README-MAINTAINER.md`
 - update version in `README.md`
 
 ### Update the `CHANGELOG.md` file
@@ -92,7 +92,7 @@ recreate the archives with the correct file.
 
 ### Update the version specific code
 
-- open the `common-versions-source.sh` file
+- open the `scripts/versioning.sh` file
 - add a new `if` with the new version before the existing code
 - check the Python version, and possibly bump to newer one
 
@@ -145,7 +145,7 @@ From here it'll be cloned on the production machines.
 
 ### Run the build scripts
 
-- on the macOS machine (`xbbmi`) open ssh sessions to the build
+- on a permanently running machine (`berry`) open ssh sessions to the build
 machines (`xbbma`, `xbbli`, `xbbla64` and `xbbla32`):
 
 ```sh
@@ -343,7 +343,7 @@ If any, refer to closed
 Note: at this moment the system should send a notification to all clients
 watching this project.
 
-## Update the README-BUILD listings and examples
+## Update the READMEs listings and examples
 
 - check and possibly update the `ls -l` output
 - check and possibly update the output of the `--version` runs
