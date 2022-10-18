@@ -1,10 +1,16 @@
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/xpack-dev-tools/meson-build-xpack)](https://github.com/xpack-dev-tools/meson-build-xpack/releases)
-[![npm (scoped)](https://img.shields.io/npm/v/@xpack-dev-tools/meson-build.svg)](https://www.npmjs.com/package/@xpack-dev-tools/meson-build/)
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/xpack-dev-tools/meson-build-xpack)](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/package.json)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/xpack-dev-tools/meson-build-xpack)](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
+[![npm (scoped)](https://img.shields.io/npm/v/@xpack-dev-tools/meson-build.svg?color=blue)](https://www.npmjs.com/package/@xpack-dev-tools/meson-build/)
+[![license](https://img.shields.io/github/license/xpack-dev-tools/meson-build-xpack)](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/LICENSE)
 
 # The xPack Meson Build
 
 A standalone cross-platform (Windows/macOS/Linux) **Meson Build**
 binary distribution, intended for reproducible builds.
+
+To simplify dependency management, the `meson` executable is a
+standard ELF/EXE which includes the Python run-time; all Python
+files are compiled and are available only as `.pyc`.
 
 In addition to the the binary archives and the package meta data,
 this project also includes the build scripts.
@@ -93,7 +99,7 @@ xpm install --global @xpack-dev-tools/meson-build@latest
 
 #### Uninstall
 
-To remove the links from the current project:
+To remove the links created by xpm in the current project:
 
 ```sh
 cd my-project
@@ -106,6 +112,42 @@ To completely remove the package from the global store:
 ```sh
 xpm uninstall --global @xpack-dev-tools/meson-build
 ```
+
+After install, the package should create a structure like this (macOS files;
+only the first two depth levels are shown):
+
+```console
+$ tree -L 2 xpacks/xpack-dev-tools-meson-build/.content/
+xpacks/xpack-dev-tools-meson-build/.content/
+├── README.md
+├── bin
+│   └── meson
+├── distro-info
+│   ├── CHANGELOG.md
+│   ├── licenses
+│   ├── patches
+│   └── scripts
+├── lib
+│   └── python3.8
+└── libexec
+    ├── libcrypt.2.dylib
+    ├── libcrypto.1.1.dylib
+    ├── libgcc_s.1.dylib
+    ├── liblzma.5.dylib
+    ├── libncurses.6.dylib
+    ├── libpanel.6.dylib
+    ├── libpython3.8.dylib
+    ├── libreadline.8.0.dylib
+    ├── libreadline.8.dylib -> libreadline.8.0.dylib
+    ├── libsqlite3.0.dylib
+    ├── libssl.1.1.dylib
+    ├── libz.1.2.8.dylib
+    └── libz.1.dylib -> libz.1.2.8.dylib
+
+8 directories, 16 files
+```
+
+No other files are installed in any system folders or other locations.
 
 ### Manual install
 
@@ -135,8 +177,8 @@ with caution, and prefer exact matches, like `0.61.5-1.1`.
 
 ## Maintainer info
 
-- [How to build](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/README-BUILD.md)
-- [How to make new releases](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/README-RELEASE.md)
+For maintainer info, please see the
+[README-MAINTAINER](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/README-MAINTAINER.md)
 
 ## Support
 

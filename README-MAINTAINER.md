@@ -1,4 +1,38 @@
-# How to make a new release (maintainer info)
+[![license](https://img.shields.io/github/license/xpack-dev-tools/meson-build-xpack)](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/xpack-dev-tools/meson-build-xpack.svg)](https://github.com/xpack-dev-tools/meson-build-xpack/issues/)
+[![GitHub pulls](https://img.shields.io/github/issues-pr/xpack-dev-tools/meson-build-xpack.svg)](https://github.com/xpack-dev-tools/meson-build-xpack/pulls)
+
+# Maintainer info
+
+## Project repository
+
+The project is hosted on GitHub:
+
+- <https://github.com/xpack-dev-tools/meson-build-xpack.git>
+
+To clone the stable branch (`xpack`), run the following commands in a
+terminal (on Windows use the _Git Bash_ console):
+
+```sh
+rm -rf ~/Work/meson-build-xpack.git; \
+git clone https://github.com/xpack-dev-tools/meson-build-xpack.git \
+  ~/Work/meson-build-xpack.git; \
+```
+
+For development purposes, clone the `xpack-develop` branch:
+
+```sh
+rm -rf ~/Work/meson-build-xpack.git; \
+git clone \
+  --branch xpack-develop \
+  https://github.com/xpack-dev-tools/meson-build-xpack.git \
+  ~/Work/meson-build-xpack.git; \
+```
+
+## Prerequisites
+
+A recent [xpm](https://xpack.github.io/xpm/), which is a portable
+[Node.js](https://nodejs.org/) command line application.
 
 ## Release schedule
 
@@ -6,7 +40,7 @@ This distribution is generally one minor release behind the upstream [releases](
 In practical terms, when the minor release number changes, it awaits a few
 more weeks to get the latest patch release.
 
-## Prepare the build
+## How to make new releases
 
 Before starting the build, perform some checks and tweaks.
 
@@ -16,19 +50,8 @@ The build scripts are available in the `scripts` folder of the
 [`xpack-dev-tools/meson-build-xpack`](https://github.com/xpack-dev-tools/meson-build-xpack)
 Git repo.
 
-To download them on a new machine, clone the `xpack-develop` branch:
-
-```sh
-rm -rf ${HOME}/Work/meson-build-xpack.git; \
-git clone \
-  --branch xpack-develop \
-  https://github.com/xpack-dev-tools/meson-build-xpack.git \
-  ${HOME}/Work/meson-build-xpack.git; \
-git -C ${HOME}/Work/meson-build-xpack.git submodule update --init --recursive
-```
-
-> Note: the repository uses submodules; for a successful build it is
-> mandatory to recurse the submodules.
+To download them on a new machine, clone the `xpack-develop` branch,
+as seen above.
 
 ### Check Git
 
@@ -39,10 +62,6 @@ In the `xpack-dev-tools/meson-build-xpack` Git repo:
 - if needed, merge the `xpack` branch
 
 No need to add a tag here, it'll be added when the release is created.
-
-### Update helper
-
-With a git client, go to the helper repo and update to the latest master commit.
 
 ### Check the latest upstream release
 
@@ -86,10 +105,6 @@ but in the version specific release page.
 - add a new entry like _* v0.61.5-1 prepared_
 - commit with a message like _prepare v0.61.5-1_
 
-Note: if you missed to update the `CHANGELOG.md` before starting the build,
-edit the file and rerun the build, it should take only a few minutes to
-recreate the archives with the correct file.
-
 ### Update the version specific code
 
 - open the `scripts/versioning.sh` file
@@ -98,41 +113,214 @@ recreate the archives with the correct file.
 
 ## Build
 
+The builds currently run on 5 dedicated machines (Intel GNU/Linux,
+Arm 32 GNU/Linux, Arm 64 GNU/Linux, Intel macOS and Arm macOS.
+
 ### Development run the build scripts
 
-Before the real build, run a test build on the development machine (`wksi`)
-or the production machines (`xbbma`, `xbbmi`):
+Before the real build, run a test build on all platforms.
+
+#### Intel macOS
+
+For Intel macOS, first run the build on the development machine (`wksi`):
 
 ```sh
-rm -rf ~/Work/meson-build-*-*
+# Update the build scripts.
+git pull -C ~/Work/meson-build-xpack.git
 
-caffeinate bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --macos
+xpm install -C ~/Work/meson-build-xpack.git
+
+# For backup overhead reasons, on the development machine
+# the builds happen on a separate Work folder.
+rm -rf ~/Work/meson-build-[0-9]*-*
+
+xpm install --config darwin-x64 -C ~/Work/meson-build-xpack.git
+caffeinate xpm run build-develop --config darwin-x64 -C ~/Work/meson-build-xpack.git
 ```
 
-Similarly on the Intel Linux (`xbbli`):
+When functional, push the `xpack-develop` branch to GitHub.
+
+Run the build on the production machine (`xbbmi`):
 
 ```sh
-sudo rm -rf ~/Work/meson-build-*-*
-
-bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --linux64
-
-bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --win64
-
+caffeinate ssh xbbmi
 ```
-
-... on the Arm Linux 64-bit (`xbbla64`):
 
 ```sh
-bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --arm64
+# Update the build scripts (or clone them the first time).
+git pull -C ~/Work/meson-build-xpack.git
+
+xpm install -C ~/Work/meson-build-xpack.git
+
+xpm run deep-clean --config darwin-x64 -C ~/Work/meson-build-xpack.git
+
+xpm install --config darwin-x64 -C ~/Work/meson-build-xpack.git
+caffeinate xpm run build-develop --config darwin-x64 -C ~/Work/meson-build-xpack.git
 ```
 
-... and on the Arm Linux 32-bit (`xbbla32`):
+Several minutes later, the output of the build script is a compressed
+archive and its SHA signature, created in the `deploy` folder:
+
+```console
+$ ls -l ~/Work/meson-build-xpack.git/build/darwin-x64/deploy
+total 1080
+-rw-r--r--  1 ilg  staff  547972 May 17 09:50 xpack-meson-build-1.11.1-2-darwin-x64.tar.gz
+-rw-r--r--  1 ilg  staff     111 May 17 09:50 xpack-meson-build-1.11.1-2-darwin-x64.tar.gz.sha
+```
+
+#### Apple Silicon macOS
+
+Run the build on the production machine (`xbbma`):
 
 ```sh
-bash ${HOME}/Work/meson-build-xpack.git/scripts/helper/build.sh --develop --arm32
+caffeinate ssh xbbma
 ```
 
-Work on the scripts until all platforms pass the build.
+```sh
+# Update the build scripts (or clone them the first time).
+git pull -C ~/Work/meson-build-xpack.git
+
+xpm install -C ~/Work/meson-build-xpack.git
+
+xpm run deep-clean --config darwin-arm64 -C ~/Work/meson-build-xpack.git
+
+xpm install --config darwin-arm64 -C ~/Work/meson-build-xpack.git
+caffeinate xpm run build-develop --config darwin-arm64 -C ~/Work/meson-build-xpack.git
+```
+
+Several minutes later, the output of the build script is a compressed
+archive and its SHA signature, created in the `deploy` folder:
+
+```console
+$ ls -l ~/Work/meson-build-xpack.git/build/darwin-arm64/deploy
+total 1056
+-rw-r--r--  1 ilg  staff  533014 May 17 09:49 xpack-meson-build-1.11.1-2-darwin-arm64.tar.gz
+-rw-r--r--  1 ilg  staff     113 May 17 09:49 xpack-meson-build-1.11.1-2-darwin-arm64.tar.gz.sha
+```
+
+#### Intel GNU/Linux
+
+Run the build on the production machine (`xbbli`):
+
+```sh
+caffeinate ssh xbbli
+```
+
+Build the GNU/Linux binaries:
+
+```sh
+# Update the build scripts (or clone them the first time).
+git pull -C ~/Work/meson-build-xpack.git
+
+xpm install -C ~/Work/meson-build-xpack.git
+
+xpm run deep-clean --config linux-x64 -C ~/Work/meson-build-xpack.git
+
+xpm install --config linux-x64 -C ~/Work/meson-build-xpack.git
+xpm run build-develop --config linux-x64 -C ~/Work/meson-build-xpack.git
+```
+
+Several minutes later, the output of the build script is a compressed
+archive and its SHA signature, created in the `deploy` folder:
+
+```console
+$ ls -l ~/Work/meson-build-xpack.git/build/linux-x64/deploy
+total 1480
+-rw-rw-rw- 1 ilg ilg 551495 May 17 09:49 xpack-meson-build-1.11.1-2-linux-x64.tar.gz
+-rw-rw-rw- 1 ilg ilg    110 May 17 09:49 xpack-meson-build-1.11.1-2-linux-x64.tar.gz.sha
+```
+
+Build the Windows binaries:
+
+```sh
+xpm run deep-clean --config win32-x64 -C ~/Work/meson-build-xpack.git
+
+xpm install --config win32-x64 -C ~/Work/meson-build-xpack.git
+xpm run build-develop --config win32-x64 -C ~/Work/meson-build-xpack.git
+```
+
+Several minutes later, the output of the build script is a compressed
+archive and its SHA signature, created in the `deploy` folder:
+
+```console
+$ ls -l ~/Work/meson-build-xpack.git/build/win32-x64/deploy
+total 1480
+-rw-rw-rw- 1 ilg ilg 951474 May 17 09:50 xpack-meson-build-1.11.1-2-win32-x64.zip
+-rw-rw-rw- 1 ilg ilg    107 May 17 09:50 xpack-meson-build-1.11.1-2-win32-x64.zip.sha
+```
+
+#### Arm GNU/Linux 64-bit
+
+Run the build on the production machine (`xbbla64`):
+
+```sh
+caffeinate ssh xbbla64
+```
+
+```sh
+# Update the build scripts (or clone if the first time)
+git pull -C ~/Work/meson-build-xpack.git
+
+xpm install -C ~/Work/meson-build-xpack.git
+
+xpm run deep-clean --config linux-arm64 -C ~/Work/meson-build-xpack.git
+
+xpm install --config linux-arm64 -C ~/Work/meson-build-xpack.git
+xpm run build-develop --config linux-arm64 -C ~/Work/meson-build-xpack.git
+```
+
+Several minutes later, the output of the build script is a compressed
+archive and its SHA signature, created in the `deploy` folder:
+
+```console
+$ ls -l ~/Work/meson-build-xpack.git/build/linux-arm64/deploy
+total 532
+-rw-rw-rw- 1 ilg ilg 538649 May 17 09:51 xpack-meson-build-1.11.1-2-linux-arm64.tar.gz
+-rw-rw-rw- 1 ilg ilg    112 May 17 09:51 xpack-meson-build-1.11.1-2-linux-arm64.tar.gz.sha
+```
+
+#### Arm GNU/Linux 32-bit
+
+Run the build on the production machine (`xbbla32`):
+
+```sh
+caffeinate ssh xbbla32
+```
+
+```sh
+# Update the build scripts (or clone if the first time)
+git pull -C ~/Work/meson-build-xpack.git
+
+xpm install -C ~/Work/meson-build-xpack.git
+
+xpm run deep-clean --config linux-arm -C ~/Work/meson-build-xpack.git
+
+xpm install --config linux-arm -C ~/Work/meson-build-xpack.git
+xpm run build-develop --config linux-arm -C ~/Work/meson-build-xpack.git
+```
+
+Several minutes later, the output of the build script is a compressed
+archive and its SHA signature, created in the `deploy` folder:
+
+```console
+$ ls -l ~/Work/meson-build-xpack.git/build/linux-arm/deploy
+total 500
+-rw-rw-rw- 1 ilg ilg 506541 May 17 09:51 xpack-meson-build-1.11.1-2-linux-arm.tar.gz
+-rw-rw-rw- 1 ilg ilg    110 May 17 09:51 xpack-meson-build-1.11.1-2-linux-arm.tar.gz.sha
+```
+
+### Files cache
+
+The XBB build scripts use a local cache such that files are downloaded only
+during the first run, later runs being able to use the cached files.
+
+However, occasionally some servers may not be available, and the builds
+may fail.
+
+The workaround is to manually download the files from an alternate
+location (like
+<https://github.com/xpack-dev-tools/files-cache/tree/master/libs>),
+place them in the XBB cache (`Work/cache`) and restart the build.
 
 ## Push the build scripts
 
@@ -141,9 +329,12 @@ In this Git repo:
 - push the `xpack-develop` branch to GitHub
 - possibly push the helper project too
 
-From here it'll be cloned on the production machines.
+## Run the CI build
 
-### Run the build scripts
+The automation is provided by GitHub Actions and three self-hosted runners.
+
+Run the `generate-workflows` to re-generate the
+GitHub workflow files; commit and push if necessary.
 
 - on a permanently running machine (`berry`) open ssh sessions to the build
 machines (`xbbma`, `xbbli`, `xbbla64` and `xbbla32`):
