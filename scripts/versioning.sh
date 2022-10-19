@@ -46,6 +46,7 @@ function build_versioned_components()
       # https://ftp.gnu.org/pub/gnu/libiconv/
       build_libiconv "1.17" # "1.16"
 
+      XBB_COREUTILS_INSTALL_REALPATH_ONLY="y"
       # https://ftp.gnu.org/gnu/coreutils/
       build_coreutils "9.1"
     fi
