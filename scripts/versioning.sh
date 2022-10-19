@@ -41,6 +41,15 @@ function build_versioned_components()
       fi
     )
 
+    if [ "${XBB_TARGET_PLATFORM}" == "darwin" ]
+    then
+      # https://ftp.gnu.org/pub/gnu/libiconv/
+      build_libiconv "1.17" # "1.16"
+
+      # https://ftp.gnu.org/gnu/coreutils/
+      build_coreutils "9.1"
+    fi
+
     # https://www.python.org/ftp/python/
     # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 

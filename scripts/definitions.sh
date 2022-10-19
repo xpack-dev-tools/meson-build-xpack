@@ -28,7 +28,7 @@ XBB_APPLICATION_DISTRO_TOP_FOLDER=${XBB_APPLICATION_DISTRO_TOP_FOLDER:-"xPacks"}
 XBB_APPLICATION_DESCRIPTION="${XBB_APPLICATION_DISTRO_NAME} ${XBB_APPLICATION_NAME}"
 
 declare -a XBB_APPLICATION_DEPENDENCIES=( meson )
-declare -a XBB_APPLICATION_COMMON_DEPENDENCIES=( zlib bzip2 xz mpdecimal expat libffi libxcrypt openssl ncurses readline sqlite python3 )
+declare -a XBB_APPLICATION_COMMON_DEPENDENCIES=( libiconv coreutils zlib bzip2 xz mpdecimal expat libffi libxcrypt openssl ncurses readline sqlite python3 )
 
 # -----------------------------------------------------------------------------
 
