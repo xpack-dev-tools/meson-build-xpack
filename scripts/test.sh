@@ -51,9 +51,13 @@ tests_folder_path="$(dirname "${scripts_folder_path}")/tests"
 # -----------------------------------------------------------------------------
 
 source "${scripts_folder_path}/definitions.sh"
-source "${scripts_folder_path}/tests/run.sh"
-source "${scripts_folder_path}/tests/update.sh"
+
+# Common definitions.
 source "${helper_folder_path}/scripts/tests.sh"
+
+# Possibly override common definitions.
+source "${scripts_folder_path}/tests/run.sh"
+# source "${scripts_folder_path}/tests/update.sh"
 
 source "${scripts_folder_path}/dependencies/meson.sh"
 
