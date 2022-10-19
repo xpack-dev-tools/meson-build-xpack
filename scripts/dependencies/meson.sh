@@ -37,22 +37,20 @@ function build_meson()
 
   mkdir -pv "${XBB_LOGS_FOLDER_PATH}/${meson_folder_name}"
 
-  cd "${XBB_SOURCES_FOLDER_PATH}"
-
-  (
-    set +e
-    # When extracting on macOS, tar reports an error related to the symlink,
-    # but the extracted content seems fine.
-    # tar: meson-0.55.1/test cases/common/227 fs module/a_symlink: Cannot utime: No such file or directory
-
-    download_and_extract "${meson_url}" "${meson_archive_file_name}" \
-      "${meson_src_folder_name}"
-  )
-
   local meson_stamp_file_path="${XBB_STAMPS_FOLDER_PATH}/stamp-${meson_folder_name}-installed"
   if [ ! -f "${meson_stamp_file_path}" ]
   then
     (
+      mkdir -pv "${XBB_SOURCES_FOLDER_PATH}"
+      cd "${XBB_SOURCES_FOLDER_PATH}"
+
+      # When extracting on macOS, tar reports an error related to the symlink,
+      # but the extracted content seems fine.
+      # tar: meson-0.55.1/test cases/common/227 fs module/a_symlink: Cannot utime: No such file or directory
+
+      download_and_extract "${meson_url}" "${meson_archive_file_name}" \
+        "${meson_src_folder_name}"
+
       mkdir -p "${XBB_BUILD_FOLDER_PATH}/${meson_folder_name}"
       cd "${XBB_BUILD_FOLDER_PATH}/${meson_folder_name}"
 
