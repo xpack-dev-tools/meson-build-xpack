@@ -89,7 +89,7 @@ function build_versioned_components()
       build_expat "2.4.8" # "2.4.1"
 
       # https://github.com/libffi/libffi/releases
-      build_libffi "3.4.2"
+      build_libffi "3.4.3" # "3.4.2" !
 
       # https://github.com/besser82/libxcrypt
       build_libxcrypt "4.4.28" # "4.4.26"
