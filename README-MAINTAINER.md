@@ -16,7 +16,7 @@ terminal (on Windows use the _Git Bash_ console):
 ```sh
 rm -rf ~/Work/meson-build-xpack.git; \
 git clone https://github.com/xpack-dev-tools/meson-build-xpack.git \
-  ~/Work/meson-build-xpack.git; \
+  ~/Work/meson-build-xpack.git
 ```
 
 For development purposes, clone the `xpack-develop` branch:
@@ -26,7 +26,7 @@ rm -rf ~/Work/meson-build-xpack.git; \
 git clone \
   --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git \
-  ~/Work/meson-build-xpack.git; \
+  ~/Work/meson-build-xpack.git
 ```
 
 ## Prerequisites

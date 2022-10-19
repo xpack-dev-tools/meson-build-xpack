@@ -13,8 +13,7 @@ rm -rf ${HOME}/Work/meson-build-xpack.git; \
 git clone \
   --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git  \
-  ${HOME}/Work/meson-build-xpack.git; \
-git -C ${HOME}/Work/meson-build-xpack.git submodule update --init --recursive
+  ${HOME}/Work/meson-build-xpack.git
 ```
 
 ## Start a local test
