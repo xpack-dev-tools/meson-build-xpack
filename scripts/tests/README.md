@@ -10,6 +10,7 @@ The test script is part of the Meson Build xPack:
 
 ```sh
 rm -rf ${HOME}/Work/meson-build-xpack.git; \
+mkdir -p ~/Work; \
 git clone \
   --branch xpack-develop \
   https://github.com/xpack-dev-tools/meson-build-xpack.git  \
