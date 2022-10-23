@@ -26,31 +26,6 @@ function build_versioned_components()
     xbb_set_binaries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
     xbb_set_libraries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
 
-    (
-      # Perl is not functional in XBB v4.0
-      cd "${project_folder_path}/${XBB_REQUESTED_BUILD_RELATIVE_FOLDER}/xpacks/.bin"
-      if [ -f perl ]
-      then
-        mv perl perl-bad
-      fi
-
-      # libsqlite fails.
-      if [ -f tclsh8.6 ]
-      then
-        mv tclsh8.6 tclsh8.6-bad
-      fi
-    )
-
-    if [ "${XBB_TARGET_PLATFORM}" == "darwin" ]
-    then
-      # https://ftp.gnu.org/pub/gnu/libiconv/
-      build_libiconv "1.17" # "1.16"
-
-      XBB_COREUTILS_INSTALL_REALPATH_ONLY="y"
-      # https://ftp.gnu.org/gnu/coreutils/
-      build_coreutils "9.1"
-    fi
-
     # https://www.python.org/ftp/python/
     # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 
