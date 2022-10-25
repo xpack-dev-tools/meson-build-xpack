@@ -170,7 +170,8 @@
           "common-actions"
         ],
         "devDependencies": {
-          "@xpack-dev-tools/gcc": "12.2.0-1.1"
+          "@xpack-dev-tools/gcc": "12.2.0-1.1",
+          "@xpack-dev-tools/patchelf": "0.15.0-1.1"
         }
       },
       "linux-arm64": {
