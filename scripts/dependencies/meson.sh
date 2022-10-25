@@ -161,21 +161,12 @@ function build_meson()
           (
             echo "Compiling all python & meson sources..."
             # Compiling tests fails, ignore the errors.
-            if [ "${XBB_TARGET_PLATFORM}" == "win32" ]
-            then
-              run_verbose "${WORK_FOLDER_PATH}/${LINUX_INSTALL_RELATIVE_PATH}/libs/bin/python3" \
-                -m compileall \
-                -j "${XBB_JOBS}" \
-                -f "${XBB_BINARIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
-                || true
-            else
-              run_verbose "${XBB_LIBRARIES_INSTALL_FOLDER_PATH}/bin/python3.${XBB_PYTHON3_VERSION_MINOR}" \
-                -m compileall \
-                -j "${XBB_JOBS}" \
-                -f "${XBB_BINARIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
-                || true
 
-            fi
+            run_verbose "${XBB_LIBRARIES_INSTALL_FOLDER_PATH}/bin/python3.${XBB_PYTHON3_VERSION_MINOR}" \
+              -m compileall \
+              -j "${XBB_JOBS}" \
+              -f "${XBB_BINARIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
+              || true
 
             # For just in case.
             find "${XBB_BINARIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
