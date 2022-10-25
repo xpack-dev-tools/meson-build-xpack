@@ -80,7 +80,7 @@ function build_versioned_components()
       build_readline "8.1.2" # "8.1"
 
       # https://www.sqlite.org/download.html
-      build_sqlite "3390200" # "3360000"
+      # build_sqlite "3390200" # "3360000"
 
       XBB_PYTHON3_VERSION_MAJOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\..*|\1|')
       XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\.\([0-9][0-9]*\)\..*|\2|')
