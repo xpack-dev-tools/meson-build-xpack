@@ -115,7 +115,7 @@ but in the version specific release page.
 ## Build
 
 The builds currently run on 5 dedicated machines (Intel GNU/Linux,
-Arm 32 GNU/Linux, Arm 64 GNU/Linux, Intel macOS and Arm macOS.
+Arm 32 GNU/Linux, Arm 64 GNU/Linux, Intel macOS and Arm macOS).
 
 ### Development run the build scripts
 
