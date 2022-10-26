@@ -13,7 +13,7 @@
 
 # -----------------------------------------------------------------------------
 
-function build_versioned_components()
+function build_application_versioned_components()
 {
   XBB_MESON_VERSION="$(echo "${XBB_RELEASE_VERSION}" | sed -e 's|-.*||')"
 
