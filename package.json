@@ -69,7 +69,7 @@
       "meson": "./.content/bin/meson"
     },
     "devDependencies": {
-      "@xpack-dev-tools/xbb-helper": "^0.8.7"
+      "@xpack-dev-tools/xbb-helper": "^0.9.0"
     },
     "properties": {
       "appName": "Meson Build",
