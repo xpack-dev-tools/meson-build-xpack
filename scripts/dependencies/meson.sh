@@ -205,6 +205,7 @@ function build_meson()
 
     )
 
+    mkdir -pv "${XBB_STAMPS_FOLDER_PATH}"
     touch "${meson_stamp_file_path}"
 
   else
