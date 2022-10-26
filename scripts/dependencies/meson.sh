@@ -135,8 +135,8 @@ function build_meson()
 
       run_verbose make meson${XBB_DOT_EXE} V=1
 
-      mkdir -pv "${XBB_BINARIES_INSTALL_FOLDER_PATH}/bin"
-      install -v -m755 -c meson${XBB_DOT_EXE} "${XBB_BINARIES_INSTALL_FOLDER_PATH}/bin"
+      run_verbose install -d -m 755 "${XBB_BINARIES_INSTALL_FOLDER_PATH}/bin"
+      run_verbose install -v -c -m 755 meson${XBB_DOT_EXE} "${XBB_BINARIES_INSTALL_FOLDER_PATH}/bin"
 
       show_libs "${XBB_BINARIES_INSTALL_FOLDER_PATH}/bin/meson"
 
