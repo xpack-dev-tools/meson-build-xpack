@@ -257,28 +257,20 @@ function move_pyc()
   find ${folder_path} -name '__pycache__' -type d -print0 | xargs -0 -L 1 -I {} bash -c 'process_pycache "{}"'
 }
 
-
 # -----------------------------------------------------------------------------
 
 function test_meson()
 {
+  local test_bin_path="$1"
+
   echo
   echo "Running the binaries..."
 
-  if [ -d "xpacks/.bin" ]
-  then
-    TEST_BIN_PATH="$(pwd)/xpacks/.bin"
-  elif [ -d "${XBB_BINARIES_INSTALL_FOLDER_PATH}/bin" ]
-  then
-    TEST_BIN_PATH="${XBB_BINARIES_INSTALL_FOLDER_PATH}/bin"
-  else
-    echo "Wrong folder."
-    exit 1
-  fi
-  time run_app "${TEST_BIN_PATH}/meson" --version
+  run_app "${test_bin_path}/meson" --version
 
-  run_app "${TEST_BIN_PATH}/meson" --help
-  # TODO: Add a minimal test.
+  run_app "${test_bin_path}/meson" --help
+
+  # TODO: Add a minimal functional test.
 }
 
 # -----------------------------------------------------------------------------
