@@ -25,6 +25,8 @@ XBB_APPLICATION_DESCRIPTION="${XBB_APPLICATION_DISTRO_NAME} ${XBB_APPLICATION_NA
 declare -a XBB_APPLICATION_DEPENDENCIES=( meson )
 declare -a XBB_APPLICATION_COMMON_DEPENDENCIES=( libiconv coreutils zlib bzip2 xz mpdecimal expat libffi libxcrypt openssl ncurses readline sqlite python3 )
 
+XBB_APPLICATION_INITIAL_TARGET="native"
+
 # -----------------------------------------------------------------------------
 
 XBB_GITHUB_ORG="${XBB_GITHUB_ORG:-"xpack-dev-tools"}"
