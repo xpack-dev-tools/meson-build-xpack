@@ -76,8 +76,11 @@ function build_application_versioned_components()
     # https://ftp.gnu.org/gnu/readline/
     build_readline "8.1.2"
 
-    # https://www.sqlite.org/download.html
-    # build_sqlite "3390200"
+    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "darwin" ]
+    then
+      # https://www.sqlite.org/download.html
+      build_sqlite "3390200"
+    fi
 
     XBB_PYTHON3_VERSION_MAJOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\..*|\1|')
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\.\([0-9][0-9]*\)\..*|\2|')
