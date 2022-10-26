@@ -76,11 +76,10 @@ function build_application_versioned_components()
     # https://ftp.gnu.org/gnu/readline/
     build_readline "8.1.2"
 
-    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "darwin" ]
-    then
-      # https://www.sqlite.org/download.html
-      build_sqlite "3390200"
-    fi
+    # Without it, on macOS, the Python binaries will have a reference
+    # to the system libsqlite.
+    # https://www.sqlite.org/download.html
+    build_sqlite "3390200"
 
     XBB_PYTHON3_VERSION_MAJOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\..*|\1|')
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\.\([0-9][0-9]*\)\..*|\2|')
