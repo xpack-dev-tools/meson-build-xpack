@@ -23,9 +23,6 @@ function build_application_versioned_components()
 
     # -------------------------------------------------------------------------
 
-    xbb_set_binaries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
-    xbb_set_libraries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
-
     # https://www.python.org/ftp/python/
     # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
 
@@ -33,41 +30,54 @@ function build_application_versioned_components()
     # https://www.python.org/downloads/
     XBB_PYTHON3_VERSION="3.10.6"
 
-    # On macOS, to prevent Python picking system libraries,
-    # provide controlled versions of them.
+    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
+    then
+      if [ ! -f "${XBB_BUILD_GIT_PATH}/extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h" ]
+      then
+        echo
+        echo "Missing extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h"
+        exit 1
+      fi
+    fi
+
+    # This application starts with native target.
+
+    xbb_set_binaries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
+    xbb_set_libraries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
+
     # http://zlib.net/fossils/
-    build_zlib  "1.2.12" # "1.2.11"
+    build_zlib  "1.2.12"
 
     # https://sourceware.org/pub/bzip2/
     build_bzip2 "1.0.8"
 
     # https://sourceforge.net/projects/lzmautils/files/
-    build_xz "5.2.6" # "5.2.5"
+    build_xz "5.2.6"
 
     # https://www.bytereef.org/mpdecimal/download.html
     build_mpdecimal "2.5.1"
 
     # https://github.com/libexpat/libexpat/releases
-    build_expat "2.4.8" # "2.4.1"
+    build_expat "2.4.8"
 
     # https://github.com/libffi/libffi/releases
-    build_libffi "3.4.3" # "3.4.2" !
+    build_libffi "3.4.3" # !
 
     # https://github.com/besser82/libxcrypt
-    build_libxcrypt "4.4.28" # "4.4.26"
+    build_libxcrypt "4.4.28"
 
     # https://www.openssl.org/source/
-    build_openssl "1.1.1q" # "1.1.1l"
+    build_openssl "1.1.1q"
 
     export XBB_NCURSES_DISABLE_WIDEC="y"
     # https://ftp.gnu.org/gnu/ncurses/
     build_ncurses "6.3"
 
     # https://ftp.gnu.org/gnu/readline/
-    build_readline "8.1.2" # "8.1"
+    build_readline "8.1.2"
 
     # https://www.sqlite.org/download.html
-    # build_sqlite "3390200" # "3360000"
+    # build_sqlite "3390200"
 
     XBB_PYTHON3_VERSION_MAJOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\..*|\1|')
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\.\([0-9][0-9]*\)\..*|\2|')
@@ -77,21 +87,24 @@ function build_application_versioned_components()
 
     build_python3 "${XBB_PYTHON3_VERSION}"
 
-    if [ "${XBB_TARGET_PLATFORM}" == "win32" ]
-    then
-      if [ ! -f "${XBB_BUILD_GIT_PATH}/extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h" ]
-      then
-        echo
-        echo "Missing extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h"
-        exit 1
-      fi
+    # -------------------------------------------------------------------------
+    # With all dependencies solved, build the application.
 
-      # Shortcut, use the existing pyton.exe instead of building
+    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
+    then
+      # Restore the cross target.
+      build_set_target "cross"
+    fi
+
+    xbb_set_libraries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
+    xbb_set_binaries_install "${XBB_APPLICATION_INSTALL_FOLDER_PATH}"
+
+    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
+    then
+      # Shortcut, use the existing pyton3X.dll instead of building
       # if from sources. It also downloads the sources.
       download_python3_win "${XBB_PYTHON3_VERSION}"
     fi
-
-    xbb_set_binaries_install "${XBB_APPLICATION_INSTALL_FOLDER_PATH}"
 
     build_meson "${XBB_MESON_VERSION}"
 
