@@ -162,7 +162,7 @@ function build_meson()
             echo "Compiling all python & meson sources..."
             # Compiling tests fails, ignore the errors.
 
-            run_verbose "${XBB_LIBRARIES_INSTALL_FOLDER_PATH}/bin/python3.${XBB_PYTHON3_VERSION_MINOR}" \
+            run_verbose "${XBB_NATIVE_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/python3.${XBB_PYTHON3_VERSION_MINOR}" \
               -m compileall \
               -j "${XBB_JOBS}" \
               -f "${XBB_BINARIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
