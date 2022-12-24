@@ -7,10 +7,6 @@
 # for any purpose is hereby granted, under the terms of the MIT license.
 # -----------------------------------------------------------------------------
 
-# Helper script used in the xPack build scripts. As the name implies,
-# it should contain only functions and should be included with 'source'
-# by the build scripts (both native and container).
-
 # -----------------------------------------------------------------------------
 
 function application_build_versioned_components()
@@ -40,10 +36,19 @@ function application_build_versioned_components()
       fi
     fi
 
-    # This application starts with native target.
+    # -------------------------------------------------------------------------
+    # Build the native dependencies.
 
-    xbb_set_binaries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
-    xbb_set_libraries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
+    # None
+
+    # -------------------------------------------------------------------------
+    # Build the target dependencies.
+
+    xbb_reset_env
+    xbb_set_target "requested"
+
+    xbb_set_executables_install_path "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
+    xbb_set_libraries_install_path "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
 
     # http://zlib.net/fossils/
     zlib_build  "1.2.12"
@@ -90,16 +95,11 @@ function application_build_versioned_components()
     python3_build "${XBB_PYTHON3_VERSION}"
 
     # -------------------------------------------------------------------------
-    # With all dependencies solved, build the application.
+    # Build the application binaries.
 
-    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
-    then
-      # Restore the cross target.
-      build_set_target "cross"
-    fi
 
-    xbb_set_libraries_install "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
-    xbb_set_binaries_install "${XBB_APPLICATION_INSTALL_FOLDER_PATH}"
+    xbb_set_executables_install_path "${XBB_APPLICATION_INSTALL_FOLDER_PATH}"
+    xbb_set_libraries_install_path "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
 
     if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
     then
@@ -112,7 +112,7 @@ function application_build_versioned_components()
 
     # -------------------------------------------------------------------------
   else
-    echo "Unsupported version ${XBB_RELEASE_VERSION}."
+    echo "Unsupported ${XBB_APPLICATION_LOWER_CASE_NAME} version ${XBB_RELEASE_VERSION}"
     exit 1
   fi
 }
