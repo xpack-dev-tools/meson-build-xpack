@@ -250,6 +250,8 @@ export -f meson_process_pycache
 
 function meson_move_pyc()
 {
+  local folder_path="$1"
+
   find ${folder_path} -name '__pycache__' -type d -print0 | xargs -0 -L 1 -I {} bash -c 'meson_process_pycache "{}"'
 }
 
