@@ -8,22 +8,13 @@
 # -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
-# Common functions used in various tests.
-#
-# Requires
-# - app_folder_path
-# - test_folder_path
-# - archive_platform (win32|linux|darwin)
-
-# -----------------------------------------------------------------------------
+# Included by `scrips/test.sh`.
 
 function tests_run_all()
 {
   local test_bin_path="$1"
 
-  (
-    test_meson "${test_bin_path}"
-  )
+  meson_test "${test_bin_path}"
 }
 
 # -----------------------------------------------------------------------------

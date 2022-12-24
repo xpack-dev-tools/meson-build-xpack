@@ -13,7 +13,7 @@
 
 # -----------------------------------------------------------------------------
 
-function build_meson()
+function meson_build()
 {
   local meson_version="$1"
 
@@ -175,7 +175,7 @@ function build_meson()
           )
 
           echo "Replacing .py files with .pyc files..."
-          move_pyc "${XBB_BINARIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
+          meson_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
 
           mkdir -pv "${XBB_BINARIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/lib-dynload/"
 
@@ -212,10 +212,10 @@ function build_meson()
     echo "Component meson already installed."
   fi
 
-  tests_add "test_meson"
+  tests_add "meson_test"
 }
 
-function process_pyc()
+function meson_process_pyc()
 {
   local file_path="$1"
 
@@ -234,13 +234,13 @@ function process_pyc()
   fi
 }
 
-export -f process_pyc
+export -f meson_process_pyc
 
-function process_pycache()
+function meson_process_pycache()
 {
   local folder_path="$1"
 
-  find ${folder_path} -name '*.pyc' -type f -print0 | xargs -0 -L 1 -I {} bash -c 'process_pyc "{}"'
+  find ${folder_path} -name '*.pyc' -type f -print0 | xargs -0 -L 1 -I {} bash -c 'meson_process_pyc "{}"'
 
   if [ $(ls -1 "${folder_path}" | wc -l) -eq 0 ]
   then
@@ -248,18 +248,18 @@ function process_pycache()
   fi
 }
 
-export -f process_pycache
+export -f meson_process_pycache
 
-function move_pyc()
+function meson_move_pyc()
 {
   local folder_path="$1"
 
-  find ${folder_path} -name '__pycache__' -type d -print0 | xargs -0 -L 1 -I {} bash -c 'process_pycache "{}"'
+  find ${folder_path} -name '__pycache__' -type d -print0 | xargs -0 -L 1 -I {} bash -c 'meson_process_pycache "{}"'
 }
 
 # -----------------------------------------------------------------------------
 
-function test_meson()
+function meson_test()
 {
   local test_bin_path="$1"
 
