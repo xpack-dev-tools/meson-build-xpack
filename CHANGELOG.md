@@ -4,7 +4,7 @@ Entries in this file are in reverse chronological order.
 
 ## 2022-12-24
 
-* update for xbb v5.x
+* update for XBB v5.0.0
 
 ## 2022-09-01
 
