@@ -27,9 +27,6 @@ This distribution follows the official [Meson](https://mesonbuild.com) build sys
 The binaries can be installed automatically as **binary xPacks** or manually as
 **portable archives**.
 
-In addition to the package meta data, this project also includes
-the build scripts.
-
 ## Release schedule
 
 This distribution is generally one minor release behind the upstream releases.
@@ -97,28 +94,9 @@ It is also possible to install Meson Build globally, in the user home folder:
 xpm install --global @xpack-dev-tools/meson-build@latest
 ```
 
-#### Uninstall
-
-To remove the links created by xpm in the current project:
-
-```sh
-cd my-project
-
-xpm uninstall @xpack-dev-tools/meson-build
-```
-
-To completely remove the package from the global store:
-
-```sh
-xpm uninstall --global @xpack-dev-tools/meson-build
-```
-
-After install, the package should create a structure like this (macOS files;
-only the first two depth levels are shown):
-
 ```console
-$ tree -L 2 xpacks/xpack-dev-tools-meson-build/.content/
-xpacks/xpack-dev-tools-meson-build/.content/
+$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.61.5-1.1/.content/
+/Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.61.5-1.1/.content/
 ├── README.md
 ├── bin
 │   └── meson
@@ -148,6 +126,25 @@ xpacks/xpack-dev-tools-meson-build/.content/
 ```
 
 No other files are installed in any system folders or other locations.
+
+#### Uninstall
+
+To remove the links created by xpm in the current project:
+
+```sh
+cd my-project
+
+xpm uninstall @xpack-dev-tools/meson-build
+```
+
+To completely remove the package from the global store:
+
+```sh
+xpm uninstall --global @xpack-dev-tools/meson-build
+```
+
+After install, the package should create a structure like this (macOS files;
+only the first two depth levels are shown):
 
 ### Manual install
 
@@ -182,7 +179,7 @@ For maintainer info, please see the
 
 ## Support
 
-The quick answer is to use the GitHub
+The quick advice for getting support is to use the GitHub
 [Discussions](https://github.com/xpack-dev-tools/meson-build-xpack/discussions/).
 
 For more details please read the
