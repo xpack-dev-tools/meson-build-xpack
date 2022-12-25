@@ -216,7 +216,7 @@ xpm install --config darwin-x64 -C ~/Work/meson-build-xpack.git
 caffeinate xpm run build-develop --config darwin-x64 -C ~/Work/meson-build-xpack.git
 ```
 
-About 10 minutes later, the output of the build script is a compressed
+About 15 minutes later, the output of the build script is a compressed
 archive and its SHA signature, created in the `deploy` folder:
 
 ```console
