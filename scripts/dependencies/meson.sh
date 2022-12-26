@@ -9,18 +9,20 @@
 
 # -----------------------------------------------------------------------------
 
+# https://mesonbuild.com
+# https://github.com/mesonbuild/meson/archive/0.55.1.tar.gz
+# https://github.com/mesonbuild/meson/releases
+# https://github.com/mesonbuild/meson/releases/download/0.55.1/meson-0.55.1.tar.gz
+
+# https://archlinuxarm.org/packages/aarch64/meson/files/PKGBUILD
+
+# Sep 11 2020, "0.55.3"
+
+# -----------------------------------------------------------------------------
+
 function meson_build()
 {
   local meson_version="$1"
-
-  # https://mesonbuild.com
-  # https://github.com/mesonbuild/meson/archive/0.55.1.tar.gz
-  # https://github.com/mesonbuild/meson/releases
-  # https://github.com/mesonbuild/meson/releases/download/0.55.1/meson-0.55.1.tar.gz
-
-  # https://archlinuxarm.org/packages/aarch64/meson/files/PKGBUILD
-
-  # Sep 11 2020, "0.55.3"
 
   local meson_src_folder_name="meson-${meson_version}"
 
