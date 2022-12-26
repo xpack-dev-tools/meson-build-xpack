@@ -25,6 +25,11 @@ function application_build_versioned_components()
     # For the latest stable see:
     # https://www.python.org/downloads/
     XBB_PYTHON3_VERSION="3.10.6"
+    
+    XBB_PYTHON3_VERSION_MAJOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\..*|\1|')
+    XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\.\([0-9][0-9]*\)\..*|\2|')
+    XBB_PYTHON3_VERSION_MAJOR_MINOR=${XBB_PYTHON3_VERSION_MAJOR}${XBB_PYTHON3_VERSION_MINOR}
+    XBB_PYTHON3_SRC_FOLDER_NAME="Python-${XBB_PYTHON3_VERSION}"
 
     if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
     then
@@ -47,53 +52,49 @@ function application_build_versioned_components()
     xbb_reset_env
     xbb_set_target "requested"
 
-    # http://zlib.net/fossils/
-    zlib_build  "1.2.12"
+    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" != "win32" ]
+    then
+      # http://zlib.net/fossils/
+      zlib_build  "1.2.12"
 
-    # https://sourceware.org/pub/bzip2/
-    bzip2_build "1.0.8"
+      # https://sourceware.org/pub/bzip2/
+      bzip2_build "1.0.8"
 
-    # https://sourceforge.net/projects/lzmautils/files/
-    xz_build "5.2.6"
+      # https://sourceforge.net/projects/lzmautils/files/
+      xz_build "5.2.6"
 
-    # https://www.bytereef.org/mpdecimal/download.html
-    mpdecimal_build "2.5.1"
+      # https://www.bytereef.org/mpdecimal/download.html
+      mpdecimal_build "2.5.1"
 
-    # https://github.com/libexpat/libexpat/releases
-    expat_build "2.4.8"
+      # https://github.com/libexpat/libexpat/releases
+      expat_build "2.4.8"
 
-    # https://github.com/libffi/libffi/releases
-    libffi_build "3.4.3" # !
+      # https://github.com/libffi/libffi/releases
+      libffi_build "3.4.3" # !
 
-    # https://github.com/besser82/libxcrypt
-    libxcrypt_build "4.4.28"
+      # https://github.com/besser82/libxcrypt
+      libxcrypt_build "4.4.28"
 
-    # https://www.openssl.org/source/
-    openssl_build "1.1.1q"
+      # https://www.openssl.org/source/
+      openssl_build "1.1.1q"
 
-    export XBB_NCURSES_DISABLE_WIDEC="y"
-    # https://ftp.gnu.org/gnu/ncurses/
-    ncurses_build "6.3"
+      export XBB_NCURSES_DISABLE_WIDEC="y"
+      # https://ftp.gnu.org/gnu/ncurses/
+      ncurses_build "6.3"
 
-    # https://ftp.gnu.org/gnu/readline/
-    readline_build "8.1.2"
+      # https://ftp.gnu.org/gnu/readline/
+      readline_build "8.1.2"
 
-    # Without it, on macOS, the Python binaries will have a reference
-    # to the system libsqlite.
-    # https://www.sqlite.org/download.html
-    sqlite_build "3390200"
+      # Without it, on macOS, the Python binaries will have a reference
+      # to the system libsqlite.
+      # https://www.sqlite.org/download.html
+      sqlite_build "3390200"
 
-    XBB_PYTHON3_VERSION_MAJOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\..*|\1|')
-    XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)\.\([0-9][0-9]*\)\..*|\2|')
-    XBB_PYTHON3_VERSION_MAJOR_MINOR=${XBB_PYTHON3_VERSION_MAJOR}${XBB_PYTHON3_VERSION_MINOR}
-
-    XBB_PYTHON3_SRC_FOLDER_NAME="Python-${XBB_PYTHON3_VERSION}"
-
-    python3_build "${XBB_PYTHON3_VERSION}"
+      python3_build "${XBB_PYTHON3_VERSION}"
+    fi
 
     # -------------------------------------------------------------------------
     # Build the application binaries.
-
 
     xbb_set_executables_install_path "${XBB_APPLICATION_INSTALL_FOLDER_PATH}"
     xbb_set_libraries_install_path "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
