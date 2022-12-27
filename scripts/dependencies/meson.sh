@@ -178,7 +178,7 @@ function meson_build()
           )
 
           echo "Replacing .py files with .pyc files..."
-          meson_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
+          python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
 
           mkdir -pv "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/lib-dynload/"
 
@@ -216,57 +216,6 @@ function meson_build()
   fi
 
   tests_add "meson_test" "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin"
-}
-
-function meson_process_pyc()
-{
-  echo_develop
-  echo_develop "[${FUNCNAME[0]} $@]"
-
-  local file_path="$1"
-
-  # echo bbb "${file_path}"
-
-  local file_full_name="$(basename "${file_path}")"
-  local file_name="$(echo "${file_full_name}" | sed -e 's|\.cpython-[0-9]*\.pyc||')"
-  local folder_path="$(dirname $(dirname "${file_path}"))"
-
-  # echo "${folder_path}" "${file_name}"
-
-  if [ -f "${folder_path}/${file_name}.py" ]
-  then
-    mv "${file_path}" "${folder_path}/${file_name}.pyc"
-    rm "${folder_path}/${file_name}.py"
-  fi
-}
-
-export -f meson_process_pyc
-
-function meson_process_pycache()
-{
-  echo_develop
-  echo_develop "[${FUNCNAME[0]} $@]"
-
-  local folder_path="$1"
-
-  find ${folder_path} -name '*.pyc' -type f -print0 | xargs -0 -L 1 -I {} bash -c 'meson_process_pyc "{}"'
-
-  if [ $(ls -1 "${folder_path}" | wc -l) -eq 0 ]
-  then
-    rm -rf "${folder_path}"
-  fi
-}
-
-export -f meson_process_pycache
-
-function meson_move_pyc()
-{
-  echo_develop
-  echo_develop "[${FUNCNAME[0]} $@]"
-
-  local folder_path="$1"
-
-  find ${folder_path} -name '__pycache__' -type d -print0 | xargs -0 -L 1 -I {} bash -c 'meson_process_pycache "{}"'
 }
 
 # -----------------------------------------------------------------------------
