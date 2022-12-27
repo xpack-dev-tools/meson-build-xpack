@@ -22,6 +22,9 @@
 
 function meson_build()
 {
+  echo_develop
+  echo_develop "[${FUNCNAME[0]} $@]"
+
   local meson_version="$1"
 
   local meson_src_folder_name="meson-${meson_version}"
@@ -217,6 +220,9 @@ function meson_build()
 
 function meson_process_pyc()
 {
+  echo_develop
+  echo_develop "[${FUNCNAME[0]} $@]"
+
   local file_path="$1"
 
   # echo bbb "${file_path}"
@@ -238,6 +244,9 @@ export -f meson_process_pyc
 
 function meson_process_pycache()
 {
+  echo_develop
+  echo_develop "[${FUNCNAME[0]} $@]"
+
   local folder_path="$1"
 
   find ${folder_path} -name '*.pyc' -type f -print0 | xargs -0 -L 1 -I {} bash -c 'meson_process_pyc "{}"'
@@ -252,6 +261,9 @@ export -f meson_process_pycache
 
 function meson_move_pyc()
 {
+  echo_develop
+  echo_develop "[${FUNCNAME[0]} $@]"
+
   local folder_path="$1"
 
   find ${folder_path} -name '__pycache__' -type d -print0 | xargs -0 -L 1 -I {} bash -c 'meson_process_pycache "{}"'
