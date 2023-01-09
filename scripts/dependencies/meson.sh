@@ -82,7 +82,7 @@ function meson_build()
       elif [ "${XBB_HOST_PLATFORM}" == "darwin" ]
       then
         LDFLAGS+=" -L${XBB_LIBRARIES_INSTALL_FOLDER_PATH}/lib"
-        if [[ "${CC}" =~ gcc* ]]
+        if [[ "$(basename ${CC})" =~ .*gcc.* ]]
         then
           LDFLAGS+=" -fno-semantic-interposition"
         fi
