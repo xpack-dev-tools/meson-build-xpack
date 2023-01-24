@@ -13,8 +13,8 @@ function application_build_versioned_components()
 {
   XBB_MESON_VERSION="$(echo "${XBB_RELEASE_VERSION}" | sed -e 's|-.*||')"
 
-  # Keep them in sync with combo archive content.
-  if [[ "${XBB_RELEASE_VERSION}" =~ 0[.]6[234][.].*-.* ]]
+  # Keep them in sync with the combo archive content.
+  if [[ "${XBB_RELEASE_VERSION}" =~ 1[.].*[.].*-.* ]]
   then
 
     # -------------------------------------------------------------------------
@@ -24,7 +24,7 @@ function application_build_versioned_components()
 
     # For the latest stable see:
     # https://www.python.org/downloads/
-    XBB_PYTHON3_VERSION="3.10.6"
+    XBB_PYTHON3_VERSION="3.11.1"
 
     XBB_PYTHON3_VERSION_MAJOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.].*|\1|')
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.]\([0-9][0-9]*\)[.].*|\2|')
@@ -112,7 +112,7 @@ function application_build_versioned_components()
     meson_build "${XBB_MESON_VERSION}"
 
     # -------------------------------------------------------------------------
-  elif [[ "${XBB_RELEASE_VERSION}" =~ 0[.]61[.]5-.* ]]
+  elif [[ "${XBB_RELEASE_VERSION}" =~ 0[.]6[1234][.].*-.* ]]
   then
 
     # -------------------------------------------------------------------------
