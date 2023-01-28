@@ -4,6 +4,12 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-01-28
 
+* v0.62.2-1.1 published on npmjs.com
+* 60024e7 package.json: update urls for 0.62.2-1.1 release
+* c1176b2 README update
+* 5ca770e README update
+* 84c3137 body-jekyll update
+* 892165b CHANGELOG update
 * v0.62.2-1 released
 * bd2c931 README update
 * 84a9b43 versioning.sh: fix extras path
