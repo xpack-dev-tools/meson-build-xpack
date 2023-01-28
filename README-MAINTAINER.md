@@ -165,7 +165,7 @@ xpm run install -C ~/Work/meson-build-xpack.git
 rm -rf ~/Work/meson-build-[0-9]*-*
 
 xpm install --config darwin-x64 -C ~/Work/meson-build-xpack.git
-caffeinate xpm run build-develop --config darwin-x64 -C ~/Work/meson-build-xpack.git
+xpm run build-develop --config darwin-x64 -C ~/Work/meson-build-xpack.git
 ```
 
 When functional, push the `xpack-develop` branch to GitHub.
@@ -187,7 +187,7 @@ xpm run install -C ~/Work/meson-build-xpack.git
 xpm run deep-clean --config darwin-x64 -C ~/Work/meson-build-xpack.git
 
 xpm install --config darwin-x64 -C ~/Work/meson-build-xpack.git
-caffeinate xpm run build-develop --config darwin-x64 -C ~/Work/meson-build-xpack.git
+xpm run build-develop --config darwin-x64 -C ~/Work/meson-build-xpack.git
 ```
 
 The build takes about 10 minutes.
@@ -212,7 +212,7 @@ xpm link -C ~/Work/xbb-helper-xpack.git && \
 xpm run link-deps -C ~/Work/meson-build-xpack.git && \
 xpm run deep-clean --config darwin-x64  -C ~/Work/meson-build-xpack.git && \
 xpm install --config darwin-x64 -C ~/Work/meson-build-xpack.git
-caffeinate xpm run build-develop --config darwin-x64 -C ~/Work/meson-build-xpack.git
+xpm run build-develop --config darwin-x64 -C ~/Work/meson-build-xpack.git
 ```
 
 About 15 minutes later, the output of the build script is a compressed
@@ -245,7 +245,7 @@ xpm link -C ~/Work/xbb-helper-xpack.git && \
 xpm run link-deps -C ~/Work/meson-build-xpack.git && \
 xpm run deep-clean --config darwin-arm64  -C ~/Work/meson-build-xpack.git && \
 xpm install --config darwin-arm64 -C ~/Work/meson-build-xpack.git
-caffeinate xpm run build-develop --config darwin-arm64 -C ~/Work/meson-build-xpack.git
+xpm run build-develop --config darwin-arm64 -C ~/Work/meson-build-xpack.git
 ```
 
 About 10 minutes later, the output of the build script is a compressed
