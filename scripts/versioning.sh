@@ -20,7 +20,8 @@ function application_build_versioned_components()
     # -------------------------------------------------------------------------
 
     # https://www.python.org/ftp/python/
-    # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
+    # Be sure that ${helper_folder_path}/extras/python/pyconfig-win-3.X.Y.h
+    # is available.
 
     # For the latest stable see:
     # https://www.python.org/downloads/
@@ -118,7 +119,8 @@ function application_build_versioned_components()
     # -------------------------------------------------------------------------
 
     # https://www.python.org/ftp/python/
-    # Be sure the extras/includes/pyconfig-win-3.X.Y.h is available.
+    # Be sure that ${helper_folder_path}/extras/python/pyconfig-win-3.X.Y.h
+    # is available.
 
     # For the latest stable see:
     # https://www.python.org/downloads/

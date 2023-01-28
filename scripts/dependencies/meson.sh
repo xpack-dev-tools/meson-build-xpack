@@ -132,7 +132,7 @@ function meson_build()
 
       if [ "${XBB_HOST_PLATFORM}" == "win32" ]
       then
-        cp -v "${XBB_BUILD_GIT_PATH}/extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h" \
+        cp -v "${helper_folder_path}/extras/python/pyconfig-win-${XBB_PYTHON3_VERSION}.h" \
           "pyconfig.h"
       fi
 
