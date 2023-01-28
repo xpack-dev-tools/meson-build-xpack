@@ -15,4 +15,5 @@ extras/
 README-*
 LICENSE-*
 
+src/
 *.tgz
