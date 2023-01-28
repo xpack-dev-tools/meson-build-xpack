@@ -4,6 +4,8 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-01-28
 
+* v0.63.3-1 released
+* 346b744 templates updates
 * v0.63.3-1 prepared
 * v0.62.2-1.1 published on npmjs.com
 * 60024e7 package.json: update urls for 0.62.2-1.1 release
