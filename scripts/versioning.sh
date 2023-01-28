@@ -33,7 +33,7 @@ function application_build_versioned_components()
 
     if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
     then
-      if [ ! -f "${helper_folder_path}/extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h" ]
+      if [ ! -f "${helper_folder_path}/extras/python/pyconfig-win-${XBB_PYTHON3_VERSION}.h" ]
       then
         echo
         echo "Missing extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h"
@@ -131,7 +131,7 @@ function application_build_versioned_components()
 
     if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
     then
-      if [ ! -f "${helper_folder_path}/extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h" ]
+      if [ ! -f "${helper_folder_path}/extras/python/pyconfig-win-${XBB_PYTHON3_VERSION}.h" ]
       then
         echo
         echo "Missing extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h"
