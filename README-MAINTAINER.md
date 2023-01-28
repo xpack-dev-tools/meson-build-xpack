@@ -469,11 +469,11 @@ This command uses the `xpack-develop` branch of this repo.
 
 The builds take about 50 minutes to complete:
 
-- `xbbmi`: 14 min
-- `xbbma`: 8 min
-- `xbbli`: 8 min (Windows included)
-- `xbbla64`: 29 min
-- `xbbla32`: 48 min
+- `xbbmi`: 13 min
+- `xbbma`: 6 min
+- `xbbli`: 11 min (11 min Linux, 2 min Windows)
+- `xbbla64`: 52 min
+- `xbbla32`: 56 min
 
 The workflow result and logs are available from the
 [Actions](https://github.com/xpack-dev-tools/meson-build-xpack/actions/) page.
@@ -597,6 +597,7 @@ with all binaries attached.
 ## Prepare a new blog post
 
 - check and possibly update the `templates/body-jekyll-release-*-liquid.md`
+  (for the release dates see <https://github.com/mesonbuild/meson/releases/>)
 - run the xPack action `generate-jekyll-post`; this will leave a file
 on the Desktop.
 
