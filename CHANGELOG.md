@@ -2,8 +2,23 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2023-01-28
+
+* 723246d remove extras (use helper ones)
+* 72c8fe8 versioning.sh: use versioning functions
+* b16b91b package.json: bump deps
+
+## 2023-01-27
+
+* accd9b7 package.json: reorder scripts
+
 ## 2023-01-24
 
+* 9cdd5fe versioning.sh: revert 0.6* deps versions
+* a7aa022 re-generate workflows
+* ee56282 prepare v0.62.2-1
+* d131540 .vscode/settings.json: ignoreWords
+* 4c025ac package.json: bump deps
 * 97d0ce2 README updates
 
 ## 2023-01-22
