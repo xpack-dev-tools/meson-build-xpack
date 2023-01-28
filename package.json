@@ -69,7 +69,7 @@
       "meson": "./.content/bin/meson"
     },
     "devDependencies": {
-      "@xpack-dev-tools/xbb-helper": "^1.3.1"
+      "@xpack-dev-tools/xbb-helper": "^1.4.0"
     },
     "properties": {
       "appName": "Meson Build",
@@ -211,7 +211,7 @@
           "common-actions-native"
         ],
         "devDependencies": {
-          "@xpack-dev-tools/clang": "15.0.7-1.1",
+          "@xpack-dev-tools/clang": "15.0.7-2.1",
           "@xpack-dev-tools/realpath": "9.1.0-1.1",
           "@xpack-dev-tools/sed": "4.9.0-1.1"
         },
