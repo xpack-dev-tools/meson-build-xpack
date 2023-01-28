@@ -11,7 +11,7 @@
 
 function application_build_versioned_components()
 {
-  XBB_MESON_VERSION="$(echo "${XBB_RELEASE_VERSION}" | sed -e 's|-.*||')"
+  XBB_MESON_VERSION="$(xbb_strip_version_pre_release "${XBB_RELEASE_VERSION}")"
 
   # Keep them in sync with the combo archive content.
   if [[ "${XBB_RELEASE_VERSION}" =~ 1[.].*[.].*-.* ]]
@@ -26,7 +26,7 @@ function application_build_versioned_components()
     # https://www.python.org/downloads/
     XBB_PYTHON3_VERSION="3.11.1"
 
-    XBB_PYTHON3_VERSION_MAJOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.].*|\1|')
+    XBB_PYTHON3_VERSION_MAJOR=$(xbb_get_version_major "${XBB_PYTHON3_VERSION}")
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.]\([0-9][0-9]*\)[.].*|\2|')
     XBB_PYTHON3_VERSION_MAJOR_MINOR=${XBB_PYTHON3_VERSION_MAJOR}${XBB_PYTHON3_VERSION_MINOR}
     XBB_PYTHON3_SRC_FOLDER_NAME="Python-${XBB_PYTHON3_VERSION}"
@@ -124,7 +124,7 @@ function application_build_versioned_components()
     # https://www.python.org/downloads/
     XBB_PYTHON3_VERSION="3.10.6"
 
-    XBB_PYTHON3_VERSION_MAJOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.].*|\1|')
+    XBB_PYTHON3_VERSION_MAJOR=$(xbb_get_version_major "${XBB_PYTHON3_VERSION}")
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.]\([0-9][0-9]*\)[.].*|\2|')
     XBB_PYTHON3_VERSION_MAJOR_MINOR=${XBB_PYTHON3_VERSION_MAJOR}${XBB_PYTHON3_VERSION_MINOR}
     XBB_PYTHON3_SRC_FOLDER_NAME="Python-${XBB_PYTHON3_VERSION}"
