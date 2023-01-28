@@ -106,23 +106,26 @@ $ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.62.2-1.1/.
 │   ├── patches
 │   └── scripts
 ├── lib
-│   └── python3.8
+│   └── python3.10
 └── libexec
+    ├── libbz2.1.0.8.dylib
     ├── libcrypt.2.dylib
     ├── libcrypto.1.1.dylib
-    ├── libgcc_s.1.dylib
+    ├── libexpat.1.8.10.dylib
+    ├── libexpat.1.dylib -> libexpat.1.8.10.dylib
+    ├── libffi.8.dylib
     ├── liblzma.5.dylib
     ├── libncurses.6.dylib
     ├── libpanel.6.dylib
-    ├── libpython3.8.dylib
-    ├── libreadline.8.0.dylib
-    ├── libreadline.8.dylib -> libreadline.8.0.dylib
+    ├── libpython3.10.dylib
+    ├── libreadline.8.2.dylib
+    ├── libreadline.8.dylib -> libreadline.8.2.dylib
     ├── libsqlite3.0.dylib
     ├── libssl.1.1.dylib
-    ├── libz.1.2.8.dylib
-    └── libz.1.dylib -> libz.1.2.8.dylib
+    ├── libz.1.2.13.dylib
+    └── libz.1.dylib -> libz.1.2.12.dylib
 
-8 directories, 16 files
+8 directories, 19 files
 ```
 
 No other files are installed in any system folders or other locations.
