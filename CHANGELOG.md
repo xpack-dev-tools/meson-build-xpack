@@ -4,6 +4,13 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-01-28
 
+* v0.62.2-1 released
+* bd2c931 README update
+* 84a9b43 versioning.sh: fix extras path
+* b2f53dd versioning.sh: fix extras path
+* 3faf93f versioning.sh: fix extras path
+* 3c0bcf0 README-MAINTAINER remove caffeinate xpm
+* b7bebea CHANGELOG updates
 * 723246d remove extras (use helper ones)
 * 72c8fe8 versioning.sh: use versioning functions
 * b16b91b package.json: bump deps
