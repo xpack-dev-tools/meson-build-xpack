@@ -69,7 +69,7 @@ a dependency for a project is quite easy:
 cd my-project
 xpm init # Only at first use.
 
-xpm install @xpack-dev-tools/meson-build@latest
+xpm install @xpack-dev-tools/meson-build@latest --verbose
 
 ls -l xpacks/.bin
 ```
@@ -91,7 +91,7 @@ This location is configurable via the environment variable
 It is also possible to install Meson Build globally, in the user home folder:
 
 ```sh
-xpm install --global @xpack-dev-tools/meson-build@latest
+xpm install --global @xpack-dev-tools/meson-build@latest --verbose
 ```
 
 ```console
