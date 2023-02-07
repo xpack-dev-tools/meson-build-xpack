@@ -7,12 +7,14 @@ summary: "Version **{{ XBB_RELEASE_VERSION }}** is a maintenance release; it fix
 
 summary: "Version **{{ XBB_RELEASE_VERSION }}** is a new release; it follows the upstream release."
 
-version: "{{ XBB_RELEASE_VERSION }}"
 upstream_version: "0.63.3"
 upstream_release_date: "6 Oct 2022"
-npm_subversion: "1"
 python_version: "3.10"
 python_subversion: "6"
+
+version: "{{ XBB_RELEASE_VERSION }}"
+npm_subversion: "1"
+
 download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v{{ XBB_RELEASE_VERSION }}/
 
 date:   {{ RELEASE_DATE }}
@@ -33,7 +35,7 @@ tags:
 
 [The xPack Meson Build](https://xpack.github.io/meson-build/)
 is a standalone cross-platform binary distribution of
-[Meson Build](http://mesonbuild.org).
+[Meson Build](https://mesonbuild.org).
 
 There are separate binaries for **Windows** (Intel 64-bit),
 **macOS** (Intel 64-bit, Apple Silicon 64-bit)
@@ -65,7 +67,7 @@ The binary files are available from GitHub [Releases]({% raw %}{{ page.download_
 
 The full details of installing the **xPack Meson Build** on various platforms
 are presented in the separate
-[Install]({% raw %}{{ site.baseurl }}{% endraw %}/meson-build/install/) page.
+[Install]({% raw %}{{ site.baseurl }}{% endraw %}/dev-tools/meson-build/install/) page.
 
 ### Easy install
 
@@ -83,7 +85,7 @@ a dependency for a project is quite easy:
 cd my-project
 xpm init # Only at first use.
 
-xpm install @xpack-dev-tools/meson-build@latest
+xpm install @xpack-dev-tools/meson-build@latest --verbose
 
 ls -l xpacks/.bin
 ```
@@ -91,7 +93,7 @@ ls -l xpacks/.bin
 To install this specific version, use:
 
 ```sh
-xpm install @xpack-dev-tools/meson-build@{% raw %}{{ page.version }}.{{ page.npm_subversion }}{% endraw %}
+xpm install @xpack-dev-tools/meson-build@{% raw %}{{ page.version }}.{{ page.npm_subversion }}{% endraw %} --verbose
 ```
 
 It is also possible to install Meson Build globally, in the user home folder,
@@ -99,7 +101,7 @@ but this requires xPack aware tools to automatically identify them and
 manage paths.
 
 ```sh
-xpm install --global @xpack-dev-tools/meson-build@latest
+xpm install --global @xpack-dev-tools/meson-build@latest --verbose
 ```
 
 ### Uninstall
@@ -121,7 +123,7 @@ xpm uninstall --global @xpack-dev-tools/meson-build
 ## Compliance
 
 The xPack Meson Build generally follows the official
-[Meson Build](http://mesonbuild.org) releases.
+[Meson Build](https://mesonbuild.org) releases.
 
 The current version is based on:
 
