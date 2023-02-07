@@ -58,7 +58,7 @@ function application_build_versioned_components()
 
     if [ "${XBB_REQUESTED_TARGET_PLATFORM}" != "win32" ]
     then
-      # http://zlib.net/fossils/
+      # https://zlib.net/fossils/
       zlib_build  "1.2.13" # "1.2.12"
 
       # https://sourceware.org/pub/bzip2/
@@ -157,7 +157,7 @@ function application_build_versioned_components()
 
     if [ "${XBB_REQUESTED_TARGET_PLATFORM}" != "win32" ]
     then
-      # http://zlib.net/fossils/
+      # https://zlib.net/fossils/
       zlib_build  "1.2.12"
 
       # https://sourceware.org/pub/bzip2/
