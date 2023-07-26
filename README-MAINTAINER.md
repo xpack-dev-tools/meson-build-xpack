@@ -51,6 +51,12 @@ git clone \
   ~/Work/xpacks/meson-build-xpack.git
 ```
 
+Or, if the repo was already cloned:
+
+```sh
+git -C ~/Work/xpacks/meson-build-xpack.git pull
+```
+
 ## Get helper sources
 
 The project has a dependency to a common **helper**; clone the
