@@ -9,21 +9,30 @@
 The build scripts run on GNU/Linux and macOS. The Windows binaries are
 generated on Intel GNU/Linux, using [mingw-w64](https://mingw-w64.org).
 
-For GNU/Linux the prerequisites are:
+For GNU/Linux, the prerequisites are:
 
-- `npm` (shipped with Node.js; installed via nvm, not the system package manager)
-- `xpm` (installed via `npm`)
-- `docker`
+- `curl` (installed via the system package manager)
 - `git` (installed via the system package manager)
-
-For macOS the prerequisites are:
-
-- `npm` (shipped with Node.js; installed via nvm)
+- `docker` (preferably a recent one, installed from **docker.com**)
+- `npm` (shipped with Node.js; installed via **nvm**, **not**
+  the system package manager)
 - `xpm` (installed via `npm`)
-- the Command Line Tools
+
+For macOS, the prerequisites are:
+
+- `npm` (shipped with Node.js; installed via **nvm**)
+- `xpm` (installed via `npm`)
+- the **Command Line Tools** from Apple
 
 For details on installing them, please read the
-[XBB prerequisites page](https://xpack.github.io/xbb/prerequisites/).
+[XBB prerequisites](https://xpack.github.io/xbb/prerequisites/) page.
+
+If you already have a functional configuration from a previous run,
+it is recommended to update **xpm**:
+
+```sh
+npm install --location=global xpm@latest
+```
 
 ## Get project sources
 
@@ -81,7 +90,8 @@ xpm link -C ~/Work/xpack-dev-tools/xbb-helper-xpack.git
 
 ## Release schedule
 
-This distribution is generally one minor release behind the upstream [releases](https://github.com/mesonbuild/meson/releases/).
+This distribution is generally one minor release behind the upstream
+[releases](https://github.com/mesonbuild/meson/releases/).
 In practical terms, when the minor release number changes, it awaits a few
 more weeks to get the latest patch release.
 
@@ -119,8 +129,8 @@ previous 0.(X-1).Y is probably no longer updated and can be released.
 
 ### Increase the version
 
-Determine the version (like `0.63.3`) and update the `scripts/VERSION`
-file; the format is `0.63.3-1`. The fourth number is the xPack release number
+Determine the version (like `0.64.1`) and update the `scripts/VERSION`
+file; the format is `0.64.1-1`. The fourth number is the xPack release number
 of this version. A fifth number will be added when publishing
 the package on the `npm` server.
 
@@ -130,7 +140,7 @@ Check GitHub issues and pull requests:
 
 - <https://github.com/xpack-dev-tools/meson-build-xpack/issues/>
 
-and fix them; assign them to a milestone (like `0.63.3-1`).
+and fix them; assign them to a milestone (like `0.64.1-1`).
 
 ### Check `README.md`
 
@@ -147,8 +157,8 @@ but in the version specific release page.
 
 - open the `CHANGELOG.md` file
 - check if all previous fixed issues are in
-- add a new entry like _* v0.63.3-1 prepared_
-- commit with a message like _prepare v0.63.3-1_
+- add a new entry like _* v0.64.1-1 prepared_
+- commit with a message like _prepare v0.64.1-1_
 
 ### Update the version specific code
 
@@ -182,37 +192,16 @@ git -C ~/Work/xpack-dev-tools/meson-build-xpack.git pull
 
 xpm run install -C ~/Work/xpack-dev-tools/meson-build-xpack.git
 
+git -C ~/Work/xpack-dev-tools/xbb-helper-xpack.git pull
+xpm run link-deps -C ~/Work/xpack-dev-tools/meson-build-xpack.git
+
 # For backup overhead reasons, on the development machine
 # the builds happen on a separate Work folder.
-rm -rf ~/Work/meson-build-[0-9]*-*
+rm -rf ~/Work/xpack-dev-tools-build/meson-build-[0-9]*-*
 
 xpm install --config darwin-x64 -C ~/Work/xpack-dev-tools/meson-build-xpack.git
 xpm run build-develop --config darwin-x64 -C ~/Work/xpack-dev-tools/meson-build-xpack.git
 ```
-
-When functional, push the `xpack-develop` branch to GitHub.
-
-Run the native build on the production machine
-(`xbbmi`, an older macOS);
-start a VS Code remote session, or connect with a terminal:
-
-```sh
-caffeinate ssh xbbmi
-```
-
-```sh
-# Update the build scripts (or clone them the first time).
-git -C ~/Work/xpack-dev-tools/meson-build-xpack.git pull
-
-xpm run install -C ~/Work/xpack-dev-tools/meson-build-xpack.git
-
-xpm run deep-clean --config darwin-x64 -C ~/Work/xpack-dev-tools/meson-build-xpack.git
-
-xpm install --config darwin-x64 -C ~/Work/xpack-dev-tools/meson-build-xpack.git
-xpm run build-develop --config darwin-x64 -C ~/Work/xpack-dev-tools/meson-build-xpack.git
-```
-
-The build takes about 10 minutes.
 
 When functional, push the `xpack-develop` branch to GitHub.
 
@@ -243,8 +232,8 @@ archive and its SHA signature, created in the `deploy` folder:
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/darwin-x64/deploy
 total 42608
--rw-r--r--  1 ilg  staff  20773837 Jan 28 12:35 xpack-meson-build-0.63.3-1-darwin-x64.tar.gz
--rw-r--r--  1 ilg  staff       111 Jan 28 12:35 xpack-meson-build-0.63.3-1-darwin-x64.tar.gz.sha
+-rw-r--r--  1 ilg  staff  20773837 Jan 28 12:35 xpack-meson-build-0.64.1-1-darwin-x64.tar.gz
+-rw-r--r--  1 ilg  staff       111 Jan 28 12:35 xpack-meson-build-0.64.1-1-darwin-x64.tar.gz.sha
 ```
 
 #### Apple Silicon macOS
@@ -276,8 +265,8 @@ archive and its SHA signature, created in the `deploy` folder:
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/darwin-arm64/deploy
 total 41712
--rw-r--r--  1 ilg  staff  20721998 Jan 28 12:28 xpack-meson-build-0.63.3-1-darwin-arm64.tar.gz
--rw-r--r--  1 ilg  staff       113 Jan 28 12:28 xpack-meson-build-0.63.3-1-darwin-arm64.tar.gz.sha
+-rw-r--r--  1 ilg  staff  20721998 Jan 28 12:28 xpack-meson-build-0.64.1-1-darwin-arm64.tar.gz
+-rw-r--r--  1 ilg  staff       113 Jan 28 12:28 xpack-meson-build-0.64.1-1-darwin-arm64.tar.gz.sha
 ```
 
 #### Intel GNU/Linux
@@ -311,8 +300,8 @@ archive and its SHA signature, created in the `deploy` folder:
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-x64/deploy
 total 20724
--rw-r--r-- 1 ilg ilg 21216092 Jan 28 10:33 xpack-meson-build-0.63.3-1-linux-x64.tar.gz
--rw-r--r-- 1 ilg ilg      110 Jan 28 10:33 xpack-meson-build-0.63.3-1-linux-x64.tar.gz.sha
+-rw-r--r-- 1 ilg ilg 21216092 Jan 28 10:33 xpack-meson-build-0.64.1-1-linux-x64.tar.gz
+-rw-r--r-- 1 ilg ilg      110 Jan 28 10:33 xpack-meson-build-0.64.1-1-linux-x64.tar.gz.sha
 ```
 
 ##### Build the Windows binaries
@@ -337,8 +326,8 @@ archive and its SHA signature, created in the `deploy` folder:
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/win32-x64/deploy
 total 19740
--rw-r--r-- 1 ilg ilg 20207452 Jan 28 10:41 xpack-meson-build-0.63.3-1-win32-x64.zip
--rw-r--r-- 1 ilg ilg      107 Jan 28 10:41 xpack-meson-build-0.63.3-1-win32-x64.zip.sha
+-rw-r--r-- 1 ilg ilg 20207452 Jan 28 10:41 xpack-meson-build-0.64.1-1-win32-x64.zip
+-rw-r--r-- 1 ilg ilg      107 Jan 28 10:41 xpack-meson-build-0.64.1-1-win32-x64.zip.sha
 ```
 
 #### Arm GNU/Linux 64-bit
@@ -370,8 +359,8 @@ archive and its SHA signature, created in the `deploy` folder:
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-arm64/deploy
 total 20444
--rw-r--r-- 1 ilg ilg 20927149 Jan 28 11:14 xpack-meson-build-0.63.3-1-linux-arm64.tar.gz
--rw-r--r-- 1 ilg ilg      112 Jan 28 11:14 xpack-meson-build-0.63.3-1-linux-arm64.tar.gz.sha
+-rw-r--r-- 1 ilg ilg 20927149 Jan 28 11:14 xpack-meson-build-0.64.1-1-linux-arm64.tar.gz
+-rw-r--r-- 1 ilg ilg      112 Jan 28 11:14 xpack-meson-build-0.64.1-1-linux-arm64.tar.gz.sha
 ```
 
 #### Arm GNU/Linux 32-bit
@@ -403,8 +392,8 @@ archive and its SHA signature, created in the `deploy` folder:
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-arm/deploy
 total 19924
--rw-r--r-- 1 ilg ilg 20395664 Jan 28 11:19 xpack-meson-build-0.63.3-1-linux-arm.tar.gz
--rw-r--r-- 1 ilg ilg      110 Jan 28 11:19 xpack-meson-build-0.63.3-1-linux-arm.tar.gz.sha
+-rw-r--r-- 1 ilg ilg 20395664 Jan 28 11:19 xpack-meson-build-0.64.1-1-linux-arm.tar.gz
+-rw-r--r-- 1 ilg ilg      110 Jan 28 11:19 xpack-meson-build-0.64.1-1-linux-arm.tar.gz.sha
 ```
 
 ### Files cache
@@ -441,7 +430,18 @@ caffeinate ssh xbbla64
 caffeinate ssh xbbla32
 ```
 
-Start the runners on all machines:
+For `xbbli` & `xbbla64` start two runners:
+
+```sh
+screen -S ga
+
+~/actions-runners/xpack-dev-tools/1/run.sh &
+~/actions-runners/xpack-dev-tools/2/run.sh &
+
+# Ctrl-a Ctrl-d
+```
+
+On all other machines start a single runner:
 
 ```sh
 screen -S ga
@@ -449,13 +449,6 @@ screen -S ga
 ~/actions-runners/xpack-dev-tools/run.sh &
 
 # Ctrl-a Ctrl-d
-```
-
-For `xbbli` & `xbbla64` start two runners:
-
-```sh
-~/actions-runners/xpack-dev-tools/1/run.sh &
-~/actions-runners/xpack-dev-tools/2/run.sh &
 ```
 
 ### Push the build scripts
@@ -520,20 +513,6 @@ The resulting binaries are available for testing from
 
 The automation is provided by GitHub Actions.
 
-On the macOS machine (`xbbmi`) open a ssh sessions to the Arm/Linux
-test machine `xbbla`:
-
-```sh
-caffeinate ssh xbbla
-```
-
-Start both runners (to allow the 32/64-bit tests to run in parallel):
-
-```sh
-~/actions-runners/xpack-dev-tools/1/run.sh &
-~/actions-runners/xpack-dev-tools/2/run.sh &
-```
-
 To trigger the GitHub Actions tests, use the xPack actions:
 
 - `trigger-workflow-test-prime`
@@ -593,23 +572,29 @@ download the archive from
 [pre-releases/test](https://github.com/xpack-dev-tools/pre-releases/releases/tag/test/)
 and check the binaries.
 
+On macOS, remove the `com.apple.quarantine` flag:
+
+```sh
+xattr -cr ${HOME}/Downloads/xpack-*
+```
+
 On GNU/Linux and macOS systems, use:
 
 ```sh
-.../xpack-meson-build-0.63.3-1/bin/meson-build --version
-0.63.3
+.../xpack-meson-build-0.64.1-1/bin/meson-build --version
+0.64.1
 ```
 
 On Windows use:
 
 ```dos
-...\xpack-meson-build-0.63.3-1\bin\meson-build --version
-0.63.3
+...\xpack-meson-build-0.64.1-1\bin\meson-build --version
+0.64.1
 ```
 
 ## Create a new GitHub pre-release draft
 
-- in `CHANGELOG.md`, add the release date and a message like _* v0.63.3-1 released_
+- in `CHANGELOG.md`, add the release date and a message like _* v0.64.1-1 released_
 - commit with _CHANGELOG update_
 - check and possibly update the `templates/body-github-release-liquid.md`
 - push the `xpack-develop` branch
@@ -620,8 +605,8 @@ The workflow result and logs are available from the
 
 The result is a
 [draft pre-release](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
-tagged like **v0.63.3-1** (mind the dash in the middle!) and
-named like **xPack Meson Build v0.63.3-1** (mind the dash),
+tagged like **v0.64.1-1** (mind the dash in the middle!) and
+named like **xPack Meson Build v0.64.1-1** (mind the dash),
 with all binaries attached.
 
 - edit the draft and attach it to the `xpack-develop` branch (important!)
@@ -645,7 +630,7 @@ If any, refer to closed
 ## Update the preview Web
 
 - commit the `develop` branch of `xpack/web-jekyll` GitHub repo;
-  use a message like _xPack Meson Build v0.63.3-1 released_
+  use a message like _xPack Meson Build v0.64.1-1 released_
 - push to GitHub
 - wait for the GitHub Pages build to complete
 - the preview web is <https://xpack.github.io/web-preview/news/>
@@ -687,18 +672,18 @@ watching this project.
 - compare the SHA sums with those shown by `cat *.sha`
 - check the executable names
 - commit all changes, use a message like
-  _package.json: update urls for 0.63.3-1.1 release_ (without _v_)
+  _package.json: update urls for 0.64.1-1.1 release_ (without _v_)
 
 ## Publish on the npmjs.com server
 
 - select the `xpack-develop` branch
 - check the latest commits `npm run git-log`
-- update `CHANGELOG.md`, add a line like _* v0.63.3-1.1 published on npmjs.com_
-- commit with a message like _CHANGELOG: publish npm v0.63.3-1.1_
+- update `CHANGELOG.md`, add a line like _* v0.64.1-1.1 published on npmjs.com_
+- commit with a message like _CHANGELOG: publish npm v0.64.1-1.1_
 - `npm pack` and check the content of the archive, which should list
   only the `package.json`, the `README.md`, `LICENSE` and `CHANGELOG.md`;
   possibly adjust `.npmignore`
-- `npm version 0.63.3-1.1`; the first 4 numbers are the same as the
+- `npm version 0.64.1-1.1`; the first 4 numbers are the same as the
   GitHub release; the fifth number is the npm specific version
 - the commits and the tag should have been pushed by the `postversion` script;
   if not, push them with `git push origin --tags`
@@ -727,12 +712,12 @@ The tests results are available from the
 When the release is considered stable, promote it as `latest`:
 
 - `npm dist-tag ls @xpack-dev-tools/meson-build`
-- `npm dist-tag add @xpack-dev-tools/meson-build@0.63.3-1.1 latest`
+- `npm dist-tag add @xpack-dev-tools/meson-build@0.64.1-1.1 latest`
 - `npm dist-tag ls @xpack-dev-tools/meson-build`
 
 In case the previous version is not functional and needs to be unpublished:
 
-- `npm unpublish @xpack-dev-tools/meson-build@0.63.3-1.1`
+- `npm unpublish @xpack-dev-tools/meson-build@0.64.1-1.1`
 
 ## Update the Web
 
@@ -754,7 +739,7 @@ In case the previous version is not functional and needs to be unpublished:
 
 - in a separate browser windows, open [TweetDeck](https://tweetdeck.twitter.com/)
 - using the `@xpack_project` account
-- paste the release name like **xPack Meson Build v0.63.3-1 released**
+- paste the release name like **xPack Meson Build v0.64.1-1 released**
 - paste the link to the Web page
   [release](https://xpack.github.io/meson-build/releases/)
 - click the **Tweet** button

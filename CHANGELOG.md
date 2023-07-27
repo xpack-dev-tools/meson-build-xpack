@@ -2,6 +2,48 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2023-07-28
+
+* v0.64.1-1 prepared
+* 1fe702f package.json: bump helper 1.4.12
+
+## 2023-07-26
+
+* 7f45b4b package.json: move scripts to actions
+* a5081fa package.json: update xpack-dev-tools path
+* e0b32dd READMEs update xpack-dev-tools path
+* 99f5c53 body-jekyll update
+* 31faa88 READMEs update
+
+## 2023-07-17
+
+* 182055a package.json: bump deps
+
+## 2023-03-25
+
+* 6b85909 READMEs update
+* f6d4cb8 READMEs update prerequisites
+* c503138 package.json: mkdir -pv cache
+
+## 2023-02-22
+
+* 9146699 READMEs update
+
+## 2023-02-14
+
+* a9e6952 body-jekyll update
+
+## 2023-02-10
+
+* c8402db package.json: update Work/xpacks
+* b554fdc READMEs update
+
+## 2023-02-07
+
+* 0d6ee51 READMEs update
+* dc6ff8b versioning.sh: update for https
+* c304ea6 body-jekyll update
+
 ## 2023-01-28
 
 * v0.63.3-1.1 published on npmjs.com
