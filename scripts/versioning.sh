@@ -14,7 +14,7 @@ function application_build_versioned_components()
   XBB_MESON_VERSION="$(xbb_strip_version_pre_release "${XBB_RELEASE_VERSION}")"
 
   # Keep them in sync with the combo archive content.
-  if [[ "${XBB_RELEASE_VERSION}" =~ 1[.].*[.].*-.* ]]
+  if [[ "${XBB_RELEASE_VERSION}" =~ 1[.][0][.].*-.* ]]
   then
 
     # -------------------------------------------------------------------------
@@ -25,7 +25,7 @@ function application_build_versioned_components()
 
     # For the latest stable see:
     # https://www.python.org/downloads/
-    XBB_PYTHON3_VERSION="3.11.1"
+    XBB_PYTHON3_VERSION="3.11.4"
 
     XBB_PYTHON3_VERSION_MAJOR=$(xbb_get_version_major "${XBB_PYTHON3_VERSION}")
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.]\([0-9][0-9]*\)[.].*|\2|')
@@ -65,7 +65,7 @@ function application_build_versioned_components()
       bzip2_build "1.0.8"
 
       # https://sourceforge.net/projects/lzmautils/files/
-      xz_build "5.4.1" # "5.2.6"
+      xz_build "5.4.3" # "5.2.6"
 
       # https://www.bytereef.org/mpdecimal/download.html
       mpdecimal_build "2.5.1"
@@ -77,10 +77,10 @@ function application_build_versioned_components()
       libffi_build "3.4.4" # "3.4.3"
 
       # https://github.com/besser82/libxcrypt/releases
-      libxcrypt_build "4.4.33" # "4.4.28"
+      libxcrypt_build "4.4.36" # "4.4.28"
 
       # https://github.com/openssl/openssl/tags
-      openssl_build "1.1.1s" # "1.1.1q"
+      openssl_build "1.1.1u" # "1.1.1q"
 
       export XBB_NCURSES_DISABLE_WIDEC="y"
       # https://ftp.gnu.org/gnu/ncurses/
@@ -92,7 +92,7 @@ function application_build_versioned_components()
       # Without it, on macOS, the Python binaries will have a reference
       # to the system libsqlite.
       # https://www.sqlite.org/download.html
-      sqlite_build "3400100" # "3390200"
+      sqlite_build "3420000" # "3390200"
 
       python3_build "${XBB_PYTHON3_VERSION}"
     fi
