@@ -113,7 +113,7 @@ $ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/1.0.2-1.1/.c
 │   ├── patches
 │   └── scripts
 ├── lib
-│   └── python3.10
+│   └── python3.11
 └── libexec
     ├── libbz2.1.0.8.dylib
     ├── libcrypt.2.dylib
@@ -124,13 +124,13 @@ $ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/1.0.2-1.1/.c
     ├── liblzma.5.dylib
     ├── libncurses.6.dylib
     ├── libpanel.6.dylib
-    ├── libpython3.10.dylib
+    ├── libpython3.11.dylib
     ├── libreadline.8.2.dylib
     ├── libreadline.8.dylib -> libreadline.8.2.dylib
     ├── libsqlite3.0.dylib
     ├── libssl.1.1.dylib
     ├── libz.1.2.13.dylib
-    └── libz.1.dylib -> libz.1.2.12.dylib
+    └── libz.1.dylib -> libz.1.2.13.dylib
 
 8 directories, 19 files
 ```
