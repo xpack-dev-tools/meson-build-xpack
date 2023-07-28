@@ -4,7 +4,7 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-07-28
 
-* v0.64.1-1 prepared
+* v0.64.1-1 released
 * 1fe702f package.json: bump helper 1.4.12
 
 ## 2023-07-26
