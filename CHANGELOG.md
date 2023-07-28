@@ -6,7 +6,7 @@ Entries in this file are in reverse chronological order.
 
 * v1.0.2-1.1 published on npmjs.com
 * c93f11e package.json: update urls for 1.0.2-1.1 release
-* b68dde0 README udpate
+* b68dde0 README update
 * 5ce29ba templates/jekyll update
 * 4d25ae9 CHANGELOG update
 * d02ce77 prepare v1.0.2-1
