@@ -4,7 +4,7 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-07-28
 
-* v1.0.2-1 prepared
+* v1.0.2-1 released
 * 16f7ad4 READMEs update
 * 7bee0b6 0.64.1-1.1
 * 9ad8e31 CHANGELOG: publish npm v0.64.1-1.1
