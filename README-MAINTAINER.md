@@ -314,6 +314,7 @@ xpm run install -C ~/Work/xpack-dev-tools/meson-build-xpack.git && \
 git -C ~/Work/xpack-dev-tools/xbb-helper-xpack.git pull && \
 xpm link -C ~/Work/xpack-dev-tools/xbb-helper-xpack.git && \
 xpm run link-deps -C ~/Work/xpack-dev-tools/meson-build-xpack.git && \
+\
 xpm run deep-clean --config win32-x64 -C ~/Work/xpack-dev-tools/meson-build-xpack.git && \
 xpm run docker-prepare --config win32-x64 -C ~/Work/xpack-dev-tools/meson-build-xpack.git && \
 xpm run docker-link-deps --config win32-x64 -C ~/Work/xpack-dev-tools/meson-build-xpack.git
