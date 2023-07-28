@@ -745,6 +745,10 @@ In case the previous version is not functional and needs to be unpublished:
   [release](https://xpack.github.io/meson-build/releases/)
 - click the **Tweet** button
 
+## Check SourceForge mirror
+
+- <https://sourceforge.net/projects/meson-build-xpack/files/>
+
 ## Remove the pre-release binaries
 
 - go to <https://github.com/xpack-dev-tools/pre-releases/releases/tag/test/>
