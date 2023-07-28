@@ -7,10 +7,10 @@ summary: "Version **{{ XBB_RELEASE_VERSION }}** is a maintenance release; it fix
 
 summary: "Version **{{ XBB_RELEASE_VERSION }}** is a new release; it follows the upstream release."
 
-upstream_version: "0.64.1"
-upstream_release_date: "6 Oct 2022"
-python_version: "3.10"
-python_subversion: "6"
+upstream_version: "1.0.2"
+upstream_release_date: "Apr 21, 2023"
+python_version: "3.11"
+python_subversion: "4"
 
 version: "{{ XBB_RELEASE_VERSION }}"
 npm_subversion: "1"
