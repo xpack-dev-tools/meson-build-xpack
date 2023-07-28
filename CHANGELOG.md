@@ -4,7 +4,30 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-07-28
 
-* v0.64.1-1 released
+* v0.64.1-1.1 published on npmjs.com
+* 8c737ec package.json: update urls for 0.64.1-1.1 release
+* fbd0dfb re-generate workflows
+* 8f81ea3 package.json: bump deps
+* 06c1b2d package.json: liquidjs --context --template
+* add4975 templates/jekyll update
+* 2be0fda CHANGELOG update
+* 82cbcfd README update
+* 2146deb READMEs update
+* fd1ff90 scripts cosmetics
+* 53d44a6 .npmignore remove src
+* e047719 README update
+* b667e87 package-lock.json update
+* 2f6e973 package.json: @xpack-dev-tools/xbb-helper
+* 5e9592c package.json: bump helper 1.4.14
+* d0bb6f5 package.json: minXpm 0.16.3
+* accd2fa re-generate workflows
+* a608327 package.json: minXpm 0.16.3
+* ee24990 VERSION 0.64.1
+* 6e12585 package.json: bump helper 1.4.14
+* 8215921 README update
+* 9178ec0 versioning.sh: update deps for 1.0.*
+* 05b5141 prepare v0.64.1-1
+* 1fe702f package.json: bump helper 1.4.12
 * 1fe702f package.json: bump helper 1.4.12
 
 ## 2023-07-26
