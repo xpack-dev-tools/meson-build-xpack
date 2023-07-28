@@ -102,8 +102,8 @@ After install, the package should create a structure like this (macOS files;
 only the first two depth levels are shown):
 
 ```console
-$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.64.1-1.1/.content/
-/Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/0.64.1-1.1/.content/
+$ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/1.0.2-1.1/.content/
+/Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/1.0.2-1.1/.content/
 ├── README.md
 ├── bin
 │   └── meson
@@ -172,15 +172,15 @@ For more details please read the
 ### Version information
 
 The version strings used by the Meson project are three number strings
-like `0.64.1`; to this string the xPack distribution adds a four number,
+like `1.0.2`; to this string the xPack distribution adds a four number,
 but since semver allows only three numbers, all additional ones can
 be added only as pre-release strings, separated by a dash,
-like `0.64.1-1`. When published as a npm package, the version gets
-a fifth number, like `0.64.1-1.1`.
+like `1.0.2-1`. When published as a npm package, the version gets
+a fifth number, like `1.0.2-1.1`.
 
 Since adherence of third party packages to semver is not guaranteed,
-it is recommended to use semver expressions like `^0.64.1` and `~0.64.1`
-with caution, and prefer exact matches, like `0.64.1-1.1`.
+it is recommended to use semver expressions like `^1.0.2` and `~1.0.2`
+with caution, and prefer exact matches, like `1.0.2-1.1`.
 
 ## Maintainer info
 

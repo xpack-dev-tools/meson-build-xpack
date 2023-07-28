@@ -4,6 +4,10 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-07-28
 
+* v1.0.2-1 prepared
+* 16f7ad4 READMEs update
+* 7bee0b6 0.64.1-1.1
+* 9ad8e31 CHANGELOG: publish npm v0.64.1-1.1
 * v0.64.1-1.1 published on npmjs.com
 * 8c737ec package.json: update urls for 0.64.1-1.1 release
 * fbd0dfb re-generate workflows
