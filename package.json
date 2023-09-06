@@ -64,7 +64,7 @@
       "meson": "./.content/bin/meson"
     },
     "devDependencies": {
-      "@xpack-dev-tools/xbb-helper": "^1.11.1"
+      "@xpack-dev-tools/xbb-helper": "^1.11.2"
     },
     "properties": {
       "appName": "Meson Build",
@@ -146,7 +146,7 @@
       "common-dependencies": {
         "hidden": true,
         "devDependencies": {
-          "@xpack-dev-tools/pkg-config": "0.29.2-2.1"
+          "@xpack-dev-tools/pkg-config": "0.29.2-3.1"
         }
       },
       "common-actions": {
@@ -219,8 +219,8 @@
         ],
         "devDependencies": {
           "@xpack-dev-tools/clang": "16.0.6-1.1",
-          "@xpack-dev-tools/realpath": "9.1.0-2.1",
-          "@xpack-dev-tools/sed": "4.9.0-2.1"
+          "@xpack-dev-tools/realpath": "9.4.0-1.1",
+          "@xpack-dev-tools/sed": "4.9.0-3.1"
         },
         "actions": {
           "build": "caffeinate {{ properties.commandBashBuild }}",
@@ -243,7 +243,7 @@
         ],
         "devDependencies": {
           "@xpack-dev-tools/gcc": "13.2.0-1.1",
-          "@xpack-dev-tools/patchelf": "0.17.2-1.1"
+          "@xpack-dev-tools/patchelf": "0.18.0-1.1"
         },
         "properties": {
           "dockerImage": "ilegeul/ubuntu:amd64-18.04-xbb-v5.1.0"
