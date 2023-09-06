@@ -8,7 +8,7 @@ summary: "Version **{{ XBB_RELEASE_VERSION }}** is a maintenance release; it fix
 summary: "Version **{{ XBB_RELEASE_VERSION }}** is a new release; it follows the upstream release."
 
 upstream_version: "1.0.2"
-upstream_release_date: "Apr 21, 2023"
+upstream_release_date: "21 Apr 2023"
 python_version: "3.11"
 python_subversion: "4"
 
@@ -21,10 +21,12 @@ comments: true
 
 date:   {{ RELEASE_DATE }}
 
+# For Jekyll releases selection.
 categories:
   - releases
   - meson-build
 
+# For navigation; use scripts/createtag.sh in Jekyll.
 tags:
   - releases
   - meson-build
