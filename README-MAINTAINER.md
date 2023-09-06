@@ -138,7 +138,7 @@ but in the version specific release page.
 
 ### Update version in `package.json` to a pre-release
 
-Use a new version, suffixed by `.pre`.
+Use the new version, suffixed by `pre`, like `1.0.2-1.pre`.
 
 ### Update `CHANGELOG.md`
 
