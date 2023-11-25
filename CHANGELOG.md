@@ -4,7 +4,11 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-11-25
 
-* v1.1.1-1 prepared
+* v1.1.1-1 released
+* bc28e05 README update
+* 103cccf package-lock.json update
+* 83873b0 README update
+* b9b6f4b prepare v1.1.1-1
 
 ## 2023-11-12
 
