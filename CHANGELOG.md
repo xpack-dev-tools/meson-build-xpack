@@ -2,8 +2,102 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2023-11-25
+
+* v1.1.1-1 prepared
+
+## 2023-11-12
+
+* 9db7097 package.json: bump deps
+
+## 2023-09-25
+
+* be86556 body-jekyll update
+
+## 2023-09-20
+
+* a5693e5 package.json: bump deps
+
+## 2023-09-16
+
+* b90e7f6 package.json: add linux32
+* 9645191 body-jekyll update
+
+## 2023-09-11
+
+* faaac0b package.json: bump deps
+
+## 2023-09-08
+
+* 2c7993c package.json: bump deps
+
+## 2023-09-06
+
+* a629a76 package.json: bump deps
+* 4336557 READMEs update
+* 9b2aef4 body-jekyll update
+
+## 2023-09-05
+
+* 7622bb2 dot.*ignore update
+* 845a463 re-generate workflows
+* 0cd3c3d READMEs update
+* 0b09120 package.json: bump deps
+
+## 2023-09-03
+
+* 36a5b05 package.json: bump deps
+
+## 2023-08-28
+
+* bcae6cf READMEs update
+
+## 2023-08-25
+
+* d393a81 package.json: rm xpack-dev-tools-build/*
+* 1d2233f package.json: bump deps
+
+## 2023-08-21
+
+* 2909606 READMEs update
+* 75e6a08 package.json: bump deps
+
+## 2023-08-19
+
+* 0f5eaf2 READMEs update
+* cab4a9d package.json: bump deps
+
+## 2023-08-15
+
+* 0b2f57c re-generate workflows
+* 23f82eb README-MAINTAINER rename xbbla
+* 2e04f77 package.json: rename xbbla
+* 8c32aef package.json: bump deps
+* ce315ac READMEs update
+* 8f079ce package.json: bump deps
+
+## 2023-08-05
+
+* 7dab3c2 READMEs update
+
+## 2023-08-04
+
+* c8b3cd8 READMEs update
+* 8a70b10 READMEs update
+* 1a87286 package.json: add build-develop-debug
+* 9dc5674 READMEs update
+
+## 2023-08-03
+
+* f7422ea package.json: reorder build actions
+* 6173e43 READMEs update
+* 01dfc81 package.json: bump deps
+
 ## 2023-07-28
 
+* 01b6e49 READMEs update* a7cb8bb CHANGELOG update
+* beb5899 1.0.2-1.1
+* cf424e8 CHANGELOG: publish npm v1.0.2-1.1
 * v1.0.2-1.1 published on npmjs.com
 * c93f11e package.json: update urls for 1.0.2-1.1 release
 * b68dde0 README update

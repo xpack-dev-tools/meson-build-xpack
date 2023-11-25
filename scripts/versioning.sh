@@ -14,7 +14,7 @@ function application_build_versioned_components()
   XBB_MESON_VERSION="$(xbb_strip_version_pre_release "${XBB_RELEASE_VERSION}")"
 
   # Keep them in sync with the combo archive content.
-  if [[ "${XBB_RELEASE_VERSION}" =~ 1[.][0][.].*-.* ]]
+  if [[ "${XBB_RELEASE_VERSION}" =~ 1[.][0123][.].*-.* ]]
   then
 
     # -------------------------------------------------------------------------
