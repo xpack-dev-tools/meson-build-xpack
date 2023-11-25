@@ -31,32 +31,32 @@
     "minimumXpmRequired": "0.16.3",
     "binaries": {
       "destination": "./.content",
-      "baseUrl": "https://github.com/xpack-dev-tools/meson-build-xpack/releases/download/v1.1.1-1",
+      "baseUrl": "https://github.com/xpack-dev-tools/meson-build-xpack/releases/download/v1.2.3-1",
       "skip": 1,
       "platforms": {
         "darwin-arm64": {
-          "fileName": "xpack-meson-build-1.1.1-1-darwin-arm64.tar.gz",
-          "sha256": "771d811bb4dd65e9c44a488beee7c50a34ab9fc59f1204a8e415d268b0e00fdb"
+          "fileName": "xpack-meson-build-1.2.3-1-darwin-arm64.tar.gz",
+          "sha256": "022ff6328d806a3a3b96e57977805ea256e8d011d16cd1a36d4fbc8762d5df8c"
         },
         "darwin-x64": {
-          "fileName": "xpack-meson-build-1.1.1-1-darwin-x64.tar.gz",
-          "sha256": "d647bc1ba167f84e5dff8ce9a3f378c9fb2f9d1fa3bdf785e8aa4fbd0b408310"
+          "fileName": "xpack-meson-build-1.2.3-1-darwin-x64.tar.gz",
+          "sha256": "0e3f7e5bb93742af48bee74d91710993f50d8232411d4a13f81dc8bb1b430b10"
         },
         "linux-arm64": {
-          "fileName": "xpack-meson-build-1.1.1-1-linux-arm64.tar.gz",
-          "sha256": "85694f733777aa4a14019ac3dff4dd748b4ace32b5aceca8a40a0372ccc61f48"
+          "fileName": "xpack-meson-build-1.2.3-1-linux-arm64.tar.gz",
+          "sha256": "aa91fd4e5be8c768602d68a705730999227498ca3b0c23e52ae6c41bb48492d3"
         },
         "linux-arm": {
-          "fileName": "xpack-meson-build-1.1.1-1-linux-arm.tar.gz",
-          "sha256": "96e81298013c3d4efc36c7a2d1fa291b40e42c8b4c18a3ee45245a6c18220b54"
+          "fileName": "xpack-meson-build-1.2.3-1-linux-arm.tar.gz",
+          "sha256": "0cd9c1596ed06f4d3a63921e7cab2669eaa5aa5378cdc052a26cfc98b0f1e963"
         },
         "linux-x64": {
-          "fileName": "xpack-meson-build-1.1.1-1-linux-x64.tar.gz",
-          "sha256": "8c7903341a6ceeab989f46bfdd42677809052c821373f00b62e2f08e0a0ddcf2"
+          "fileName": "xpack-meson-build-1.2.3-1-linux-x64.tar.gz",
+          "sha256": "fba5e7337f445b704ee478872ddbccd36decaff96be28746564b9647e25722fe"
         },
         "win32-x64": {
-          "fileName": "xpack-meson-build-1.1.1-1-win32-x64.zip",
-          "sha256": "6a4c3855b5eb4177c9f49747d3522b70b7192f90fd37514cbfc799f453df15d8"
+          "fileName": "xpack-meson-build-1.2.3-1-win32-x64.zip",
+          "sha256": "c595b65fec79f3f9cb7f9df93e10870db2f4115d1b7356f27794fa315e19471b"
         }
       }
     },
