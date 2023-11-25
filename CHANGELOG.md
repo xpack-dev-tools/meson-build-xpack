@@ -2,9 +2,15 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2023-11-26
+
+* v1.2.3-1.1 published on npmjs.com
+* ce6dc33 package.json: update urls for 1.2.3-1.1 release
+* 1c51948 body-jekyll update
+* b6b3d99 CHANGELOG update
+
 ## 2023-11-25
 
-* v1.2.3-1 released
 * 4cdd161 prepare v1.2.3-1
 * 8e05c13 1.1.1-1.1
 * 2529156 package.json .pre
