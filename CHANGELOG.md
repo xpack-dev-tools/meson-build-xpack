@@ -4,7 +4,11 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-11-25
 
-* v1.1.1-1 released
+* v1.1.1-1.1 published on npmjs.com
+* 29d14af package.json: update urls for 1.1.1-1.1 release
+* 154879b README update
+* 7d14289 body-jekyll update
+* 5c12648 CHANGELOG update
 * bc28e05 README update
 * 103cccf package-lock.json update
 * 83873b0 README update
