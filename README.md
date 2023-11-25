@@ -108,10 +108,7 @@ $ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/1.1.1-1.1/.c
 ├── bin
 │   └── meson
 ├── distro-info
-│   ├── CHANGELOG.md
-│   ├── licenses
-│   ├── patches
-│   └── scripts
+│   └── licenses
 ├── lib
 │   └── python3.11
 └── libexec
@@ -132,7 +129,7 @@ $ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/1.1.1-1.1/.c
     ├── libz.1.2.13.dylib
     └── libz.1.dylib -> libz.1.2.13.dylib
 
-8 directories, 19 files
+7 directories, 18 files
 ```
 
 No other files are installed in any system folders or other locations.
