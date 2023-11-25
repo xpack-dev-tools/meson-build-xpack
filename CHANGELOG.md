@@ -4,7 +4,8 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-11-25
 
-* v1.2.3-1 prepared
+* v1.2.3-1 released
+* 4cdd161 prepare v1.2.3-1
 * 8e05c13 1.1.1-1.1
 * 2529156 package.json .pre
 * bf13d2e .npmignore src
