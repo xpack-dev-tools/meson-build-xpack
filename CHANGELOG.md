@@ -4,7 +4,8 @@ Entries in this file are in reverse chronological order.
 
 ## 2023-11-26
 
-* v1.3.0-1 prepared
+* v1.3.0-1 released
+* ce1b762 prepare v1.3.0-1
 * 0395c91 1.2.3-1.1
 * 312e19e CHANGELOG: publish npm v1.2.3-1.1
 * ce6dc33 package.json: update urls for 1.2.3-1.1 release
