@@ -2,9 +2,42 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2024-03-23
+
+* v1.3.2-1 prepared
+
+## 2024-03-22
+
+* 3f46881 package.json: xpm-version 0.18.0
+
+## 2024-03-08
+
+* d0acb58 package.json: xpm-version 0.18.0
+
+## 2024-03-07
+
+* c660ecb package.json: xpm-version 0.18.0
+* d5e9626 package.json: bump deps
+
+## 2024-03-06
+
+* 4bec3db body-jekyll update
+* 43b3cf8 package.json: bump deps
+
+## 2024-02-07
+
+* 952a7dd READMEs update
+* bcf5301 package.json: bump deps
+
+## 2023-12-03
+
+* ec9211d package.json: bump deps
+* 0cc56bf re-generate workflows
+
 ## 2023-11-26
 
-* v1.3.0-1.1 published on npmjs.com
+* 55e6ca4 1.3.0-1.1
+* 4773d18 CHANGELOG: publish npm v1.3.0-1.1
 * 71c83ea package.json: update urls for 1.3.0-1.1 release
 * 7fd772a body-jekyll update
 * eff33d7 CHANGELOG update
