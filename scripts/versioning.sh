@@ -82,7 +82,7 @@ function application_build_versioned_components()
       # https://github.com/openssl/openssl/tags
       openssl_build "3.2.1" # "1.1.1u"
 
-      export XBB_NCURSES_DISABLE_WIDEC="y"
+      # export XBB_NCURSES_DISABLE_WIDEC="y"
       # https://ftp.gnu.org/gnu/ncurses/
       ncurses_build "6.4"
 
