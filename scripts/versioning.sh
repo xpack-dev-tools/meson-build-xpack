@@ -25,7 +25,8 @@ function application_build_versioned_components()
 
     # For the latest stable see:
     # https://www.python.org/downloads/
-    XBB_PYTHON3_VERSION="3.12.2"
+    # "3.12.2" for tests
+    XBB_PYTHON3_VERSION="3.11.8"
 
     XBB_PYTHON3_VERSION_MAJOR=$(xbb_get_version_major "${XBB_PYTHON3_VERSION}")
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.]\([0-9][0-9]*\)[.].*|\2|')
