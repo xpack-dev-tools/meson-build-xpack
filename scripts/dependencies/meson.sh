@@ -218,6 +218,12 @@ function meson_build()
               -m pip install --target "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages" setuptools==${python_setuptools_version}
           fi
 
+          echo "cleanups..."
+          run_verbose rm -rfv \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/bin" \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/share" \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages"/pip*
+
           (
             echo "Compiling all python & meson sources..."
             # Compiling tests fails, ignore the errors.
@@ -234,18 +240,25 @@ function meson_build()
               -exec rm -v {} \;
           )
 
-          # Cannot do this anymore, because of cases like
-          # `mesonbuild/scripts/python_info.py` which require the sources.
-          if false
+          if true
           then
             echo "Replacing .py files with .pyc files..."
             python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
           fi
 
-          mkdir -pv "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/lib-dynload/"
+          # Restore files that known to be used as scripts,
+          # like `mesonbuild/scripts/python_info.py`.
+          echo "Restoring .py scripts..."
+          run_verbose rm -rfv \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/mesonbuild/scripts"
+          run_verbose cp -R \
+            "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}/mesonbuild/scripts" \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/mesonbuild"
 
           echo
           echo "Copying Python shared libraries..."
+
+          mkdir -pv "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/lib-dynload/"
 
           if [ "${XBB_HOST_PLATFORM}" == "win32" ]
           then
