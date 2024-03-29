@@ -195,7 +195,7 @@ function application_build_versioned_components()
       # https://www.sqlite.org/download.html
       sqlite_build "3420000" # "3390200"
 
-      python3_build "${XBB_PYTHON3_VERSION}"
+      python3_build "${XBB_PYTHON3_VERSION}" --with-ensurepip=install
     fi
 
     # -------------------------------------------------------------------------
@@ -211,7 +211,9 @@ function application_build_versioned_components()
       python3_download_win "${XBB_PYTHON3_VERSION}"
     fi
 
-    meson_build "${XBB_MESON_VERSION}"
+    meson_build "${XBB_MESON_VERSION}" \
+      --packaging-version=24.0 \
+      --setuptools-version=69.2.0
 
     # -------------------------------------------------------------------------
   elif [[ "${XBB_RELEASE_VERSION}" =~ 0[.]6[1234][.].*-.* ]]
