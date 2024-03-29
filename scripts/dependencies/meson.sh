@@ -26,6 +26,30 @@ function meson_build()
   echo_develop "[${FUNCNAME[0]} $@]"
 
   local meson_version="$1"
+  shift
+
+  local python_packaging_version=""
+  local python_setuptools_version=""
+
+  while [ $# -gt 0 ]
+  do
+    case "$1" in
+      --packaging-version=* )
+        python_packaging_version=$(xbb_parse_option "$1")
+        shift
+        ;;
+
+      --setuptools-version=* )
+        python_setuptools_version=$(xbb_parse_option "$1")
+        shift
+        ;;
+
+      * )
+        echo "Unsupported argument $1 in ${FUNCNAME[0]}()"
+        exit 1
+        ;;
+    esac
+  done
 
   local meson_src_folder_name="meson-${meson_version}"
 
@@ -35,6 +59,8 @@ function meson_build()
   local meson_url="https://github.com/mesonbuild/meson/releases/download/${meson_version}/${meson_archive_file_name}"
 
   local meson_folder_name="${meson_src_folder_name}"
+
+  local python_with_version="python${XBB_PYTHON3_VERSION_MAJOR}.${XBB_PYTHON3_VERSION_MINOR}"
 
   mkdir -pv "${XBB_LOGS_FOLDER_PATH}/${meson_folder_name}"
 
@@ -51,6 +77,13 @@ function meson_build()
 
       download_and_extract "${meson_url}" "${meson_archive_file_name}" \
         "${meson_src_folder_name}"
+
+      if false
+      then
+        run_verbose sed -i.bak \
+          -e "s|if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):|if getattr(sys, 'frozen', False):|" \
+          "${meson_src_folder_name}/mesonbuild/utils/universal.py"
+      fi
 
       mkdir -p "${XBB_BUILD_FOLDER_PATH}/${meson_folder_name}"
       cd "${XBB_BUILD_FOLDER_PATH}/${meson_folder_name}"
@@ -139,12 +172,21 @@ function meson_build()
       run_verbose make meson${XBB_HOST_DOT_EXE} V=1
 
       run_verbose install -d -m 755 "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin"
+
+      # Install the meson standalone binary.
       run_verbose install -v -c -m 755 meson${XBB_HOST_DOT_EXE} "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin"
 
       show_host_libs "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson"
 
-      local python_with_version="python${XBB_PYTHON3_VERSION_MAJOR}.${XBB_PYTHON3_VERSION_MINOR}"
-      if [ ! -d "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" ]
+      if false
+      then
+        # Install the meson Python interpreter.
+        # run_verbose install -v -c -m 755 \
+        "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
+        "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}"
+      fi
+
+      if true # [ ! -d "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" ]
       then
         (
           mkdir -pv "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/"
@@ -152,20 +194,35 @@ function meson_build()
           echo
           echo "Copying .py files from the standard Python library..."
 
-          # Copy all .py from the original source package.
-          cp -r "${XBB_SOURCES_FOLDER_PATH}/${XBB_PYTHON3_SRC_FOLDER_NAME}"/Lib/* \
-            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/"
+          # Use the installed location, not the source, since there are extra
+          # cases like _sysconfigdata__darwin_darwin.py
+          cp -r "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}" \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib"
 
-          echo "Copying mesonbuild .py code..."
-          mkdir -pv "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/mesonbuild/"
-          cp -r "${XBB_SOURCES_FOLDER_PATH}/${meson_src_folder_name}"/mesonbuild/* \
-            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/mesonbuild/"
+
+          echo "pip install mesonbuild..."
+          run_verbose "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
+            -m pip install --target "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages" "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}"
+
+          if [ ! -z "${python_packaging_version}" ]
+          then
+            echo "pip install packaging ${python_packaging_version}..."
+            run_verbose "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
+              -m pip install --target "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages" packaging==${python_packaging_version}
+          fi
+
+          if [ ! -z "${python_setuptools_version}" ]
+          then
+            echo "pip install setuptools ${python_setuptools_version}..."
+            run_verbose "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
+              -m pip install --target "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages" setuptools==${python_setuptools_version}
+          fi
 
           (
             echo "Compiling all python & meson sources..."
             # Compiling tests fails, ignore the errors.
 
-            run_verbose "${XBB_NATIVE_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/python3.${XBB_PYTHON3_VERSION_MINOR}" \
+            run_verbose "${XBB_NATIVE_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}" \
               -m compileall \
               -j "${XBB_JOBS}" \
               -f "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
@@ -177,8 +234,13 @@ function meson_build()
               -exec rm -v {} \;
           )
 
-          echo "Replacing .py files with .pyc files..."
-          python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
+          # Cannot do this anymore, because of cases like
+          # `mesonbuild/scripts/python_info.py` which require the sources.
+          if false
+          then
+            echo "Replacing .py files with .pyc files..."
+            python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
+          fi
 
           mkdir -pv "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/lib-dynload/"
 
