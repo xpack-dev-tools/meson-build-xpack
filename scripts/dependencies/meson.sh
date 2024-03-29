@@ -181,9 +181,9 @@ function meson_build()
       if false
       then
         # Install the meson Python interpreter.
-        # run_verbose install -v -c -m 755 \
-        "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
-        "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}"
+        run_verbose install -v -c -m 755 \
+          "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
+          "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}"
       fi
 
       if true # [ ! -d "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" ]
@@ -196,16 +196,18 @@ function meson_build()
 
           # Use the installed location, not the source, since there are extra
           # cases like _sysconfigdata__darwin_darwin.py
-          cp -r "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}" \
+          run_verbose cp -r "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}" \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib"
 
 
+          echo
           echo "pip install mesonbuild..."
           run_verbose "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
             -m pip install --target "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages" "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}"
 
           if [ ! -z "${python_packaging_version}" ]
           then
+            echo
             echo "pip install packaging ${python_packaging_version}..."
             run_verbose "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
               -m pip install --target "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages" packaging==${python_packaging_version}
@@ -213,18 +215,23 @@ function meson_build()
 
           if [ ! -z "${python_setuptools_version}" ]
           then
+            echo
             echo "pip install setuptools ${python_setuptools_version}..."
             run_verbose "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
               -m pip install --target "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages" setuptools==${python_setuptools_version}
           fi
 
+          echo
           echo "cleanups..."
           run_verbose rm -rfv \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"/config-${XBB_PYTHON3_VERSION_MAJOR}.${XBB_PYTHON3_VERSION_MINOR}-* \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/test" \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/bin" \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/share" \
-            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages"/pip*
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages"/pip* \
 
           (
+            echo
             echo "Compiling all python & meson sources..."
             # Compiling tests fails, ignore the errors.
 
@@ -242,12 +249,14 @@ function meson_build()
 
           if true
           then
+            echo
             echo "Replacing .py files with .pyc files..."
             python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
           fi
 
           # Restore files that known to be used as scripts,
           # like `mesonbuild/scripts/python_info.py`.
+          echo
           echo "Restoring .py scripts..."
           run_verbose cp -Rf \
             "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}/mesonbuild/scripts"/* \
