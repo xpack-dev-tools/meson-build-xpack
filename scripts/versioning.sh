@@ -124,9 +124,17 @@ function application_build_versioned_components()
     # Be sure that ${helper_folder_path}/extras/python/pyconfig-win-3.X.Y.h
     # is available.
 
-    # For the latest stable see:
-    # https://www.python.org/downloads/
-    XBB_PYTHON3_VERSION="3.11.4"
+    if [[ "${XBB_RELEASE_VERSION}" =~ 1[.][3][.][2]-.* ]]
+    then
+      XBB_PYTHON3_VERSION="3.11.8"
+      # https://github.com/openssl/openssl/tags
+      XBB_OPENSSL_VERSION="1.1.1w" # "1.1.1u"
+      export XBB_NCURSES_DISABLE_WIDEC="n"
+    else
+      XBB_PYTHON3_VERSION="3.11.4"
+      XBB_OPENSSL_VERSION="1.1.1u" # "1.1.1q"
+      export XBB_NCURSES_DISABLE_WIDEC="y"
+    fi
 
     XBB_PYTHON3_VERSION_MAJOR=$(xbb_get_version_major "${XBB_PYTHON3_VERSION}")
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.]\([0-9][0-9]*\)[.].*|\2|')
