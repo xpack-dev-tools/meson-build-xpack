@@ -249,11 +249,9 @@ function meson_build()
           # Restore files that known to be used as scripts,
           # like `mesonbuild/scripts/python_info.py`.
           echo "Restoring .py scripts..."
-          run_verbose rm -rfv \
+          run_verbose cp -Rf \
+            "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}/mesonbuild/scripts"/* \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/mesonbuild/scripts"
-          run_verbose cp -R \
-            "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}/mesonbuild/scripts" \
-            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/mesonbuild"
 
           echo
           echo "Copying Python shared libraries..."
