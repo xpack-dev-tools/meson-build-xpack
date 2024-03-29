@@ -110,7 +110,9 @@ function application_build_versioned_components()
       python3_download_win "${XBB_PYTHON3_VERSION}"
     fi
 
-    meson_build "${XBB_MESON_VERSION}"
+    meson_build "${XBB_MESON_VERSION}" \
+      --packaging-version=24.0 \
+      --setuptools-version=69.2.0
 
     # -------------------------------------------------------------------------
   elif [[ "${XBB_RELEASE_VERSION}" =~ 1[.][0123][.].*-.* ]]
