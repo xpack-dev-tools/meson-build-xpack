@@ -212,7 +212,9 @@ main(int argc, char* argv[])
   PySys_SetArgvEx(argc, wargv, 0);
 
   PyRun_SimpleString("import sys\n");
-  
+
+  PyRun_SimpleString("sys.frozen = True\n");
+
 #if defined(DEBUG)
   // PyRun_SimpleString("print(sys.builtin_module_names)\n");
   // PyRun_SimpleString("print(sys.modules.keys())\n");
