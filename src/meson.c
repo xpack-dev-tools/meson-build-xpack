@@ -216,6 +216,7 @@ main(int argc, char* argv[])
   PyRun_SimpleString("import sys\n");
 
   PyRun_SimpleString("sys.frozen = True\n");
+  PyRun_SimpleString("sys.is_xpack = True\n");
 
 #if 1
   // Normally sys._MEIPASS is the PyInstaller bundle path,
