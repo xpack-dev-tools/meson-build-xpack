@@ -110,9 +110,9 @@ function application_build_versioned_components()
       python3_download_win "${XBB_PYTHON3_VERSION}"
     fi
 
+    # --setuptools-version=69.2.0
     meson_build "${XBB_MESON_VERSION}" \
       --packaging-version=24.0 \
-      --setuptools-version=69.2.0
 
     # -------------------------------------------------------------------------
   elif [[ "${XBB_RELEASE_VERSION}" =~ 1[.][0123][.].*-.* ]]
@@ -120,7 +120,8 @@ function application_build_versioned_components()
 
     # -------------------------------------------------------------------------
 
-    # https://www.python.org/ftp/python/
+    # For the latest stable see: https://www.python.org/downloads/
+    # For all releases see: https://www.python.org/ftp/python/
     # Be sure that ${helper_folder_path}/extras/python/pyconfig-win-3.X.Y.h
     # is available.
 
@@ -189,9 +190,8 @@ function application_build_versioned_components()
       libxcrypt_build "4.4.36" # "4.4.28"
 
       # https://github.com/openssl/openssl/tags
-      openssl_build "1.1.1u" # "1.1.1q"
+      openssl_build "${XBB_OPENSSL_VERSION}"
 
-      export XBB_NCURSES_DISABLE_WIDEC="y"
       # https://ftp.gnu.org/gnu/ncurses/
       ncurses_build "6.4" # "6.3"
 
@@ -219,9 +219,9 @@ function application_build_versioned_components()
       python3_download_win "${XBB_PYTHON3_VERSION}"
     fi
 
+    # --setuptools-version=69.2.0
     meson_build "${XBB_MESON_VERSION}" \
       --packaging-version=24.0 \
-      --setuptools-version=69.2.0
 
     # -------------------------------------------------------------------------
   elif [[ "${XBB_RELEASE_VERSION}" =~ 0[.]6[1234][.].*-.* ]]
