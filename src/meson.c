@@ -23,6 +23,8 @@
 // https://docs.python.org/3/c-api/index.html
 // https://docs.python.org/3/c-api/init.html
 
+#define HAS_MEIPASS
+
 int
 main(int argc, char* argv[])
 {
@@ -218,10 +220,10 @@ main(int argc, char* argv[])
   PyRun_SimpleString("sys.frozen = True\n");
   PyRun_SimpleString("sys.is_xpack = True\n");
 
-#if 1
+#if defined(HAS_MEIPASS)
   // Normally sys._MEIPASS is the PyInstaller bundle path,
-  // i.e. the _internal folder.
-  // In our case, it is the lib/pythonX.YY folder.
+  // i.e. the `.../_internal` folder.
+  // In our case, it is the `.../lib/pythonX.YY` folder.
 
   pyinstaller_meipass[0] = '\0';
 
@@ -251,7 +253,9 @@ main(int argc, char* argv[])
   PyRun_SimpleString("print('sys.executable: ', sys.executable, file=sys.stderr)\n");
   PyRun_SimpleString("print('sys.path: ', sys.path, file=sys.stderr)\n");
   PyRun_SimpleString("print('sys.frozen: ', sys.frozen, file=sys.stderr)\n");
-  // PyRun_SimpleString("print(sys._MEIPASS, file=sys.stderr)\n");
+#if defined(HAS_MEIPASS)
+  PyRun_SimpleString("print(sys._MEIPASS, file=sys.stderr)\n");
+#endif
 
   PyRun_SimpleString("print('sys.argv: ', sys.argv, file=sys.stderr)\n");
 #endif
