@@ -94,7 +94,7 @@ function application_build_versioned_components()
       # https://www.sqlite.org/download.html
       sqlite_build "3450200" "2024" # "3420000"
 
-      python3_build "${XBB_PYTHON3_VERSION}"
+      python3_build "${XBB_PYTHON3_VERSION}" --with-ensurepip=install
     fi
 
     # -------------------------------------------------------------------------
