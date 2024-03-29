@@ -35,8 +35,10 @@ main(int argc, char* argv[])
 
 #if defined(__APPLE__)
   char self_exe_path[PROC_PIDPATHINFO_SIZE+1];
+  char pyinstaller_meipass[PROC_PIDPATHINFO_SIZE+1];
 #else
   char self_exe_path[PATH_MAX];
+  char pyinstaller_meipass[PATH_MAX];
 #endif
 
   int len = 0;
@@ -214,6 +216,32 @@ main(int argc, char* argv[])
   PyRun_SimpleString("import sys\n");
 
   PyRun_SimpleString("sys.frozen = True\n");
+
+#if 1
+  // Normally sys._MEIPASS is the PyInstaller bundle path,
+  // i.e. the _internal folder.
+  // In our case, it is the lib/pythonX.YY folder.
+
+  pyinstaller_meipass[0] = '\0';
+
+  strcat(pyinstaller_meipass, home_folder_path);
+  strcat(pyinstaller_meipass, FILE_SEPARATOR_STR);
+  strcat(pyinstaller_meipass, "lib");
+  strcat(pyinstaller_meipass, FILE_SEPARATOR_STR);
+  strcat(pyinstaller_meipass, python_folder_name);
+#if defined(DEBUG)
+  fprintf(stderr, "pyinstaller_meipass: %s\n", pyinstaller_meipass);
+#endif
+
+  char sys_meipass[sizeof(pyinstaller_meipass) + sizeof("sys._MEIPASS = '...'\n")];
+  snprintf(sys_meipass, sizeof(sys_meipass), "sys._MEIPASS = '%s'\n", pyinstaller_meipass);
+
+#if defined(DEBUG)
+  fprintf(stderr, "sys_meipass: %s\n", sys_meipass);
+#endif
+
+  PyRun_SimpleString(sys_meipass);
+#endif
 
 #if defined(DEBUG)
   // PyRun_SimpleString("print(sys.builtin_module_names)\n");
