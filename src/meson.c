@@ -138,7 +138,7 @@ main(int argc, char* argv[])
   snprintf(python_folder_name, sizeof(python_folder_name) - 1, "python%d.%d",
     PYTHON_VERSION_MAJOR, PYTHON_VERSION_MINOR);
 
-  char new_path[PATH_MAX * 2];
+  char new_path[PATH_MAX * 3];
   new_path[0] = '\0';
 
   strcat(new_path, home_folder_path);
@@ -146,6 +146,15 @@ main(int argc, char* argv[])
   strcat(new_path, "lib");
   strcat(new_path, FILE_SEPARATOR_STR);
   strcat(new_path, python_folder_name);
+  strcat(new_path, PATH_SEPARATOR_STR);
+
+  strcat(new_path, home_folder_path);
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "lib");
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, python_folder_name);
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "site-packages");
   strcat(new_path, PATH_SEPARATOR_STR);
 
   strcat(new_path, home_folder_path);
