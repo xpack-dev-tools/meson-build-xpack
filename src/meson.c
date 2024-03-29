@@ -1,7 +1,7 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 // Note Since Python may define some pre-processor definitions which
-// affect the standard headers on some systems, you must include 
+// affect the standard headers on some systems, you must include
 // Python.h before any standard headers are included.
 
 #ifdef __MINGW32__
@@ -27,9 +27,9 @@ int
 main(int argc, char* argv[])
 {
 #if defined(DEBUG)
-  printf("argc %d\n", argc);
+  fprintf(stderr, "argc: %d\n", argc);
   for (int i = 0; i < argc; ++i) {
-    printf("argv[%d]='%s'\n", i, argv[i]);
+    fprintf(stderr, "argv[%d]: '%s'\n", i, argv[i]);
   }
 #endif
 
@@ -62,7 +62,7 @@ main(int argc, char* argv[])
     exit(1);
   }
 
-#elif defined(__linux__) 
+#elif defined(__linux__)
 
 #define FILE_SEPARATOR '/'
 #define FILE_SEPARATOR_STR "/"
@@ -78,7 +78,7 @@ main(int argc, char* argv[])
 
   self_exe_path[len] = 0;
 #if defined(DEBUG)
-  printf("self_exe_path: %s\n", self_exe_path);
+  fprintf(stderr, "self_exe_path: %s\n", self_exe_path);
 #endif
 
   // Set the program name to the full executable path.
@@ -99,7 +99,7 @@ main(int argc, char* argv[])
   // Remove the slash and the name.
   *(last_slash) = '\0';
 #if defined(DEBUG)
-  printf("self_folder_path: %s\n", self_folder_path);
+  fprintf(stderr, "self_folder_path: %s\n", self_folder_path);
 #endif
 
   // The home folder path, like the first part of PYTHONHOME.
@@ -114,28 +114,28 @@ main(int argc, char* argv[])
   // Remove the slash and the name.
   *(last_slash) = '\0';
 #if defined(DEBUG)
-  printf("home_folder_path: %s\n", home_folder_path);
+  fprintf(stderr, "home_folder_path: %s\n", home_folder_path);
 #endif
 
   wchar_t* whome;
 #if defined(DEBUG)
   whome = Py_GetPythonHome();
-  printf("initial home %ls\n", whome);
+  fprintf(stderr, "initial Py_GetPythonHome(): %ls\n", whome);
 #endif
 
   wchar_t* new_whome = Py_DecodeLocale(home_folder_path, NULL);
   Py_SetPythonHome(new_whome);
 #if defined(DEBUG)
-  printf("new home: %ls\n", new_whome);
+  fprintf(stderr, "Py_SetPythonHome('%ls')\n", new_whome);
 #endif
 
   wchar_t* wpath = Py_GetPath();
 #if defined(DEBUG)
-  printf("initial path: %ls\n", wpath);
+  fprintf(stderr, "initial Py_GetPath(): %ls\n", wpath);
 #endif
 
   char python_folder_name[] = "pythonXX.YY";
-  snprintf(python_folder_name, sizeof(python_folder_name) - 1, "python%d.%d", 
+  snprintf(python_folder_name, sizeof(python_folder_name) - 1, "python%d.%d",
     PYTHON_VERSION_MAJOR, PYTHON_VERSION_MINOR);
 
   char new_path[PATH_MAX * 2];
@@ -159,7 +159,7 @@ main(int argc, char* argv[])
   wchar_t* new_wpath = Py_DecodeLocale(new_path, NULL);
   Py_SetPath(new_wpath);
 #if defined(DEBUG)
-  printf("new path: %ls\n", new_wpath);
+  fprintf(stderr, "Py_SetPath('%ls')\n", new_wpath);
 #endif
 
 #if defined(DEBUG)
@@ -167,9 +167,9 @@ main(int argc, char* argv[])
   wchar_t *prefix = Py_GetPrefix();
   wchar_t *exec_prefix = Py_GetExecPrefix();
 
-  printf("full_path %ls\n", full_path);
-  printf("prefix %ls\n", prefix);
-  printf("exec_prefix %ls\n", exec_prefix);
+  fprintf(stderr, "Py_GetProgramFullPath(): %ls\n", full_path);
+  fprintf(stderr, "Py_GetPrefix(): %ls\n", prefix);
+  fprintf(stderr, "Py_GetExecPrefix(): %ls\n", exec_prefix);
 #endif
 
   Py_Initialize();
@@ -177,9 +177,9 @@ main(int argc, char* argv[])
     fprintf(stderr, "Fatal error: cannot initialise Python environment.\n");
     exit(1);
   }
-  
+
 #if defined(DEBUG)
-  printf("initialised\n");
+  fprintf(stderr, "Py_IsInitialized()\n");
 #endif
 
   // Override argv[0] with the actual path, for consistency with Windows,
@@ -208,10 +208,12 @@ main(int argc, char* argv[])
   // PyRun_SimpleString("print(sys.builtin_module_names)\n");
   // PyRun_SimpleString("print(sys.modules.keys())\n");
 
-  PyRun_SimpleString("print(sys.executable)\n");
-  PyRun_SimpleString("print(sys.path)\n");
-  
-  PyRun_SimpleString("print(sys.argv)\n");
+  PyRun_SimpleString("print('sys.executable: ', sys.executable, file=sys.stderr)\n");
+  PyRun_SimpleString("print('sys.path: ', sys.path, file=sys.stderr)\n");
+  PyRun_SimpleString("print('sys.frozen: ', sys.frozen, file=sys.stderr)\n");
+  // PyRun_SimpleString("print(sys._MEIPASS, file=sys.stderr)\n");
+
+  PyRun_SimpleString("print('sys.argv: ', sys.argv, file=sys.stderr)\n");
 #endif
 
   // PyRun_SimpleString("sys.exit(2)\n");
@@ -227,10 +229,10 @@ main(int argc, char* argv[])
   }
 
 #if defined(DEBUG)
-  printf("exiting...\n");
+  fprintf(stderr, "exiting...\n");
 #endif
 
-  // Cleanups. 
+  // Cleanups.
   // Normally all allocated wide strings must be freed,
   // but before exit it makes not much sense.
 
