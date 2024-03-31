@@ -78,11 +78,15 @@ function meson_build()
       download_and_extract "${meson_url}" "${meson_archive_file_name}" \
         "${meson_src_folder_name}"
 
-      if false
+      if true
       then
         run_verbose sed -i.bak \
           -e "s|if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):|if getattr(sys, 'frozen', False):|" \
           "${meson_src_folder_name}/mesonbuild/utils/universal.py"
+
+        run_verbose diff \
+          "${meson_src_folder_name}/mesonbuild/utils/universal.py.bak" \
+          "${meson_src_folder_name}/mesonbuild/utils/universal.py" || true
       fi
 
       mkdir -p "${XBB_BUILD_FOLDER_PATH}/${meson_folder_name}"
