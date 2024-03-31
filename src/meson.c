@@ -237,7 +237,23 @@ main(int argc, char* argv[])
 #endif
 
   char sys_meipass[sizeof(pyinstaller_meipass) + sizeof("sys._MEIPASS = '...'\n")];
+#if defined(__MINGW32__)
+  char pyinstaller_meipass_escaped[PATH_MAX];
+
+  char* p = pyinstaller_meipass;
+  char* q = pyinstaller_meipass_escaped;
+  while (*p) {
+    if ( *p == '\\') {
+      *q++ = '\\';
+    }
+    *q++ = *p++;
+  }
+  *q++ = '\0';
+
+  snprintf(sys_meipass, sizeof(sys_meipass), "sys._MEIPASS = '%s'\n", pyinstaller_meipass_escaped);
+#else
   snprintf(sys_meipass, sizeof(sys_meipass), "sys._MEIPASS = '%s'\n", pyinstaller_meipass);
+#endif
 
 #if defined(DEBUG)
   fprintf(stderr, "sys_meipass: %s\n", sys_meipass);
