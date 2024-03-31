@@ -372,6 +372,9 @@ function meson_test()
 
   run_host_app_verbose "${test_bin_path}/meson" --help
 
+  run_host_app_verbose "${test_bin_path}/meson" runpython \
+    -c "import sys; print('sys.path: ', sys.path); print('sys.frozen: ', sys.frozen); print('sys.is_xpack: ', sys.is_xpack); print('sys._MEIPASS: ', sys._MEIPASS)"
+
   # TODO: Add a minimal functional test.
 }
 
