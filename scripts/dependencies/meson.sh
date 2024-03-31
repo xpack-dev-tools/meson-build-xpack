@@ -237,9 +237,9 @@ function meson_build()
 
             # Use the installed location, not the source, since there are extra
             # files like _sysconfigdata__darwin_darwin.py
-            run_verbose cp -R "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
-              "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib"
-            # Mind the trailing slash!
+            run_verbose cp -R "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/lib/${python_with_version}" \
+              "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/"
+            # Mind the trailing slash in destination!
 
             echo
             echo "pip install mesonbuild..."
