@@ -27,6 +27,8 @@ function application_build_versioned_components()
     # https://www.python.org/downloads/
     # "3.12.2" for tests
     XBB_PYTHON3_VERSION="3.11.8"
+    XBB_PYTHON3_PACKAGING_VERSION="24.0"
+    XBB_PYTHON3_SETUPTOOLS_VERSION="69.2.0"
 
     XBB_PYTHON3_VERSION_MAJOR=$(xbb_get_version_major "${XBB_PYTHON3_VERSION}")
     XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.]\([0-9][0-9]*\)[.].*|\2|')
@@ -111,9 +113,9 @@ function application_build_versioned_components()
       python3_download_win "${XBB_PYTHON3_VERSION}"
     fi
 
-    # --setuptools-version=69.2.0
     meson_build "${XBB_MESON_VERSION}" \
-      --packaging-version=24.0 \
+      --packaging-version=${XBB_PYTHON3_PACKAGING_VERSION:-""} \
+      --setuptools-version=${XBB_PYTHON3_SETUPTOOLS_VERSION:-""}
 
     # -------------------------------------------------------------------------
   elif [[ "${XBB_RELEASE_VERSION}" =~ 1[.][0123][.].*-.* ]]
@@ -132,6 +134,8 @@ function application_build_versioned_components()
       # https://github.com/openssl/openssl/tags
       XBB_OPENSSL_VERSION="1.1.1w" # "1.1.1u"
       export XBB_NCURSES_DISABLE_WIDEC="n"
+      XBB_PYTHON3_PACKAGING_VERSION="24.0"
+      XBB_PYTHON3_SETUPTOOLS_VERSION="69.2.0"
     else
       XBB_PYTHON3_VERSION="3.11.4"
       XBB_OPENSSL_VERSION="1.1.1u" # "1.1.1q"
@@ -220,9 +224,9 @@ function application_build_versioned_components()
       python3_download_win "${XBB_PYTHON3_VERSION}"
     fi
 
-    # --setuptools-version=69.2.0
     meson_build "${XBB_MESON_VERSION}" \
-      --packaging-version=24.0 \
+      --packaging-version=${XBB_PYTHON3_PACKAGING_VERSION:-""} \
+      --setuptools-version=${XBB_PYTHON3_SETUPTOOLS_VERSION:-""}
 
     # -------------------------------------------------------------------------
   elif [[ "${XBB_RELEASE_VERSION}" =~ 0[.]6[1234][.].*-.* ]]
