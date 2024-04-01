@@ -226,9 +226,9 @@ archive and its SHA signature, created in the `deploy` folder:
 
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/darwin-x64/deploy
-total 57136
--rw-r--r--  1 ilg  staff  28646942 Mar 23 20:41 xpack-meson-build-1.3.2-1-darwin-x64.tar.gz
--rw-r--r--  1 ilg  staff       110 Mar 23 20:41 xpack-meson-build-1.3.2-1-darwin-x64.tar.gz.sha
+total 48400
+-rw-r--r--  1 ilg  staff  24249282 Apr  1 09:19 xpack-meson-build-1.3.2-1-darwin-x64.tar.gz
+-rw-r--r--  1 ilg  staff       110 Apr  1 09:19 xpack-meson-build-1.3.2-1-darwin-x64.tar.gz.sha
 ```
 
 #### Apple Silicon macOS
@@ -261,9 +261,9 @@ archive and its SHA signature, created in the `deploy` folder:
 
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/darwin-arm64/deploy
-total 56392
--rw-r--r--  1 ilg  staff  28321920 Mar 23 20:36 xpack-meson-build-1.3.2-1-darwin-arm64.tar.gz
--rw-r--r--  1 ilg  staff       112 Mar 23 20:36 xpack-meson-build-1.3.2-1-darwin-arm64.tar.gz.sha
+total 48320
+-rw-r--r--  1 ilg  staff  23917236 Apr  1 09:14 xpack-meson-build-1.3.2-1-darwin-arm64.tar.gz
+-rw-r--r--  1 ilg  staff       112 Apr  1 09:14 xpack-meson-build-1.3.2-1-darwin-arm64.tar.gz.sha
 ```
 
 #### Intel GNU/Linux
@@ -298,9 +298,9 @@ archive and its SHA signature, created in the `deploy` folder:
 
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-x64/deploy
-total 28300
--rw-r--r-- 1 ilg ilg 28974273 Mar 23 18:38 xpack-meson-build-1.3.2-1-linux-x64.tar.gz
--rw-r--r-- 1 ilg ilg      109 Mar 23 18:38 xpack-meson-build-1.3.2-1-linux-x64.tar.gz.sha
+total 23748
+-rw-r--r-- 1 ilg ilg 24313653 Apr  1 06:16 xpack-meson-build-1.3.2-1-linux-x64.tar.gz
+-rw-r--r-- 1 ilg ilg      109 Apr  1 06:16 xpack-meson-build-1.3.2-1-linux-x64.tar.gz.sha
 ```
 
 ##### Build the Intel Windows binaries
@@ -326,9 +326,9 @@ archive and its SHA signature, created in the `deploy` folder:
 
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/win32-x64/deploy
-total 20808
--rw-r--r-- 1 ilg ilg 21300667 Mar 23 18:29 xpack-meson-build-1.3.2-1-win32-x64.zip
--rw-r--r-- 1 ilg ilg      106 Mar 23 18:29 xpack-meson-build-1.3.2-1-win32-x64.zip.sha
+total 26132
+-rw-r--r-- 1 ilg ilg 26754927 Apr  1 06:07 xpack-meson-build-1.3.2-1-win32-x64.zip
+-rw-r--r-- 1 ilg ilg      106 Apr  1 06:07 xpack-meson-build-1.3.2-1-win32-x64.zip.sha
 ```
 
 #### Arm GNU/Linux 64-bit
@@ -361,9 +361,9 @@ archive and its SHA signature, created in the `deploy` folder:
 
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-arm64/deploy
-total 28052
--rw-r--r-- 1 ilg ilg 28719761 Mar 23 19:37 xpack-meson-build-1.3.2-1-linux-arm64.tar.gz
--rw-r--r-- 1 ilg ilg      111 Mar 23 19:37 xpack-meson-build-1.3.2-1-linux-arm64.tar.gz.sha
+total 23500
+-rw-r--r-- 1 ilg ilg 24057814 Apr  1 07:16 xpack-meson-build-1.3.2-1-linux-arm64.tar.gz
+-rw-r--r-- 1 ilg ilg      111 Apr  1 07:16 xpack-meson-build-1.3.2-1-linux-arm64.tar.gz.sha
 ```
 
 #### Arm GNU/Linux 32-bit
@@ -396,9 +396,9 @@ archive and its SHA signature, created in the `deploy` folder:
 
 ```console
 $ ls -l ~/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-arm/deploy
-total 27428
--rw-r--r-- 1 ilg ilg 28081076 Mar 23 19:40 xpack-meson-build-1.3.2-1-linux-arm.tar.gz
--rw-r--r-- 1 ilg ilg      109 Mar 23 19:40 xpack-meson-build-1.3.2-1-linux-arm.tar.gz.sha
+total 22848
+-rw-r--r-- 1 ilg ilg 23389476 Apr  1 07:18 xpack-meson-build-1.3.2-1-linux-arm.tar.gz
+-rw-r--r-- 1 ilg ilg      109 Apr  1 07:18 xpack-meson-build-1.3.2-1-linux-arm.tar.gz.sha
 ```
 
 ### Update README-MAINTAINER listing output
