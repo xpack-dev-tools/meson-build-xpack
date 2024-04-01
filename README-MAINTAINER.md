@@ -619,14 +619,14 @@ xattr -cr ${HOME}/Downloads/xpack-*
 On GNU/Linux and macOS systems, use:
 
 ```sh
-.../xpack-meson-build-1.3.2-1/bin/meson-build --version
+.../xpack-meson-build-1.3.2-1/bin/meson --version
 1.3.2
 ```
 
 On Windows use:
 
 ```dos
-...\xpack-meson-build-1.3.2-1\bin\meson-build --version
+...\xpack-meson-build-1.3.2-1\bin\meson --version
 1.3.2
 ```
 
