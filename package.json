@@ -1,6 +1,6 @@
 {
   "name": "@xpack-dev-tools/meson-build",
-  "version": "1.3.2-1.1",
+  "version": "1.3.2-1.1.pre",
   "description": "A binary xPack with the Meson Build executables",
   "main": "",
   "scripts": {
