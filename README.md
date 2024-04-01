@@ -119,8 +119,8 @@ $ tree -L 2 /Users/ilg/Library/xPacks/\@xpack-dev-tools/meson-build/1.3.2-1.1/.c
     ├── libexpat.1.dylib -> libexpat.1.8.10.dylib
     ├── libffi.8.dylib
     ├── liblzma.5.dylib
-    ├── libncurses.6.dylib
-    ├── libpanel.6.dylib
+    ├── libncursesw.6.dylib
+    ├── libpanelw.6.dylib
     ├── libpython3.11.dylib
     ├── libreadline.8.2.dylib
     ├── libreadline.8.dylib -> libreadline.8.2.dylib
