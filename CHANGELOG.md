@@ -4,6 +4,10 @@ Entries in this file are in reverse chronological order.
 
 ## 2024-04-01
 
+* v1.3.2-1 released
+* 7fa05d7 README update
+* dc35379 README update
+* 798fb52 CHANGELOG.md update
 * b2d7e49 workflow updates
 * 68d64d2 README update
 * d1d0401 package.json: bump deps
