@@ -205,8 +205,9 @@ function meson_build()
             echo "Copying .py files from the standard Python library..."
 
             # Copy all .py from the original source package.
-            cp -r "${XBB_SOURCES_FOLDER_PATH}/${XBB_PYTHON3_SRC_FOLDER_NAME}"/Lib/* \
+            cp -R "${XBB_SOURCES_FOLDER_PATH}/${XBB_PYTHON3_SRC_FOLDER_NAME}"/Lib/* \
               "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/"
+            # Mind the trailing slash in destination!
 
             run_verbose "python3" \
               -m pip install --target "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages" pip
@@ -337,8 +338,9 @@ function meson_build()
               "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/lib-dynload/"
           else
             # Copy dynamically loaded modules and rename folder.
-            cp -r "${XBB_LIBRARIES_INSTALL_FOLDER_PATH}/lib/python${XBB_PYTHON3_VERSION_MAJOR}.${XBB_PYTHON3_VERSION_MINOR}"/lib-dynload/* \
+            cp -R "${XBB_LIBRARIES_INSTALL_FOLDER_PATH}/lib/python${XBB_PYTHON3_VERSION_MAJOR}.${XBB_PYTHON3_VERSION_MINOR}"/lib-dynload/* \
               "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/lib-dynload/"
+            # Mind the trailing slash in destination!
           fi
         ) 2>&1 | tee "${XBB_LOGS_FOLDER_PATH}/${meson_folder_name}/build-output-$(ndate).txt"
       fi
