@@ -4,7 +4,11 @@ Entries in this file are in reverse chronological order.
 
 ## 2024-04-01
 
-* v1.3.2-1 released
+* v1.3.2-1.1 published on npmjs.com
+* a5006a3 package.json: update urls for 1.3.2-1.1 release
+* c3b7227 README update
+* ca1c4ae body-jekyll update
+* 8dae360 CHANGELOG update
 * 7fa05d7 README update
 * dc35379 README update
 * 798fb52 CHANGELOG.md update
