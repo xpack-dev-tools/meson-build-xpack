@@ -4,7 +4,11 @@ Entries in this file are in reverse chronological order.
 
 ## 2024-04-01
 
-* v1.3.2-1 prepared
+* b2d7e49 workflow updates
+* 68d64d2 README update
+* d1d0401 package.json: bump deps
+* e1c6401 prepare v1.3.2-1
+* 17a5bcf meson.sh: cp -R
 
 ## 2024-03-31
 
