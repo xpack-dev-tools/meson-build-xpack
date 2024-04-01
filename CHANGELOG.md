@@ -2,9 +2,56 @@
 
 Entries in this file are in reverse chronological order.
 
-## 2024-03-23
+## 2024-04-01
 
 * v1.3.2-1 prepared
+
+## 2024-03-31
+
+* b67afdc meson.sh: fix recursive copy
+* 235281d meson.sh: test runpython
+* 907a7da meson.sh: update windows code
+* 11941e4 meson.sh: re-enable universal.py patch
+* 422e3b9 versioning.sh: use XBB_PYTHON3_*_VERSION
+* c719da7 meson.c: escape backslash
+
+## 2024-03-29
+
+* cc20cff meson.sh: cosmetics
+* 0628c04 meson.sh: restore scripts/*.py
+* 0a51634 versioning.sh: use python3 3.11 in 1.4.*
+* 0c95edb versioning.sh: no setuptools & customisations
+* f702ade versioning.sh: configure 1.3.2-* separately
+* 593a21b meson.c: use HAS_MEIPASS
+* 835a518 meson.c: add sys.is_xpack = True
+* d58c76f meson.sh: cleanups and selected .py
+* 7e4d48f versioning.sh: parametrise builds
+* fc7b8f1 meson.sh: rework with pip install
+* b6f6de2 versioning.sh: meson with --*-version
+* 80ce29b versioning.sh: python --with-ensurepip
+* 85deecd meson.c: add sys._MEIPASS = '%s'
+* 9832231 meson.c: add sys.frozen = True
+* 6b4c67a meson.c: add pythonX.YY to path
+* 1a14c7a meson.c: use fprintf(stderr, ...)
+
+## 2024-03-27
+
+* 5c9b519 versioning.sh: wide ncurses for python
+* 84d0c3e versioning.sh: zlib 1.3.1
+* 3e7ac6d python 3.12.2 functional
+
+## 2024-03-23
+
+* a34547d VERSION revert to 1.3.2-1
+* 9b8188a VERSION: try 1.4.0
+* fd7beb2 versioning.sh: add preliminary 1.4.*
+* db05993 README update
+* c1fbb7d README update
+* ac48dad README update
+* 835363b README update
+* 691b04e README update
+* 0a97579 package-lock.json update
+* a07e78f prepare v1.3.2-1
 
 ## 2024-03-22
 
