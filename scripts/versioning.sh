@@ -115,7 +115,8 @@ function application_build_versioned_components()
 
     meson_build "${XBB_MESON_VERSION}" \
       --packaging-version=${XBB_PYTHON3_PACKAGING_VERSION:-""} \
-      --setuptools-version=${XBB_PYTHON3_SETUPTOOLS_VERSION:-""}
+      --setuptools-version=${XBB_PYTHON3_SETUPTOOLS_VERSION:-""} \
+      --with-meson-python
 
     # -------------------------------------------------------------------------
   elif [[ "${XBB_RELEASE_VERSION}" =~ 1[.][0123][.].*-.* ]]
@@ -226,7 +227,8 @@ function application_build_versioned_components()
 
     meson_build "${XBB_MESON_VERSION}" \
       --packaging-version=${XBB_PYTHON3_PACKAGING_VERSION:-""} \
-      --setuptools-version=${XBB_PYTHON3_SETUPTOOLS_VERSION:-""}
+      --setuptools-version=${XBB_PYTHON3_SETUPTOOLS_VERSION:-""} \
+      --with-meson-python
 
     # -------------------------------------------------------------------------
   elif [[ "${XBB_RELEASE_VERSION}" =~ 0[.]6[1234][.].*-.* ]]

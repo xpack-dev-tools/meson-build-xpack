@@ -30,6 +30,7 @@ function meson_build()
 
   local python_packaging_version=""
   local python_setuptools_version=""
+  local with_meson_python=""
 
   while [ $# -gt 0 ]
   do
@@ -41,6 +42,11 @@ function meson_build()
 
       --setuptools-version=* )
         python_setuptools_version=$(xbb_parse_option "$1")
+        shift
+        ;;
+
+      --with-meson-python)
+        with_meson_python="y"
         shift
         ;;
 
@@ -182,12 +188,17 @@ function meson_build()
 
       show_host_libs "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson"
 
-      if false
+      if [ "${with_meson_python}" == "y" ]
       then
-        # Install the meson Python interpreter.
-        run_verbose install -v -c -m 755 \
-          "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
-          "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}"
+        if [ "${XBB_HOST_PLATFORM}" == "win32" ]
+        then
+          : # TODO
+        else
+          # Install the meson Python interpreter.
+          run_verbose install -v -c -m 755 \
+            "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}${XBB_HOST_DOT_EXE}" \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}"
+        fi
       fi
 
       if true # [ ! -d "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" ]
