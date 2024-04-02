@@ -145,20 +145,26 @@ main(int argc, char* argv[])
   char new_path[PATH_MAX * 3];
   new_path[0] = '\0';
 
-  strcat(new_path, home_folder_path);
-  strcat(new_path, FILE_SEPARATOR_STR);
-  strcat(new_path, "lib");
-  strcat(new_path, FILE_SEPARATOR_STR);
-  strcat(new_path, python_folder_name);
-  strcat(new_path, PATH_SEPARATOR_STR);
+#if defined(__MINGW32__)
 
+  // The default is:
+  // sys.path:  ['', 'Z:\\home\\ilg\\Work\\xpack-dev-tools\\meson-build-xpack.git\\build\\win32-x64\\application\\bin\\python311.zip', 'Z:\\home\\ilg\\Work\\xpack-dev-tools\\meson-build-xpack.git\\build\\win32-x64\\application\\DLLs', 'Z:\\home\\ilg\\Work\\xpack-dev-tools\\meson-build-xpack.git\\build\\win32-x64\\application\\Lib', 'Z:\\home\\ilg\\Work\\xpack-dev-tools\\meson-build-xpack.git\\build\\win32-x64\\application\\bin', 'Z:\\home\\ilg\\Work\\xpack-dev-tools\\meson-build-xpack.git\\build\\win32-x64\\application', 'Z:\\home\\ilg\\Work\\xpack-dev-tools\\meson-build-xpack.git\\build\\win32-x64\\application\\Lib\\site-packages']
+
+  // Do not Py_SetPath(), for consistency with the embedded
+  // python.exe, stick to the defaults.
+
+#else
+
+  // The default is:
+  // sys.path:  ['', '/home/ilg/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-x64/application/lib/python311.zip', '/home/ilg/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-x64/application/lib/python3.11', '/home/ilg/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-x64/application/lib/python3.11/lib-dynload', '/home/ilg/Work/xpack-dev-tools/meson-build-xpack.git/build/linux-x64/application/lib/python3.11/site-packages']
+
+#if 0
   strcat(new_path, home_folder_path);
   strcat(new_path, FILE_SEPARATOR_STR);
   strcat(new_path, "lib");
   strcat(new_path, FILE_SEPARATOR_STR);
   strcat(new_path, python_folder_name);
-  strcat(new_path, FILE_SEPARATOR_STR);
-  strcat(new_path, "site-packages");
+
   strcat(new_path, PATH_SEPARATOR_STR);
 
   strcat(new_path, home_folder_path);
@@ -169,10 +175,23 @@ main(int argc, char* argv[])
   strcat(new_path, FILE_SEPARATOR_STR);
   strcat(new_path, "lib-dynload");
 
+  strcat(new_path, PATH_SEPARATOR_STR);
+
+  strcat(new_path, home_folder_path);
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "lib");
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, python_folder_name);
+  strcat(new_path, FILE_SEPARATOR_STR);
+  strcat(new_path, "site-packages");
+
   wchar_t* new_wpath = Py_DecodeLocale(new_path, NULL);
   Py_SetPath(new_wpath);
 #if defined(DEBUG)
   fprintf(stderr, "Py_SetPath('%ls')\n", new_wpath);
+#endif
+#endif
+
 #endif
 
 #if defined(DEBUG)
@@ -187,7 +206,7 @@ main(int argc, char* argv[])
 
   Py_Initialize();
   if (! Py_IsInitialized()) {
-    fprintf(stderr, "Fatal error: cannot initialise Python environment.\n");
+    fprintf(stderr, "Fatal error: cannot initialise the Python environment.\n");
     exit(1);
   }
 
@@ -223,15 +242,27 @@ main(int argc, char* argv[])
 #if defined(HAS_MEIPASS)
   // Normally sys._MEIPASS is the PyInstaller bundle path,
   // i.e. the `.../_internal` folder.
-  // In our case, it is the `.../lib/pythonX.YY` folder.
+  // In our case, it is the `.../lib/pythonX.YY` folder,
+  // or .../bin/Lib on Windows (a bit weird).
 
   pyinstaller_meipass[0] = '\0';
+
+#if defined(__MINGW32__)
+
+  strcat(pyinstaller_meipass, home_folder_path);
+  strcat(pyinstaller_meipass, FILE_SEPARATOR_STR);
+  strcat(pyinstaller_meipass, "Lib");
+
+#else
 
   strcat(pyinstaller_meipass, home_folder_path);
   strcat(pyinstaller_meipass, FILE_SEPARATOR_STR);
   strcat(pyinstaller_meipass, "lib");
   strcat(pyinstaller_meipass, FILE_SEPARATOR_STR);
   strcat(pyinstaller_meipass, python_folder_name);
+
+#endif
+
 #if defined(DEBUG)
   fprintf(stderr, "pyinstaller_meipass: %s\n", pyinstaller_meipass);
 #endif
