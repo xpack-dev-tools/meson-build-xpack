@@ -369,10 +369,12 @@ function meson_build()
           run_verbose rm -rf \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"/config-${XBB_PYTHON3_VERSION_MAJOR}.${XBB_PYTHON3_VERSION_MINOR}-*
 
+          # These are created by meson.
           run_verbose rm -rf \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/bin" \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/share" \
 
+          # These are tests used to test Python itself.
           run_verbose rm -rf \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/test" \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/lib2to3/tests" \
@@ -397,7 +399,7 @@ function meson_build()
 
           python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
 
-          # Restore files that known to be used as scripts,
+          # Restore files that are known to be used as scripts,
           # like `mesonbuild/scripts/python_info.py`.
           echo
           echo "Restoring meson .py scripts..."
