@@ -275,7 +275,7 @@ function meson_build()
           fi
 
           echo
-          echo "cleanups..."
+          echo "Cleaning up..."
 
           run_verbose rm -rfv \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/site-packages/bin" \
@@ -288,6 +288,13 @@ function meson_build()
             -m compileall \
             -j "${XBB_JOBS}" \
             -f "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/"
+
+          echo
+          echo "Removing opt-[12].pyc variants..."
+
+          find "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/" \
+            \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
+            -exec rm {} \;
 
           echo
           echo "Replacing .py files with .pyc files..."
@@ -319,7 +326,7 @@ function meson_build()
           run_host_app_verbose "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}.exe" \
             -c "import sys; print(sys.path)"
 
-        else
+        else # GNU/Linux & macOS
 
           mkdir -pv "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
 
@@ -357,9 +364,13 @@ function meson_build()
           fi
 
           echo
-          echo "cleanups..."
+          echo "Cleaning up..."
 
-          run_verbose rm -rfv \
+          # The config-* folder is large and not embeddable.
+          run_verbose rm -rf \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"/config-${XBB_PYTHON3_VERSION_MAJOR}.${XBB_PYTHON3_VERSION_MINOR}-*
+
+          run_verbose rm -rf \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/bin" \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/share" \
 
@@ -376,10 +387,12 @@ function meson_build()
             -j "${XBB_JOBS}" \
             -f "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/"
 
-          # # For just in case.
-          # find "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
-          #   \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
-          #   -exec rm -v {} \;
+          echo
+          echo "Removing opt-[12].pyc variants..."
+
+          find "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
+            \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
+            -exec rm {} \;
 
           echo
           echo "Replacing .py files with .pyc files..."
@@ -444,7 +457,10 @@ function meson_test()
   run_host_app_verbose "${test_bin_path}/meson-python3" \
     -c "import sys; print('sys.path: ', sys.path)"
 
-  # TODO: Add a minimal functional test.
+  run_host_app_verbose "${test_bin_path}/meson-python3" \
+    -m pip --version
+
+  # TODO: Add a minimal meson functional test.
 }
 
 # -----------------------------------------------------------------------------
