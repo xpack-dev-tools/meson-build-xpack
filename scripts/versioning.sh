@@ -68,6 +68,7 @@ function application_build_versioned_components()
       bzip2_build "1.0.8"
 
       # https://sourceforge.net/projects/lzmautils/files/
+      # Avoid 5.6.[01]!
       xz_build "5.4.6" # "5.4.3"
 
       # https://www.bytereef.org/mpdecimal/download.html
