@@ -356,7 +356,7 @@ xpm run docker-link-deps --config linux-arm64 -C ~/Work/xpack-dev-tools/meson-bu
 xpm run docker-build-develop --config linux-arm64 -C ~/Work/xpack-dev-tools/meson-build-xpack.git
 ```
 
-About 70 minutes later (20 on ampere), the output of the build script is a compressed
+About 70 minutes later (20 minutes on ampere), the output of the build script is a compressed
 archive and its SHA signature, created in the `deploy` folder:
 
 ```console
