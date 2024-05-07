@@ -86,7 +86,6 @@ function application_build_versioned_components()
       # https://github.com/openssl/openssl/tags
       openssl_build "3.2.1" # "1.1.1u"
 
-      # export XBB_NCURSES_DISABLE_WIDEC="y"
       # https://ftp.gnu.org/gnu/ncurses/
       ncurses_build "6.4"
 
@@ -137,14 +136,10 @@ function application_build_versioned_components()
 
       # https://github.com/openssl/openssl/tags
       XBB_OPENSSL_VERSION="1.1.1w" # "1.1.1u"
-
-      export XBB_NCURSES_DISABLE_WIDEC="n"
     else
       XBB_PYTHON3_VERSION="3.11.4"
 
       XBB_OPENSSL_VERSION="1.1.1u" # "1.1.1q"
-
-      export XBB_NCURSES_DISABLE_WIDEC="y"
     fi
 
     XBB_PYTHON3_VERSION_MAJOR=$(xbb_get_version_major "${XBB_PYTHON3_VERSION}")
@@ -302,7 +297,6 @@ function application_build_versioned_components()
       # https://www.openssl.org/source/
       openssl_build "1.1.1q"
 
-      export XBB_NCURSES_DISABLE_WIDEC="y"
       # https://ftp.gnu.org/gnu/ncurses/
       ncurses_build "6.3"
 
