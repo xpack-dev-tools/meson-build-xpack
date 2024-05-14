@@ -87,7 +87,7 @@ function application_build_versioned_components()
       openssl_build "3.2.1" # "1.1.1u"
 
       # https://ftp.gnu.org/gnu/ncurses/
-      ncurses_build "6.4"
+      ncurses_build "6.4" --disable-lib-suffixes
 
       # https://ftp.gnu.org/gnu/readline/
       readline_build "8.2"
@@ -198,7 +198,7 @@ function application_build_versioned_components()
       openssl_build "${XBB_OPENSSL_VERSION}"
 
       # https://ftp.gnu.org/gnu/ncurses/
-      ncurses_build "6.4" # "6.3"
+      ncurses_build "6.4" --disable-lib-suffixes # "6.3"
 
       # https://ftp.gnu.org/gnu/readline/
       readline_build "8.2" # "8.1.2"
@@ -298,7 +298,7 @@ function application_build_versioned_components()
       openssl_build "1.1.1q"
 
       # https://ftp.gnu.org/gnu/ncurses/
-      ncurses_build "6.3"
+      ncurses_build "6.3" --disable-lib-suffixes
 
       # https://ftp.gnu.org/gnu/readline/
       readline_build "8.1.2"
