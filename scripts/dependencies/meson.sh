@@ -163,7 +163,7 @@ function meson_build()
 
       (
         # Bring the meson source files into the build folder.
-        cp -v "${XBB_BUILD_GIT_PATH}"/src/* .
+        cp -v "${XBB_BUILD_ROOT_PATH}"/src/* .
 
         if [ "${XBB_HOST_PLATFORM}" == "win32" ]
         then
