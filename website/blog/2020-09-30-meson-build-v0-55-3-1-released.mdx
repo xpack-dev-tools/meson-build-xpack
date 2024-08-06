@@ -1,0 +1,187 @@
+---
+title:  xPack Meson Build v0.55.3-1 released
+
+date: 2020-09-30 11:55:00 +0300
+
+authors: ilg-ul
+
+# To be listed in the Releases page.
+tags:
+  - releases
+
+# ----- Custom properties -----------------------------------------------------
+
+version: 0.55.3-1
+npm_subversion: 1
+
+download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v0.55.3-1/
+
+---
+
+Version 0.55.3-1 is the first release of the **xPack Meson Build** package.
+
+<!-- truncate -->
+
+import Image from '@theme/IdealImage';
+
+[The xPack Meson Build](https://xpack-dev-tools.github.io/meson-build-xpack)
+is the **xPack** distribution of the
+[Meson](https://mesonbuild.com) build system.
+
+There are separate binaries for **Windows** (Intel 32/64-bit),
+**macOS** (Intel 64-bit) and **GNU/Linux** (Intel 32/64-bit, Arm 32/64-bit).
+
+:::note Raspberry Pi
+
+The main targets for the GNU/Linux Arm
+binaries are the **Raspberry Pi** class devices (armv7l and aarch64;
+armv6 is not supported).
+
+:::
+
+## Download
+
+The binary files are available from <a href={ frontMatter.download_url }>GitHub Releases</a>.
+
+## Install
+
+The full details of installing the **xPack Meson Build** on various platforms
+are presented in the [Install Guide](/docs/install/).
+
+## Compliance
+
+The **xPack Meson Build** is based on the official
+[Meson](https://mesonbuild.com) build system,
+without any changes.
+
+The current version is based on:
+
+- Meson release
+[0.55.3](https://github.com/mesonbuild/meson/releases/tag/0.55.3)
+from Sep 11th, 2020.
+
+## Embedded Python
+
+To simplify dependency management, this release embeds a Python
+3.8.5 instance.
+
+The `meson` executable is a standard ELF/EXE which includes the Python
+run-time; the `main()` function prepares the Python environment and then
+invokes the Meson main:
+
+```python
+  PyRun_SimpleString("from mesonbuild import mesonmain\n");
+  PyRun_SimpleString("sys.exit(mesonmain.main())\n");
+```
+
+The Python library is located in the standard location:
+
+- `lib/python3.8`
+- `lib/python3.8/lib-dynload` (the platform dependent files)
+
+The Meson files are located in:
+
+- `lib/python3.8/mesonbuild`
+
+To speed up execution, all Python files are compiled and are
+available only as `.pyc`.
+
+## Changes
+
+- none
+
+## Known problems
+
+- [#1](https://github.com/xpack-dev-tools/meson-build-xpack/issues/1) - when
+  installing meson as a project dependency, starting it fails on macOS, due
+  to a bug preventing it to follow links; fixed in 0.55.3-2;
+- [#2](https://github.com/xpack-dev-tools/meson-build-xpack/issues/2) - when
+  generating commands in ninja.build that refer to itself, on Linux & macOS
+  the path is not correct, it contains only a folder; fixed in 0.55.3-2.
+
+## Documentation
+
+The original documentation is available from:
+
+- [https://mesonbuild.com/Manual.html](https://mesonbuild.com/Manual.html)
+
+## Supported platforms
+
+Binaries for **Windows**, **macOS** and **GNU/Linux** are provided.
+
+The binaries were built using the
+[xPack Build Box (XBB)](https://github.com/xpack/xpack-build-box), a set
+of build environments based on slightly older distributions, that should be
+compatible with most recent systems.
+
+- Intel GNU/Linux: all binaries were built with GCC 9.3, running in an
+  Ubuntu 12 Docker container
+- Arm GNU/Linux: all binaries were built with GCC 9.3, running in an
+  Ubuntu 16 Docker container (added in mid-2020)
+- Windows: all binaries were built with mingw-w64 GCC 9.3, running in an
+  Ubuntu 12 Docker container
+- macOS: all binaries were built with GCC 9.3, running in a separate
+  folder on macOS 10.10.5.
+
+## Build
+
+The scripts used to build this distribution are in:
+
+- `distro-info/scripts`
+
+For the prerequisites and more details on the build procedure, please see the
+[README-MAINTAINER](https://github.com/xpack-dev-tools/meson-build-xpack/blob/xpack/README-MAINTAINER.md) page.
+
+## Travis tests
+
+The first set of tests were performed on Travis, by running
+a simple script to check if the binaries start on a wide range of
+platforms and distributions:
+
+- [test xPack Meson Build on stable platforms](https://travis-ci.org/github/xpack-dev-tools/meson-build-xpack/builds/731542310)
+- [test xPack Meson Build on latest platforms](https://travis-ci.org/github/xpack-dev-tools/meson-build-xpack/builds/731551368)
+
+## Tests
+
+TBD
+
+## Checksums
+
+The SHA-256 hashes for the files are:
+
+```txt
+f0b31f8ecbc90de4e8bff675d2e48527fefd5f44b17b34e9fd356fd1ab111e71
+xpack-meson-build-0.55.3-1-darwin-x64.tar.gz
+
+7f644d5762b75d48ac5bc865c31b29055ea9353fca4a49240493be32764b4714
+xpack-meson-build-0.55.3-1-linux-arm64.tar.gz
+
+8494dc993d38914dfd2d353c8fdc31c7420fb4511438cffeee9356f24239c922
+xpack-meson-build-0.55.3-1-linux-arm.tar.gz
+
+4762a7be6a7398b66a2c2dff80285a1e7e74d926896b9f0469bffa30b561b1d5
+xpack-meson-build-0.55.3-1-linux-x32.tar.gz
+
+83415e728359b7fba3fc9f9fb4ce0ea42c7681c99ff64f80598502055ae8d655
+xpack-meson-build-0.55.3-1-linux-x64.tar.gz
+
+16649ffa705c6906e2396c9f70f7f3aea493b283a635f0af5b613e1a226a65be
+xpack-meson-build-0.55.3-1-win32-x32.zip
+
+30d130de68238326d2b14712d460aab9bfac7413805d96303c15dc961b8fcf24
+xpack-meson-build-0.55.3-1-win32-x64.zip
+```
+
+## Download analytics
+
+- GitHub [xpack-dev-tools/meson-build-xpack](https://github.com/xpack-dev-tools/meson-build-xpack/)
+  - this release <a href={ `https://github.com/xpack-dev-tools/meson-build-xpack/releases/v${ frontMatter.version }/` } ><Image img={ `https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v${ frontMatter.version }/total.svg` } alt='Github Release' /></a>
+  - all xPack releases [![Github All Releases](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/total.svg)](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
+  - [individual file counters](https://somsubhra.github.io/github-release-stats/?username=xpack-dev-tools&repository=meson-build-xpack) (grouped per release)
+- npmjs.com [@xpack-dev-tools/meson-build](https://www.npmjs.com/package/@xpack-dev-tools/meson-build)
+  - latest releases [![npm](https://img.shields.io/npm/dw/@xpack-dev-tools/meson-build.svg)](https://www.npmjs.com/package/@xpack-dev-tools/meson-build/)
+  - all @xpack-dev-tools releases [![npm](https://img.shields.io/npm/dt/@xpack-dev-tools/meson-build.svg)](https://www.npmjs.com/package/@xpack-dev-tools/meson-build/)
+
+Credit to [Shields IO](https://shields.io) for the badges and to
+[Somsubhra/github-release-stats](https://github.com/Somsubhra/github-release-stats)
+for the individual file counters.

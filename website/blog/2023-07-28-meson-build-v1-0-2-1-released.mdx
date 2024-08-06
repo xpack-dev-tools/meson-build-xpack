@@ -1,0 +1,213 @@
+---
+title:  xPack Meson Build v1.0.2-1 released
+
+date: 2023-07-28 20:18:28 +0300
+
+authors: ilg-ul
+
+# To be listed in the Releases page.
+tags:
+  - releases
+
+# ----- Custom properties -----------------------------------------------------
+
+upstream_version: "1.0.2"
+upstream_release_date: "Apr 21, 2023"
+python_version: "3.11"
+python_subversion: "4"
+
+version: "1.0.2-1"
+npm_subversion: "1"
+
+download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v1.0.2-1/
+
+---
+
+Version **1.0.2-1** is a new release; it follows the upstream release.
+
+<!-- truncate -->
+
+import Image from '@theme/IdealImage';
+
+[The xPack Meson Build](https://xpack.github.io/meson-build/)
+is a standalone cross-platform binary distribution of
+[Meson Build](https://mesonbuild.org).
+
+There are separate binaries for **Windows** (Intel 64-bit),
+**macOS** (Intel 64-bit, Apple Silicon 64-bit)
+and **GNU/Linux** (Intel 64-bit, Arm 32/64-bit).
+
+:::note Raspberry Pi
+
+The main targets for the GNU/Linux Arm
+binaries are the **Raspberry Pi** class devices (armv7l and aarch64;
+armv6 is not supported).
+
+:::
+
+## Download
+
+The binary files are available from <a href={ frontMatter.download_url }>GitHub Releases</a>.
+
+## Prerequisites
+
+- GNU/Linux Intel 64-bit: any system with **GLIBC 2.27** or higher
+  (like Ubuntu 18 or later, Debian 10 or later, RedHat 8 or later,
+  Fedora 29 or later, etc)
+- GNU/Linux Arm 32/64-bit: any system with **GLIBC 2.27** or higher
+  (like Raspberry Pi OS, Ubuntu 18 or later, Debian 10 or later, RedHat 8 or later,
+  Fedora 29 or later, etc)
+- Intel Windows 64-bit: Windows 7 with the Universal C Runtime
+  ([UCRT](https://support.microsoft.com/en-us/topic/update-for-universal-c-runtime-in-windows-c0514201-7fe6-95a3-b0a5-287930f3560c)),
+  Windows 8, Windows 10
+- Intel macOS 64-bit: 10.13 or later
+- Apple Silicon macOS 64-bit: 11.6 or later
+
+## Install
+
+The full details of installing the **xPack Meson Build** on various platforms
+are presented in the [Install Guide](/docs/install/).
+
+## Compliance
+
+The xPack Meson Build generally follows the official
+[Meson Build](https://mesonbuild.org) releases.
+
+The current version is based on:
+
+- Meson Build release
+[{ frontMatter.upstream_version }](https://github.com/mesonbuild/meson/releases/tag/{ frontMatter.upstream_version }) from { frontMatter.upstream_release_date }.
+
+## Changes
+
+Compared to the upstream version, there are no functional changes.
+
+## Bug fixes
+
+- none
+
+## Enhancements
+
+- none
+
+## Known problems
+
+- none
+
+## Embedded Python
+
+To simplify dependency management, this release embeds a **Python
+{ frontMatter.python_version }.{ frontMatter.python_subversion }** instance.
+
+The `meson` executable is a standard ELF/EXE which includes the Python
+run-time; the `main()` function prepares the Python environment and then
+invokes the Meson main:
+
+```python
+  PyRun_SimpleString("from mesonbuild import mesonmain\n");
+  PyRun_SimpleString("sys.exit(mesonmain.main())\n");
+```
+
+The Python library is located in the standard location:
+
+- `lib/python{ frontMatter.python_version }`
+- `lib/python{ frontMatter.python_version }/lib-dynload` (the platform dependent files)
+
+The Meson files are located in:
+
+- `lib/python{ frontMatter.python_version }/mesonbuild`
+
+To speed up execution, all Python files are compiled and are
+available only as `.pyc`.
+
+## Documentation
+
+The original documentation is available from:
+
+- [https://mesonbuild.com/Manual.html](https://mesonbuild.com/Manual.html)
+
+## Build
+
+The binaries for all supported platforms
+(Windows, macOS and GNU/Linux) were built using the
+[xPack Build Box (XBB)](https://xpack.github.io/xbb/), a set
+of build environments based on slightly older distributions, that should be
+compatible with most recent systems.
+
+For the prerequisites and more details on the build procedure, please see the
+[Maintainer Info](/docs/maintainer-info/) page.
+
+## CI tests
+
+Before publishing, a set of simple tests were performed on an exhaustive
+set of platforms. The results are available from:
+
+- [GitHub Actions](https://github.com/xpack-dev-tools/meson-build-xpack/actions/)
+- [Travis CI](https://app.travis-ci.com/github/xpack-dev-tools/meson-build-xpack/builds/)
+
+## Checksums
+
+The SHA-256 hashes for the files are:
+
+```txt
+65fbcae443bfb35ee1836aaacb35fc18cf6a5f91ab121d0df0706ae22cc3e3a8
+xpack-meson-build-1.0.2-1-darwin-arm64.tar.gz
+
+f53eed8464941e55514062d43d38e1b45131a2ac49e183cd17ed449bf490041c
+xpack-meson-build-1.0.2-1-darwin-x64.tar.gz
+
+a848498a2d19170a748b0f7952e94225ad3b0f7e06f11cb5276152625d4f8210
+xpack-meson-build-1.0.2-1-linux-arm.tar.gz
+
+dd98bd8127a3ee8b67762ffa88278202f31d73e58046465799fa70471ca5f9c8
+xpack-meson-build-1.0.2-1-linux-arm64.tar.gz
+
+fa8dc1f1adb8d5a868b02848ec72c42872bb4985128deb38cf448889c0ecdb74
+xpack-meson-build-1.0.2-1-linux-x64.tar.gz
+
+180fe63753745fd7b0b88e815313092c6a265f9075ce5ab52c915ff2c29806cd
+xpack-meson-build-1.0.2-1-win32-x64.zip
+
+```
+
+## Deprecation notices
+
+### 32-bit support
+
+Support for 32-bit Intel Linux and Intel Windows was
+dropped in 2022. Support for 32-bit Arm Linux (armv7l) will be preserved
+for a while, due to the large user base of 32-bit Raspberry Pi systems.
+
+### Linux minimum requirements
+
+Support for RedHat 7 was dropped in 2022 and the
+minimum requirement was raised to GLIBC 2.27, available starting
+with Ubuntu 18, Debian 10 and RedHat 8.
+
+## Pre-deprecation notice for Ubuntu 18.04
+
+Ubuntu 18.04 LTS _Bionic Beaver_ reached the end of the standard five-year
+maintenance window for Long-Term Support (LTS) release on 31 May 2023.
+
+As a courtesy, the xPack GNU/Linux releases will continue to be based on
+Ubuntu 18.04 for another year.
+
+From 2025 onwards, the GNU/Linux binaries will be built on **Debian 10**,
+(**GLIBC 2.28**), and are also expected to run on RedHat 8.
+
+Users are urged to update their build and test infrastructure to
+ensure a smooth transition to the next xPack releases.
+
+## Download analytics
+
+- GitHub [xpack-dev-tools/meson-build-xpack](https://github.com/xpack-dev-tools/meson-build-xpack/)
+  - this release <a href={ `https://github.com/xpack-dev-tools/meson-build-xpack/releases/v${ frontMatter.version }/` } ><Image img={ `https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v${ frontMatter.version }/total.svg` } alt='Github Release' /></a>
+  - all xPack releases [![Github All Releases](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/total.svg)](https://github.com/xpack-dev-tools/meson-build-xpack/releases/)
+  - [individual file counters](https://somsubhra.github.io/github-release-stats/?username=xpack-dev-tools&repository=meson-build-xpack) (grouped per release)
+- npmjs.com [@xpack-dev-tools/meson-build](https://www.npmjs.com/package/@xpack-dev-tools/meson-build)
+  - latest releases [![npm](https://img.shields.io/npm/dw/@xpack-dev-tools/meson-build.svg)](https://www.npmjs.com/package/@xpack-dev-tools/meson-build/)
+  - all @xpack-dev-tools releases [![npm](https://img.shields.io/npm/dt/@xpack-dev-tools/meson-build.svg)](https://www.npmjs.com/package/@xpack-dev-tools/meson-build/)
+
+Credit to [Shields IO](https://shields.io) for the badges and to
+[Somsubhra/github-release-stats](https://github.com/Somsubhra/github-release-stats)
+for the individual file counters.
