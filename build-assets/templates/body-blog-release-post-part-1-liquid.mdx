@@ -1,25 +1,25 @@
 ---
-title:  xPack Meson Build v{{ XBB_RELEASE_VERSION }} released
+title:  xPack Meson Build v{{releaseVersion}} released
 
 TODO: select one summary
 
-summary: "Version **{{ XBB_RELEASE_VERSION }}** is a maintenance release; it fixes <...>."
+summary: "Version **{{releaseVersion}}** is a maintenance release; it fixes ..."
 
-summary: "Version **{{ XBB_RELEASE_VERSION }}** is a new release; it follows the upstream release."
+summary: "Version **{{releaseVersion}}** is a new release; it follows the upstream release."
 
 upstream_version: "1.3.3"
 upstream_release_date: "13 Feb 2024"
 python_version: "3.11"
 python_subversion: "8"
 
-version: "{{ XBB_RELEASE_VERSION }}"
+version: "{{releaseVersion}}"
 npm_subversion: "1"
 
-download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v{{ XBB_RELEASE_VERSION }}/
+download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v{{releaseVersion}}/
 
 comments: true
 
-date: {{ RELEASE_DATE }}
+date: {{releaseDate}}
 
 # For Jekyll releases selection.
 categories:
@@ -51,7 +51,7 @@ armv6 is not supported)." %}{% endraw %}
 
 ## Download
 
-The binary files are available from GitHub [Releases]({% raw %}{{ page.download_url }}{% endraw %}).
+The binary files are available from GitHub [Releases]({% raw %}{{page.download_url}}{% endraw %}).
 
 ## Prerequisites
 
@@ -71,12 +71,12 @@ The binary files are available from GitHub [Releases]({% raw %}{{ page.download_
 
 The full details of installing the **xPack Meson Build** on various platforms
 are presented in the separate
-[Install]({% raw %}{{ site.baseurl }}{% endraw %}/dev-tools/meson-build/install/) page.
+[Install]({% raw %}{{site.baseurl}}{% endraw %}/dev-tools/meson-build/install/) page.
 
 ### Easy install
 
 The easiest way to install Meson Build is with
-[`xpm`]({% raw %}{{ site.baseurl }}{% endraw %}/xpm/)
+[`xpm`]({% raw %}{{site.baseurl}}{% endraw %}/xpm/)
 by using the **binary xPack**, available as
 [`@xpack-dev-tools/meson-build`](https://www.npmjs.com/package/@xpack-dev-tools/meson-build)
 from the [`npmjs.com`](https://www.npmjs.com) registry.
@@ -97,7 +97,7 @@ ls -l xpacks/.bin
 To install this specific version, use:
 
 ```sh
-xpm install @xpack-dev-tools/meson-build@{% raw %}{{ page.version }}.{{ page.npm_subversion }}{% endraw %} --verbose
+xpm install @xpack-dev-tools/meson-build@{% raw %}{{page.version}}.{{page.npm_subversion}}{% endraw %} --verbose
 ```
 
 It is also possible to install Meson Build globally, in the user home folder,
@@ -132,8 +132,8 @@ The xPack Meson Build generally follows the official
 The current version is based on:
 
 - Meson Build release
-[{% raw %}{{ page.upstream_version }}{% endraw %}](https://github.com/mesonbuild/meson/releases/tag/{% raw %}{{ page.upstream_version }}{% endraw %})
-from {% raw %}{{ page.upstream_release_date }}{% endraw %}.
+[{% raw %}{{page.upstream_version}}{% endraw %}](https://github.com/mesonbuild/meson/releases/tag/{% raw %}{{page.upstream_version}}{% endraw %})
+from {% raw %}{{page.upstream_release_date}}{% endraw %}.
 
 ## Changes
 
@@ -154,7 +154,7 @@ Compared to the upstream version, there are no functional changes.
 ## Embedded Python
 
 To simplify dependency management, this release embeds a **Python
-{% raw %}{{ page.python_version }}.{{ page.python_subversion }}{% endraw %}** instance.
+{% raw %}{{page.python_version}}.{{page.python_subversion}}{% endraw %}** instance.
 
 The `meson` executable is a standard ELF/EXE which includes the Python
 run-time; the `main()` function prepares the Python environment and then
@@ -167,12 +167,12 @@ invokes the Meson main:
 
 The Python library is located in the standard location:
 
-- `lib/python{% raw %}{{ page.python_version }}{% endraw %}`
-- `lib/python{% raw %}{{ page.python_version }}{% endraw %}/lib-dynload` (the platform dependent files)
+- `lib/python{% raw %}{{page.python_version}}{% endraw %}`
+- `lib/python{% raw %}{{page.python_version}}{% endraw %}/lib-dynload` (the platform dependent files)
 
 The Meson files are located in:
 
-- `lib/python{% raw %}{{ page.python_version }}{% endraw %}/mesonbuild`
+- `lib/python{% raw %}{{page.python_version}}{% endraw %}/mesonbuild`
 
 To speed up execution, all Python files are compiled and are
 available only as `.pyc`.
