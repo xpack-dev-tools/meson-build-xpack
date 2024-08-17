@@ -1,10 +1,10 @@
-![Github Releases (by Release)](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v{{ XBB_RELEASE_VERSION }}/total.svg)
+![Github Releases (by Release)](https://img.shields.io/github/downloads/xpack-dev-tools/meson-build-xpack/v{{releaseVersion}}/total.svg)
 
-Version **{{ XBB_RELEASE_VERSION }}** is a maintenance release of the **xPack Meson Build** package; it fixes <...>.
+TODO: select one
 
-Or (TODO: edit!):
+Version **{{releaseVersion}}** is a maintenance release of the **xPack Meson Build** package; it fixes ...
 
-Version **{{ XBB_RELEASE_VERSION }}** is a new release of the **xPack Meson Build** package, following the upstream Meson Build [release](https://github.com/mesonbuild/meson/releases/).
+Version **{{releaseVersion}}** is a new release of the **xPack Meson Build** package, following the upstream Meson Build [release](https://github.com/mesonbuild/meson/releases/).
 
 [Continue reading »](will-be-updated-shortly)
 
