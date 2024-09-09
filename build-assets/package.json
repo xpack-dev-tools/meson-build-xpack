@@ -7,13 +7,15 @@
   "xpack": {
     "minimumXpmRequired": "0.16.3",
     "devDependencies": {
-      "@xpack-dev-tools/xbb-helper": "^3.0.10"
+      "@xpack-dev-tools/xbb-helper": "^3.0.13"
     },
     "properties": {
       "appName": "Meson Build",
       "appLcName": "meson-build",
       "platforms": "all",
       "customFields": {
+        "programName": "meson",
+        "branding": ""
       },
       "buildFolderRelativePath": "{{ 'build' | path_join: configuration.name | to_filename | downcase }}",
       "buildFolderRelativePathPosix": "{{ 'build' | path_posix_join: configuration.name | downcase }}",
