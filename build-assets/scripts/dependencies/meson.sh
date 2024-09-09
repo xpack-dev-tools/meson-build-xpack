@@ -80,6 +80,11 @@ function meson_build()
 
       if true
       then
+        # https://pyinstaller.org/en/stable/runtime-information.html
+        # Testing _MEIPASS is not necessary, it is known to be functionally
+        # equivalent to a bundled application made by pyinstaller.
+        # Fixed in versions pre 1.4.1, where only frozen was checked.
+        # https://github.com/mesonbuild/meson/commit/1465c76ba85eedd6cc731bc34ac3c3548b9f9634
         run_verbose sed -i.bak \
           -e "s|if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):|if getattr(sys, 'frozen', False):|" \
           "${meson_src_folder_name}/mesonbuild/utils/universal.py"
