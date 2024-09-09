@@ -2,9 +2,139 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2024-09-09
+
+* v1.4.2-1 prepared
+* 8cc14d3 build-assets/package.json updates
+* 799c954 re-generate workflows
+* 2264130 meson.sh: explain _MEIPASS patch
+
+## 2024-08-17
+
+* ad76681 website remove preliminary
+* b942da6 build-assets/package.json: updates
+* ea5b2a2 templates/body-blog update
+* 0c31c5f templates/body-github: update
+* 7d694b3 re-generate workflows
+
+## 2024-08-16
+
+* 1276ba3 templates/body-github: update
+
+## 2024-08-14
+
+* b9eaafa build-assets/package.json: updates
+
+## 2024-08-09
+
+* 4618c13 READMEs update
+* 31ea9fc package.json: git+https
+* 3df8514 build-assets/package.json: updates
+* b8d0764 templates/body-blog update
+
+## 2024-08-07
+
+* c6a5f6a build-assets/package.json: updates
+* a0cdb12 build-assets/package.json: updates
+* 24d7fef website: preliminary content
+* a029f03 re-generate workflows
+* 17f7540 move to build-assets
+
+## 2024-08-06
+
+* be696b3 package.json: bump deps
+
+## 2024-08-04
+
+* d4f683a package.json: bump deps
+* c0f0db6 package.json: update generate-workflows
+* 96408bd templates/jekyll update
+* 3f8eb48 meson.sh: XBB_BUILD_ROOT_PATH
+* 55bccfa READMEs update
+* 89567e6 package.json: add actions, bump deps
+
+## 2024-07-27
+
+* f88b544 package.json: add actions, bump deps
+* 58c1c64 templates/jekyll update
+
+## 2024-07-23
+
+* e4f0afa READMEs update
+* e0a76d1 .npmignore update
+* e6fcbcb re-generate scripts
+* c9e1259 body-jekyll update
+* c473373 re-generate workflows
+* 81e4159 package.json: rework generate workflows
+* 712ad40 package.json: loglevel info
+* aa85a2b package.json: bump deps
+
+## 2024-06-18
+
+* 796aa31 READMEs update
+
+## 2024-06-17
+
+* 5af6bcb package.json: rework generate workflows
+* eca4625 package.json: bump deps
+* dfa2032 application.sh: update
+
+## 2024-05-23
+
+* b515b39 package.json: clang 16.0.6-1.1
+
+## 2024-05-18
+
+* 2907bcd READMEs update
+* 13bd4fa package.json: XBB_ENVIRONMENT_SKIP_CHECKS
+
+## 2024-05-16
+
+* 6ec42dc READMEs update
+* e47fa79 versioning.sh: no need for --disable-lib-suffixes
+
+## 2024-05-14
+
+* 53c7f75 versioning.sh: ncurses with --disable-lib-suffixes
+
+## 2024-05-07
+
+* 7e0c8bc versioning.sh: remove DISABLE_WIDEC
+
+## 2024-05-03
+
+* 0db01da package.json: add bison to deps
+
+## 2024-05-02
+
+* 7193eab package.json: add m4 to deps
+* 3ae91a7 package.json: clang 17.0.6-1.1
+* 928e4e4 README update
+
+## 2024-04-22
+
+* 20f8e0e versioning.sh: avoid xz 5.6
+
+## 2024-04-03
+
+* 1aff05e meson.sh: cosmetics
+* 6b0ad93 rework meson.sh with actual python; no setuptools
+* 2a145c7 meson.sh: re-enable cleanups (config, opt)
+* 032a647 versioning.sh: cosmetics
+* 6e1514d meson.sh: separate windows code
+* 2ef1029 meson.c: consistent sys.path with default python
+
+## 2024-04-02
+
+* 24388fc add --with-meson-python
+* 32e13da prepare 1.3.2-2
+* b497277 package.json bump deps
+
 ## 2024-04-01
 
-* v1.3.2-1.1 published on npmjs.com
+* 81d01ab 1.3.2-1.1
+* 36aeba3 package.json: .pre
+* 5c788fa CHANGELOG: publish npm v1.3.2-1.1
 * a5006a3 package.json: update urls for 1.3.2-1.1 release
 * c3b7227 README update
 * ca1c4ae body-jekyll update

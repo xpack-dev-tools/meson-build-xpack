@@ -14,7 +14,7 @@ function application_build_versioned_components()
   XBB_MESON_VERSION="$(xbb_strip_version_pre_release "${XBB_RELEASE_VERSION}")"
 
   # Keep them in sync with the combo archive content.
-  if [[ "${XBB_RELEASE_VERSION}" =~ 1[.][4][.].*-.* ]]
+  if [[ "${XBB_RELEASE_VERSION}" =~ 1[.][4][.][0-9]*-[0-9]* ]]
   then
 
     # -------------------------------------------------------------------------
@@ -69,13 +69,13 @@ function application_build_versioned_components()
 
       # https://sourceforge.net/projects/lzmautils/files/
       # Avoid 5.6.[01]!
-      xz_build "5.4.6" # "5.4.3"
+      xz_build "5.4.7" # "5.4.3"
 
       # https://www.bytereef.org/mpdecimal/download.html
       mpdecimal_build "4.0.0"
 
       # https://github.com/libexpat/libexpat/releases
-      expat_build "2.6.2" # "2.5.0"
+      expat_build "2.6.3" # "2.5.0"
 
       # https://github.com/libffi/libffi/releases
       libffi_build "3.4.6" # "3.4.4"
@@ -84,18 +84,18 @@ function application_build_versioned_components()
       libxcrypt_build "4.4.36"
 
       # https://github.com/openssl/openssl/tags
-      openssl_build "3.2.1" # "1.1.1u"
+      openssl_build "3.3.2" # "1.1.1u"
 
       # https://ftp.gnu.org/gnu/ncurses/
-      ncurses_build "6.4"
+      ncurses_build "6.5"
 
       # https://ftp.gnu.org/gnu/readline/
-      readline_build "8.2"
+      readline_build "8.2.13"
 
       # Without it, on macOS, the Python binaries will have a reference
       # to the system libsqlite.
       # https://www.sqlite.org/download.html
-      sqlite_build "3450200" "2024" # "3420000"
+      sqlite_build "3460100" "2024" # "3420000"
 
       python3_build "${XBB_PYTHON3_VERSION}" --with-ensurepip=install
     fi
@@ -118,7 +118,7 @@ function application_build_versioned_components()
       --with-meson-python
 
     # -------------------------------------------------------------------------
-  elif [[ "${XBB_RELEASE_VERSION}" =~ 1[.][0123][.].*-.* ]]
+  elif [[ "${XBB_RELEASE_VERSION}" =~ 1[.][0123][.][0-9]*-[0-9]* ]]
   then
 
     # -------------------------------------------------------------------------
@@ -229,7 +229,7 @@ function application_build_versioned_components()
       --with-meson-python
 
     # -------------------------------------------------------------------------
-  elif [[ "${XBB_RELEASE_VERSION}" =~ 0[.]6[1234][.].*-.* ]]
+  elif [[ "${XBB_RELEASE_VERSION}" =~ 0[.]6[1234][.][0-9]*-[0-9]* ]]
   then
 
     # -------------------------------------------------------------------------
