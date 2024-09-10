@@ -1,0 +1,17 @@
+
+import versionMajor from '@site/src/libs/versionMajor';
+import versionMinor from '@site/src/libs/versionMinor';
+
+{/* ------------------------------------------------------------------------ */}
+
+## Release schedule
+
+This distribution generally follows the official
+[Meson Build releases](https://github.com/mesonbuild/meson/releases),
+but generally it is one minor release behind the upstream releases.
+
+In practical terms, based on past release schedule,
+when the upstream {versionMajor()}.{versionMinor()+1}.1 is released,
+the previous {versionMajor()}.{versionMinor()}.X
+is probably no longer updated and can be released
+(where X is the latest patch available).
