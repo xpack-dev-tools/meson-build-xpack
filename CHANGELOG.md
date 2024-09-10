@@ -4,7 +4,13 @@ Entries in this file are in reverse chronological order.
 
 ## 2024-09-10
 
-* v1.4.2-1 released
+* v1.4.2-1 published on npmjs.com
+* b3f661d package.json: update urls for 1.4.2-1.1 release
+* 0c2ecfd website update durations
+* a9f249a blog post release 1.4.2-1 published
+* 53e2004 build-assets/templates update
+* 0263ebe add website
+* 6f6fe9a CHANGELOG update
 * 921cd5b build-assets/package.json bump deps
 
 ## 2024-09-09
