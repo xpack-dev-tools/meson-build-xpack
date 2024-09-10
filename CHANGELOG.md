@@ -2,9 +2,15 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2024-09-10
+
+* v1.4.2-1 released
+* 921cd5b build-assets/package.json bump deps
+
 ## 2024-09-09
 
-* v1.4.2-1 prepared
+* 94bef72 build-assets/src moved
+* 54c92da prepare v1.4.2-1
 * 8cc14d3 build-assets/package.json updates
 * 799c954 re-generate workflows
 * 2264130 meson.sh: explain _MEIPASS patch
