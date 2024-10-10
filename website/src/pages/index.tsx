@@ -41,9 +41,9 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <Layout
-      title={`Hello from xPack Binary Development Tools`}
-      description="A binary package with the Meson Build executables">
+    <Layout 
+      title={`Hello from meson-build`}
+      description="A binary package with the meson-build executables">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
