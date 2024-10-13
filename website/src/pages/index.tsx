@@ -42,7 +42,7 @@ export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout 
-      title={`Hello from meson-build`}
+      title={`Welcome to meson-build`}
       description="A binary package with the meson-build executables">
       <HomepageHeader />
       <main>
