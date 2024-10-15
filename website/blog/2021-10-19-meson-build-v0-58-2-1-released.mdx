@@ -1,5 +1,6 @@
 ---
 title: xPack Meson Build v0.58.2-1 released
+seo_title: Version 0.58.2-1 released
 description: Version 0.58.2-1 is a new release of xPack Meson Build.
 keywords:
   - xpack
@@ -27,17 +28,15 @@ download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/
 
 ---
 
-<head>
-  <title>{frontMatter.title}</title>
-  <meta property="og:title" content={frontMatter.title} />
-</head>
+import {PageMetadata} from '@docusaurus/theme-common';
+import Image from '@theme/IdealImage';
+import CodeBlock from '@theme/CodeBlock';
 
 Version **0.58.2-1** is a new release; it follows the upstream release; it also updates to the latest build environment.
 
 <!-- truncate -->
 
-import Image from '@theme/IdealImage';
-import CodeBlock from '@theme/CodeBlock';
+<PageMetadata title={frontMatter.seo_title} />
 
 The [xPack Meson Build](https://xpack-dev-tools.github.io/meson-build-xpack/)
 is a standalone cross-platform binary distribution of
