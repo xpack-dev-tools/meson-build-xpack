@@ -1,0 +1,7 @@
+Sitemap: https://xpack-dev-tools.github.io/meson-build-xpack/sitemap.xml
+
+User-agent: *
+Disallow: /meson-build-xpack/blog/archive/
+Disallow: /meson-build-xpack/blog/authors/
+Disallow: /meson-build-xpack/blog/page/
+Disallow: /meson-build-xpack/blog/tags/
