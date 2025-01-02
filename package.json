@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xpack-dev-tools/meson-build-xpack.git/"
+    "url": "git+https://github.com/xpack-dev-tools/meson-build-xpack.git"
   },
   "bugs": {
-    "url": "https://github.com/xpack-dev-tools/meson-build-xpack/issues/"
+    "url": "https://github.com/xpack-dev-tools/meson-build-xpack/issues"
   },
   "homepage": "https://github.com/xpack-dev-tools/meson-build-xpack/#readme",
   "keywords": [
@@ -24,7 +24,7 @@
   "author": {
     "name": "Liviu Ionescu",
     "email": "ilg@livius.net",
-    "url": "https://github.com/ilg-ul/"
+    "url": "https://github.com/ilg-ul"
   },
   "license": "MIT",
   "xpack": {
