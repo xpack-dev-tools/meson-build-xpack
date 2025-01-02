@@ -25,7 +25,8 @@ function application_build_versioned_components()
 
     # For the latest stable see:
     # https://www.python.org/downloads/
-    XBB_PYTHON3_VERSION="3.12.8"
+    # "3.12.8" fails with Wine 8 & 9.0.0. Revert to 3.11.
+    XBB_PYTHON3_VERSION="3.11.8" # "3.12.8"
     # https://pypi.org/project/packaging/
     XBB_PYTHON3_PACKAGING_VERSION="24.2"
 
