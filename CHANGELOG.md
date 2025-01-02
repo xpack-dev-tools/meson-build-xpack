@@ -2,8 +2,118 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2025-01-02
+
+* v1.5.2-1 prepared
+* c0deaac re-generate commons
+* f012e7c top package.json: fix homepage url
+* 16a1ce8 package.json: cosmetics
+* 7b4dde6 website: updates
+* 28268da build-assets/package.json: bump deps
+
+## 2024-12-31
+
+* ee37279 website: updates
+
+## 2024-12-30
+
+* 18083e4 package.json: bump deps
+* 3ee6684 website: updates
+
+## 2024-12-24
+
+* 8679f7d website: updates
+* 160df22 website: updates
+
+## 2024-12-22
+
+* 1efb08d website: updates
+* ebd1d26 website: add _xpack.github.io
+
+## 2024-12-20
+
+* 560c1e4 website: updates
+* 533599b website: updates
+* 8877a18 website: updates
+
+## 2024-12-11
+
+* 8096e32 website: updates
+* 3da26bb website/blog updates
+* 8cfd2c4 website/blog/_templates/blog-post-release*
+* d1499bb build-assets/package.json: bump deps
+
+## 2024-12-04
+
+* 3ac1773 website: updates
+
+## 2024-10-15
+
+* a216b12 website: updates
+* 2633df2 website: updates
+
+## 2024-10-14
+
+* 102faa4 website: updates
+
+## 2024-10-13
+
+* 283a953 website: updates
+* 91fa677 website: updates
+* 4135249 website: updates
+
+## 2024-10-11
+
+* 4a07969 website: updates
+* 32a2d43 website/blog/_templates/blog-post-release*
+* 100232e website/blog/_templates/blog-post-release*
+
+## 2024-10-10
+
+* dbdd101 website: updates
+* 90bfcdd website: updates
+
+## 2024-10-09
+
+* 59f2443 website move blog post templates
+* 172cc19 website: updates
+* 0198618 website: updates
+
+## 2024-10-07
+
+* f18c2a7 website: updates
+* 6763a54 website: updates
+
+## 2024-10-06
+
+* 83406b3 website: updates
+* 9af8233 website: updates
+* 1e4b45f re-generate workflows
+
+## 2024-10-04
+
+* 5c90710 website: updates
+* fa96ff7 templates/body-blog update
+
+## 2024-09-18
+
+* 2d7a11e website: updates
+* 4f7506d website update
+* 075ee1c build-assets/package.json: bump deps
+* 133ee91 build-assets/package.json: update customFields
+* db85c7a build-assets/templates updates
+
+## 2024-09-12
+
+* a9a77c7 update scripts copyright notices
+
 ## 2024-09-10
 
+* 897a5b8 cleanups
+* 42b2cff cleanups
+* b345495 website update
+* 6f8da00 1.4.2-1.1
+* f8ce533 CHANGELOG: publish npm v1.4.2-1.1
 * v1.4.2-1 published on npmjs.com
 * b3f661d package.json: update urls for 1.4.2-1.1 release
 * 0c2ecfd website update durations

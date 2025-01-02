@@ -17,7 +17,7 @@
         "programName": "meson",
         "branding": "",
         "$link": "https://github.com/mesonbuild/meson/releases/",
-        "mesonReleaseDate": "13 Feb 2024"
+        "mesonReleaseDate": "20 Sep 2024"
       },
       "buildFolderRelativePath": "{{ 'build' | path_join: configuration.name | to_filename | downcase }}",
       "buildFolderRelativePathPosix": "{{ 'build' | path_posix_join: configuration.name | downcase }}",
