@@ -30,6 +30,8 @@ function meson_build()
 
   local python_packaging_version=""
   local with_meson_python=""
+  local preserve_py=""
+  local keep_all_pyc=""
 
   while [ $# -gt 0 ]
   do
@@ -41,6 +43,16 @@ function meson_build()
 
       --with-meson-python)
         with_meson_python="y"
+        shift
+        ;;
+
+      --preserve-py)
+        preserve_py="y"
+        shift
+        ;;
+
+      --keep-all-pyc)
+        keep_all_pyc="y"
         shift
         ;;
 
@@ -293,29 +305,39 @@ function meson_build()
             -j "${XBB_JOBS}" \
             -f "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/"
 
-          echo
-          echo "Removing opt-[12].pyc variants..."
+          if [ "${keep_all_pyc}" != "y" ]
+          then
+            echo
+            echo "Removing opt-[12].pyc variants..."
 
-          find "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/" \
-            \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
-            -exec rm {} \;
+            find "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/" \
+              \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
+              -exec rm {} \;
+          fi
 
-          echo
-          echo "Replacing .py files with .pyc files..."
+          if [ "${preserve_py}" != "y" ]
+          then
+            echo
+            echo "Replacing .py files with .pyc files..."
 
-          python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib"
+            python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib"
 
-          # Restore files that known to be used as scripts,
-          # like `mesonbuild/scripts/python_info.py`.
-          echo
-          echo "Restoring meson .py scripts..."
 
-          run_verbose cp -Rf \
-            "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}/mesonbuild/scripts"/* \
-            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/site-packages/mesonbuild/scripts/"
+            # Restore files that known to be used as scripts,
+            # like `mesonbuild/scripts/python_info.py`.
+            echo
+            echo "Restoring meson .py scripts..."
+
+            run_verbose cp -Rf \
+              "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}/mesonbuild/scripts"/* \
+              "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/site-packages/mesonbuild/scripts/"
+          fi
 
           run_host_app_verbose "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}.exe" \
             -c "import sys; print(sys.path)"
+
+          run_host_app_verbose "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}.exe" \
+            -m pip --version
 
         else # GNU/Linux & macOS
 
@@ -392,29 +414,38 @@ function meson_build()
             -j "${XBB_JOBS}" \
             -f "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/"
 
-          echo
-          echo "Removing opt-[12].pyc variants..."
+          if [ "${keep_all_pyc}" != "y" ]
+          then
+            echo
+            echo "Removing opt-[12].pyc variants..."
 
-          find "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
-            \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
-            -exec rm {} \;
+            find "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/" \
+              \( -name '*.opt-1.pyc' -o -name '*.opt-2.pyc' \) \
+              -exec rm {} \;
+          fi
 
-          echo
-          echo "Replacing .py files with .pyc files..."
+          if [ "${preserve_py}" != "y" ]
+          then
+            echo
+            echo "Replacing .py files with .pyc files..."
 
-          python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
+            python3_move_pyc "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}"
 
-          # Restore files that are known to be used as scripts,
-          # like `mesonbuild/scripts/python_info.py`.
-          echo
-          echo "Restoring meson .py scripts..."
+            # Restore files that are known to be used as scripts,
+            # like `mesonbuild/scripts/python_info.py`.
+            echo
+            echo "Restoring meson .py scripts..."
 
-          run_verbose cp -Rf \
-            "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}/mesonbuild/scripts"/* \
-            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/mesonbuild/scripts"
+            run_verbose cp -Rf \
+              "${XBB_SOURCES_FOLDER_PATH}/${meson_folder_name}/mesonbuild/scripts"/* \
+              "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/lib/${python_with_version}/site-packages/mesonbuild/scripts"
+          fi
 
           run_verbose "${XBB_NATIVE_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}" \
             -c "import sys; print(sys.path)"
+
+          run_verbose "${XBB_NATIVE_DEPENDENCIES_INSTALL_FOLDER_PATH}/bin/${python_with_version}" \
+            -m pip --version
 
         fi
 

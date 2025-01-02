@@ -115,7 +115,9 @@ function application_build_versioned_components()
 
     meson_build "${XBB_MESON_VERSION}" \
       --packaging-version=${XBB_PYTHON3_PACKAGING_VERSION:-""} \
-      --with-meson-python
+      --with-meson-python \
+      --preserve-py \
+      --keep-all-pyc \
 
     # -------------------------------------------------------------------------
   elif [[ "${XBB_RELEASE_VERSION}" =~ 1[.][4][.][0-9]*-[0-9]* ]]
