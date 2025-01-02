@@ -111,6 +111,8 @@ function application_build_versioned_components()
       # Shortcut, use the existing pyton3X.dll instead of building
       # if from sources. It also downloads the sources.
       python3_download_win "${XBB_PYTHON3_VERSION}"
+
+      python3_copy_win_py
     fi
 
     meson_build "${XBB_MESON_VERSION}" \

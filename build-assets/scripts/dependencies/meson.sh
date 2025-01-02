@@ -224,19 +224,6 @@ function meson_build()
           #   -c "import sys; print(sys.path)"
 
           echo
-          echo "Copying .py files from the embedded Python archive..."
-
-          # Start from scratch.
-          rm -rf "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib"
-          mkdir -p "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/site-packages"
-
-          (
-            cd "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib"
-            # Already compiled (.pyc).
-            unzip "${XBB_SOURCES_FOLDER_PATH}/${XBB_PYTHON3_WIN_SRC_FOLDER_NAME}/python${XBB_PYTHON3_VERSION_MAJOR}${XBB_PYTHON3_VERSION_MINOR}.zip"
-          )
-
-          echo
           echo "Copying Python dynamic libraries..."
 
           # pythonXYY.dll must be in both the bin and DLLs folders.
@@ -295,7 +282,7 @@ function meson_build()
 
           run_verbose rm -rf \
             "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Scripts" \
-            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/site-packages/bin" \
+            "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/site-packages/bin"
 
           echo
           echo "Compiling all python & site-packages sources..."
