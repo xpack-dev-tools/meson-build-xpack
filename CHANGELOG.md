@@ -4,6 +4,10 @@ Entries in this file are in reverse chronological order.
 
 ## 2025-01-03
 
+* v1.5.2-1 published on npmjs.com
+* b4051e1 package.json: update urls for 1.5.2-1.1 release
+* 492936d website: blog post release 1.5.2-1 published
+* e87e1a7 CHANGELOG update
 * v1.5.2-1 released
 * 6209d0b website: update actions durations
 * d6655d6 build-assets/package.json: bump dep
