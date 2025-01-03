@@ -4,6 +4,10 @@ Entries in this file are in reverse chronological order.
 
 ## 2025-01-03
 
+* v1.5.2-1 released
+* 6209d0b website: update actions durations
+* d6655d6 build-assets/package.json: bump dep
+* 7fbbde9 CHANGELOG: update
 * 42279ac build-assets/package.json: bump dep
 * 1120130 website: update development durations
 * be995cb website: update folder hierarchies
