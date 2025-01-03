@@ -2,9 +2,18 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2025-01-03
+
+* 42279ac build-assets/package.json: bump dep
+* 1120130 website: update development durations
+* be995cb website: update folder hierarchies
+
 ## 2025-01-02
 
-* v1.5.2-1 prepared
+* 681d169 meson.sh: compile .py on windows
+* 0655cf4 meson.sh: add --preserve-py
+* a8794a5 versioning.sh: revert to python 3.11
+* 2835ec9 prepare v1.5.2-1
 * c0deaac re-generate commons
 * f012e7c top package.json: fix homepage url
 * 16a1ce8 package.json: cosmetics
