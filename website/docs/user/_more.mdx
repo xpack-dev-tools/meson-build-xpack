@@ -1,2 +1,25 @@
 
 {/* ------------------------------------------------------------------------ */}
+
+## meson-python3
+
+In the xPack distribution, for convenience, the `meson` executable is
+a standard ELF/EXE that includes the Python run-time, rather then a script
+invoked via Python. Therefore, it does not expect a Python interpreter in the
+environment.
+
+However, if the meson scripts require Python code with dependencies on
+other Python modules, `meson-python3 -m pip install` can be used to install them
+in the user home folder (`~/.local/lib/python3.NN/site-packages`).
+
+## openssl certificates
+
+The embedded Python includes support for SSL via **openssl**.
+
+On macOS and GNU/Linux, the certificates are expected to be located
+in `/etc/ssl`.
+
+On Windows, **meson** utilises the library provided by Python in the
+**Windows embedded package**, and the certificates should be
+installed in the same manner as for the regular Python,
+but using `meson-python3`.
