@@ -5,8 +5,7 @@
 
 # The xPack Meson Build
 
-A standalone cross-platform (Windows, macOS, GNU/Linux)
-binary distribution of Meson Build,
+A standalone, cross-platform (Windows, macOS, GNU/Linux) binary distribution of Meson Build,
 intended for reproducible builds.
 
 ## Project documentation
