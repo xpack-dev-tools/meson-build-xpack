@@ -84,10 +84,10 @@ from Sep 11th, 2020.
 
 ## Bug fixes
 
-- [[#1](https://github.com/xpack-dev-tools/meson-build-xpack/issues/1)] - when
+- [[#1](https://github.com/xpack-dev-tools/meson-build-xpack/issues/1)]: when
   installing meson as a project dependency, starting it fails on macOS, due
   to a bug preventing it to follow links; fixed;
-- [[#2](https://github.com/xpack-dev-tools/meson-build-xpack/issues/2)] - when
+- [[#2](https://github.com/xpack-dev-tools/meson-build-xpack/issues/2)]: when
   generating commands in ninja.build that refer to itself, on GNU/Linux & macOS
   the path is not correct, it contains only a folder; fixed.
 
