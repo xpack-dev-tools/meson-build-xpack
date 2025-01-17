@@ -76,7 +76,8 @@
     "liquidjs": "^10.19.1"
   },
   "topConfig": {
-    "longName": "Meson Build"
+    "longName": "Meson Build",
+    "shortName": "meson-build"
   },
   "engines": {
     "node": " >=18.0.0"
