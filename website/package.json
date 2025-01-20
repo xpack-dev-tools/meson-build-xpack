@@ -57,12 +57,10 @@
     ]
   },
   "websiteConfig": {
-    "customFields": {
-      "programName": "meson",
-      "branding": "",
-      "$link": "https://github.com/mesonbuild/meson/releases/",
-      "mesonReleaseDate": "20 Sep 2024"
-    }
+    "programName": "meson",
+    "branding": "",
+    "$link": "https://github.com/mesonbuild/meson/releases/",
+    "mesonReleaseDate": "20 Sep 2024"
   },
   "engines": {
     "node": ">=18.0"
