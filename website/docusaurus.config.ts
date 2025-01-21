@@ -275,7 +275,7 @@ const config: Config = {
           label: 'GitHub',
           items: [
             {
-              label: `meson-build-xpack`,
+              label: `meson-build-xpack project`,
               href: `https://github.com/xpack-dev-tools/meson-build-xpack/`,
             },
             {
@@ -348,7 +348,7 @@ const config: Config = {
               href: 'https://www.paypal.com/donate/?hosted_button_id=5MFRG9ZRBETQ8',
             },
             {
-              label: 'GitHub meson-build-xpack',
+              label: 'GitHub meson-build-xpack project',
               href: 'https://github.com/xpack-dev-tools/meson-build-xpack/',
             },
             {
