@@ -34,7 +34,7 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
 
         <div className={styles.installWithCopy}>
-          <InstallWithCopy>xpm install @xpack-dev-tools/meson-build@{customField('releaseVersion')} --verbose</InstallWithCopy>
+          <InstallWithCopy>xpm install @xpack-dev-tools/meson-build@1.5.2-1.1 --verbose</InstallWithCopy>
         </div>
 
       </div>
