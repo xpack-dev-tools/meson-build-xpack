@@ -95,7 +95,7 @@ function application_build_versioned_components()
       # Without it, on macOS, the Python binaries will have a reference
       # to the system libsqlite.
       # https://www.sqlite.org/download.html
-      sqlite_build "3480000" "2025" # "3470200" "2024" # "3460100" "2024"
+      sqlite_build "3480000" "2025" # "3470200" "2024"
 
       python3_build "${XBB_PYTHON3_VERSION}" --with-ensurepip=install
     fi
