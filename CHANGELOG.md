@@ -2,9 +2,123 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2025-02-04
+
+* v1.6.1-1 prepared
+* 9977854 website: re-generate commons
+* 6ff8a83 build-assets: update generate-website-blog-post
+
+## 2025-02-03
+
+* 72240c7 build-assets: bump deps
+* 870e493 website: re-generate commons
+* dc0919e website: re-generate commons
+* d25ab1b website: fix blog releases
+
+## 2025-02-02
+
+* d7a5ed7 website: re-generate commons
+
+## 2025-01-31
+
+* 66fc1ab website: updates and final common rework
+
+## 2025-01-30
+
+* 4849654 website: rework getting-started
+* 0f5fc11 website: more rework with commons
+
+## 2025-01-29
+
+* 60192bd website: more rework with commons
+
+## 2025-01-27
+
+* df40315 website: cosmetise imports
+
+## 2025-01-26
+
+* a43a85c website: rework with _project
+
+## 2025-01-23
+
+* 7c2242c website: re-generate commons
+
+## 2025-01-22
+
+* bdc037a website: re-generate commons
+
+## 2025-01-21
+
+* b4ea25f build-assets: cleanup actions
+* 67b5390 website: re-generate commons
+* b7e3005 website: re-generate commons
+* bad0da0 website: re-generate commons
+
+## 2025-01-20
+
+* 394abc5 re-generate commons
+* de9ccfc website: re-generate commons
+
+## 2025-01-19
+
+* 944246d website: remove unused customField.js
+* 4a3235e build-assets: move customFields to websiteConfig
+* 8afa105 website: re-generate commons
+
+## 2025-01-17
+
+* 217c843 website: re-generate commons
+* 5c588ae re-generate commons
+* a2dfb44 website: re-generate commons
+
+## 2025-01-16
+
+* fdf171c website: re-generate commons
+* 54923ec re-generate commons
+
+## 2025-01-15
+
+* c2bbfb5 website: updates
+* a4e6602 re-generate commons
+
+## 2025-01-14
+
+* 5d7d7b1 re-generate commons
+* 408d21e re-generate commons
+
+## 2025-01-13
+
+* f319687 copyright updates
+* 73142f0 copyright updates
+
+## 2025-01-10
+
+* 4a1fd0a website: updates
+* 851a567 website: updates
+* 46b0ae2 website: updates
+
+## 2025-01-09
+
+* 363125c website: updates
+
 ## 2025-01-03
 
-* v1.5.2-1 published on npmjs.com
+* f188f9f website: user _more
+* 67e414f website: re-generate commons
+* 0969b42 website: blog post update
+* 6d892b5 1.5.2-1.1
+* ed8e3e3 CHANGELOG: publish npm v1.5.2-1.1
+
+## 2025-01-03
+
+## 2025-01-03
+
+* f188f9f website: user _more
+* 67e414f website: re-generate commons
+* 0969b42 website: blog post update
+* 6d892b5 1.5.2-1.1
+* ed8e3e3 CHANGELOG: publish npm v1.5.2-1.1
 * b4051e1 package.json: update urls for 1.5.2-1.1 release
 * 492936d website: blog post release 1.5.2-1 published
 * e87e1a7 CHANGELOG update
