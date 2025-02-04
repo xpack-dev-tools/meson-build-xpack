@@ -4,7 +4,11 @@ Entries in this file are in reverse chronological order.
 
 ## 2025-02-04
 
-* v1.6.1-1 released
+* v1.6.1-1.1 published on npmjs.com
+* 20d0980 package.json: update urls for 1.6.1-1.1 release
+* b12b582 website blog fix --verbose
+* b84b4f0 website: blog post release 1.6.1-1 published
+* 34f45cb CHANGELOG update
 * 9ebf845 website: update actions durations
 * cef14b0 re-generate top commons
 * a2025ec website update
