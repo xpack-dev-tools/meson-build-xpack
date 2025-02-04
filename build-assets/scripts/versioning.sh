@@ -25,8 +25,8 @@ function application_build_versioned_components()
 
     # For the latest stable see:
     # https://www.python.org/downloads/
-    # "3.12.8" fails with Wine 8 & 9.0.0. Revert to 3.11.
-    XBB_PYTHON3_VERSION="3.12.8" # "3.11.8" # "3.12.8"
+    # "3.12.8" fails with Wine 8 & 9.0. Use 10.0
+    XBB_PYTHON3_VERSION="3.12.8" # "3.11.8"
     # https://pypi.org/project/packaging/
     XBB_PYTHON3_PACKAGING_VERSION="24.2"
 
@@ -95,7 +95,8 @@ function application_build_versioned_components()
       # Without it, on macOS, the Python binaries will have a reference
       # to the system libsqlite.
       # https://www.sqlite.org/download.html
-      sqlite_build "3480000" "2025" # "3470200" "2024"
+      # 3480000 fails on macOS
+      sqlite_build "3470200" "2024" # "3480000" "2025" # "3470200" "2024"
 
       python3_build "${XBB_PYTHON3_VERSION}" --with-ensurepip=install
     fi
