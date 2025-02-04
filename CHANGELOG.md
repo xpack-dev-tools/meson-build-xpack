@@ -4,7 +4,15 @@ Entries in this file are in reverse chronological order.
 
 ## 2025-02-04
 
-* v1.6.1-1 prepared
+* v1.6.1-1 released
+* 9ebf845 website: update actions durations
+* cef14b0 re-generate top commons
+* a2025ec website update
+* 8d00657 versioning.sh: revert  sqlite "3470200"
+* 0a31c7a build-assets/package-lock.json update
+* 238625f versioning.sh cosmetics
+* 6b93caf re-generate top commons for wine 10.0.0
+* 0bc0bf1 prepare v1.6.1-1
 * 9977854 website: re-generate commons
 * 6ff8a83 build-assets: update generate-website-blog-post
 
