@@ -42,6 +42,10 @@ export const redirects = {
       from: '/docs/about',
       to: '/docs/project/about',
     },
+    {
+      from: '/blog/2025/02/04/meson-build-v1-6-1-released/',
+      to: '/blog/2025/02/04/meson-build-v1-6-1-1-released/',
+    }
   ],
   createRedirects(existingPath) {
     console.log(existingPath);
