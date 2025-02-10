@@ -78,7 +78,14 @@ function application_build_versioned_components()
       expat_build "2.6.4"
 
       # https://github.com/libffi/libffi/releases
-      libffi_build "3.4.6"
+      if [[ "${XBB_RELEASE_VERSION}" =~ 1[.]6[.][0-9]*-2 ]]
+      then
+        # On arm64 macOS, with clang 19, 3.4.6 fails with:
+        # error: invalid CFI advance_loc expression
+        libffi_build "3.4.7"
+      else
+        libffi_build "3.4.6"
+      fi
 
       # https://github.com/besser82/libxcrypt/releases
       libxcrypt_build "4.4.38" # "4.4.37"
