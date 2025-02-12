@@ -109,7 +109,8 @@ function application_build_versioned_components()
       fi
 
       # https://ftp.gnu.org/gnu/readline/
-#      readline_build "8.2.13"
+      # Python with the readline module disabled.
+      # readline_build "8.2.13"
 
       # Without it, on macOS, the Python binaries will have a reference
       # to the system libsqlite.
