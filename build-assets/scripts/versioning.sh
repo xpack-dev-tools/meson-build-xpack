@@ -94,7 +94,13 @@ function application_build_versioned_components()
       openssl_build "3.4.0" # "3.3.2"
 
       # https://ftp.gnu.org/gnu/ncurses/
-      ncurses_build "6.5"
+      if [[ "${XBB_RELEASE_VERSION}" =~ 1[.]6[.][0-9]*-2 ]]
+      then
+        # readline prefers non-wide.
+        ncurses_build "6.5" --enable-lib-suffixes --disable-widec
+      else
+        ncurses_build "6.5"
+      fi
 
       # https://ftp.gnu.org/gnu/readline/
       readline_build "8.2.13"
