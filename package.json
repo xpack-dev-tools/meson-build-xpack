@@ -51,10 +51,6 @@
           "fileName": "xpack-meson-build-1.6.1-1-linux-arm64.tar.gz",
           "sha256": "8f4e2b41e2a3df439fbc0978d3ce1bcc4860021d314f05e5d0aa1c1f9e688cd6"
         },
-        "linux-arm": {
-          "fileName": "xpack-meson-build-1.6.1-1-linux-arm.tar.gz",
-          "sha256": "dd110125aba6371b429e8c870aa87121ac70f3d586b7a2552d2abbdc52bf0656"
-        },
         "linux-x64": {
           "fileName": "xpack-meson-build-1.6.1-1-linux-x64.tar.gz",
           "sha256": "23e6e64c8a75268ac5491cbf6544d2355b6815c6e268a83f785b908b0edbeefb"
