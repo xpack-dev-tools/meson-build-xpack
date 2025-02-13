@@ -97,7 +97,7 @@ function application_build_versioned_components()
       if [[ "${XBB_RELEASE_VERSION}" =~ 1[.]6[.][0-9]*-2 ]]
       then
         # readline prefers non-wide.
-        # ncurses_build "6.5" --enable-lib-suffixes --disable-widec
+        ncurses_build "6.5" --enable-lib-suffixes --disable-widec
 
         # Python prefers wide:
         # Modules/_cursesmodule.o
@@ -110,7 +110,7 @@ function application_build_versioned_components()
 
       # https://ftp.gnu.org/gnu/readline/
       # Python with the readline module disabled.
-      # readline_build "8.2.13"
+      readline_build "8.2.13"
 
       # Without it, on macOS, the Python binaries will have a reference
       # to the system libsqlite.
