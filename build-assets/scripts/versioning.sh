@@ -96,14 +96,15 @@ function application_build_versioned_components()
       # https://ftp.gnu.org/gnu/ncurses/
       if [[ "${XBB_RELEASE_VERSION}" =~ 1[.]6[.][0-9]*-2 ]]
       then
-        # readline prefers non-wide.
-        ncurses_build "6.5" --enable-lib-suffixes --disable-widec
+        # readline prefers non-wide (-lncurses).
+        # ncurses_build "6.5" --enable-lib-suffixes --disable-widec
 
         # Python prefers wide:
         # Modules/_cursesmodule.o
         # /usr/lib/x86_64-linux-gnu/libncursesw.so
         # /lib/x86_64-linux-gnu/libncursesw.so.6
-        ncurses_build "6.5"  --enable-lib-suffixes --enable-widec
+        # --enable-lib-suffixes --enable-widec --enable-overwrite
+        ncurses_build "6.5" --hack-links
       else
         ncurses_build "6.5"
       fi
