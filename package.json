@@ -72,8 +72,9 @@
     "liquidjs": "^10.19.1"
   },
   "topConfig": {
-    "longName": "Meson Build",
-    "shortName": "meson-build"
+    "descriptiveName": "Meson Build",
+    "permalinkName": "meson-build",
+    "useSelfHostedRunners": "true"
   },
   "engines": {
     "node": " >=18.0.0"
