@@ -75,7 +75,8 @@
     "programName": "meson",
     "branding": "",
     "$link": "https://github.com/mesonbuild/meson/releases/",
-    "mesonReleaseDate": "16 Dec 2024"
+    "mesonReleaseDate": "16 Dec 2024",
+    "shareOnTwitter": "true"
   },
   "engines": {
     "node": ">=18.0"
