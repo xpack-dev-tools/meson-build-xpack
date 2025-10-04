@@ -4,6 +4,9 @@ Entries in this file are in reverse chronological order.
 
 ## 2025-10-04
 
+* v1.8.5-1 prepared
+* 7269d0a 1.7.2-1.1
+* e6fd646 CHANGELOG: publish npm v1.7.2-1.1
 * v1.7.2-1.1 published on npmjs.com
 * 58cab6d package.json: update URLs for 1.7.2-1.1 release
 * b5a5e51 website: blog post release 1.7.2-1.1 published
