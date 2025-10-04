@@ -1,0 +1,185 @@
+---
+
+title: xPack xPack Meson Build v1.8.5-1 released
+seo_title: Version 1.8.5-1 released
+description: Version 1.8.5-1 is a TODO new/maintenance release.
+keywords:
+  - xpack
+  - meson-build
+  - release
+
+date: 2025-10-04 18:50:26 +0300
+
+authors: ilg-ul
+
+# To be listed in the Releases page.
+tags:
+  - releases
+
+# ----- Custom properties -----------------------------------------------------
+
+meson_version: "1.8.5"
+meson_release_date: "26 Sep 2025"
+python_version: "3.11"
+python_subversion: "8"
+
+version: "1.8.5-1"
+npm_subversion: "1"
+
+download_url: https://github.com/xpack-dev-tools/meson-build-xpack/releases/tag/v1.8.5-1/
+
+---
+
+import {PageMetadata} from '@docusaurus/theme-common';
+import Image from '@theme/IdealImage';
+import CodeBlock from '@theme/CodeBlock';
+
+import Prerequisites from './_common/_prerequisites-glib-2.28.mdx';
+import DeprecationNotices from './_common/_deprecation-notices-glib-2.28.mdx';
+import DownloadAnalytics from './_common/_download-analytics.mdx';
+
+TODO: select one summary
+
+Version **1.8.5-1.1** is a maintenance release; it fixes ...
+
+Version **1.8.5-1.1** is a new release; it follows the upstream release.
+
+<!-- truncate -->
+
+<PageMetadata title={frontMatter.seo_title} />
+
+The [xPack Meson Build](https://xpack-dev-tools.github.io/meson-build-xpack/)
+is a standalone cross-platform binary distribution of
+[Meson Build](https://mesonbuild.org).
+
+There are separate binaries for **Windows** (x64),
+**macOS** (x64 and arm64)
+and **GNU/Linux** (x64 and arm64).
+
+:::note Raspberry Pi
+
+The main targets for the GNU/Linux Arm
+binaries are the **Raspberry Pi** class devices (aarch64 only;
+armv6 and armv7l are no longer supported).
+
+:::
+
+## Download
+
+The binary files can be downloaded automatically with **xpm** or manually
+from <a href={frontMatter.download_url}>GitHub Releases</a>.
+
+<Prerequisites/>
+
+## Install
+
+The easiest way to install this specific version, is by using **xpm**:
+
+<CodeBlock language="console"> {
+`xpm install @xpack-dev-tools/meson-build@${frontMatter.version}.${frontMatter.npm_subversion} --verbose
+`} </CodeBlock>
+
+Comprehensive instructions for installing **xPack xPack Meson Build** on different platforms
+can be found in the [Install Guide](/docs/install/).
+
+## Compliance
+
+The **xPack Meson Build** is based on the official
+[Meson Build](https://mesonbuild.org) sources.
+
+The current version is based on:
+
+- Meson Build release
+[{frontMatter.meson_version}](https://github.com/mesonbuild/meson/releases/tag/{frontMatter.meson_version}) from {frontMatter.meson_release_date}.
+
+## Changes
+
+Compared to the upstream version, there are no functional changes.
+
+## Bug fixes
+
+- none
+
+## Enhancements
+
+- none
+
+## Known problems
+
+- none
+
+## Embedded Python
+
+To simplify dependency management, this release embeds a **Python
+{frontMatter.python_version}.{frontMatter.python_subversion}** instance.
+
+The `meson` executable is a standard ELF/EXE which includes the Python
+run-time; the `main()` function prepares the Python environment and then
+invokes the Meson main:
+
+```python
+  PyRun_SimpleString("from mesonbuild import mesonmain\n");
+  PyRun_SimpleString("sys.exit(mesonmain.main())\n");
+```
+
+The Python library is located in the standard location:
+
+- <code>lib/python{frontMatter.python_version}</code>
+- <code>lib/python{frontMatter.python_version}/lib-dynload</code> (the platform dependent files)
+
+The Meson files are located in:
+
+- <code>lib/python{frontMatter.python_version}/mesonbuild</code>
+
+To speed up execution, all Python files are compiled and are
+available only as `.pyc`.
+
+## Documentation
+
+The original documentation is available from:
+
+- https://mesonbuild.com/Manual.html
+
+## Build
+
+The binaries for all supported platforms
+(Windows, macOS and GNU/Linux) were built using the
+[xPack Build Box (XBB)](https://xpack.github.io/xbb/), a set
+of build environments based on slightly older distributions, that should be
+compatible with most recent systems.
+
+For the prerequisites and more details on the build procedure, please see the
+[Maintainer Info](/docs/maintainer/) page.
+
+## CI tests
+
+Before publishing, a set of simple tests were performed on an exhaustive
+set of platforms. The results are available from:
+
+- [GitHub Actions](https://github.com/xpack-dev-tools/meson-build-xpack/actions/)
+
+## Checksums
+
+The SHA-256 hashes for the files are:
+
+```txt
+8cbabcf86e9e2a66d3219cc024466ab8c124dbd35705d0756aa6ac465f614a8f
+xpack-meson-build-1.8.5-1-darwin-arm64.tar.gz
+
+49e48db8dd6878235c31a9fc059353f11a105184fc3ca17fd20d97de7ebcd3ef
+xpack-meson-build-1.8.5-1-darwin-x64.tar.gz
+
+e791c9ba3d7110e8fe8bbea66e44a4d6465d34c37e5ca6a1ca2cde1cd50da421
+xpack-meson-build-1.8.5-1-linux-arm64.tar.gz
+
+738fc01a882c7de9a1554f0e7e03d20331c428dcb1fe9331fcd1b47d98ca1112
+xpack-meson-build-1.8.5-1-linux-x64.tar.gz
+
+b73e23174d1fdc770f8df4edb580955401448ac8aacc5133433742cc2a533e3a
+xpack-meson-build-1.8.5-1-win32-x64.zip
+
+```
+
+<DeprecationNotices/>
+
+<DownloadAnalytics version={frontMatter.version}/>
