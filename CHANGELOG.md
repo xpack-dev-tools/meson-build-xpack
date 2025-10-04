@@ -4,6 +4,11 @@ Entries in this file are in reverse chronological order.
 
 ## 2025-10-04
 
+* v1.8.5-1.1 published on npmjs.com
+* 657247a package.json: update URLs for 1.8.5-1.1 release
+* cf52228 website update
+* 99620f9 website: blog post release 1.8.5-1.1 published
+* 1c96d47 CHANGELOG update
 * v1.8.5-1 released
 * 38ff7ae website: update actions durations
 * 6375f69 prepare v1.8.5-1
