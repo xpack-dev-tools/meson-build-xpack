@@ -93,7 +93,7 @@ function application_build_versioned_components()
       # https://github.com/openssl/openssl/tags
       openssl_build "3.4.0" # "3.3.2"
 
-      # https://ftp.gnu.org/gnu/ncurses/
+      # https://ftpmirror.gnu.org/gnu/ncurses/
       if [[ "${XBB_RELEASE_VERSION}" =~ 1[.]6[.][0-9]*-2 ]]
       then
         # readline prefers non-wide (-lncurses).
@@ -109,7 +109,7 @@ function application_build_versioned_components()
         ncurses_build "6.5"
       fi
 
-      # https://ftp.gnu.org/gnu/readline/
+      # https://ftpmirror.gnu.org/gnu/readline/
       # Python with the readline module disabled.
       readline_build "8.2.13"
 
@@ -216,10 +216,10 @@ function application_build_versioned_components()
       # https://github.com/openssl/openssl/tags
       openssl_build "3.3.2" # "1.1.1u"
 
-      # https://ftp.gnu.org/gnu/ncurses/
+      # https://ftpmirror.gnu.org/gnu/ncurses/
       ncurses_build "6.5"
 
-      # https://ftp.gnu.org/gnu/readline/
+      # https://ftpmirror.gnu.org/gnu/readline/
       readline_build "8.2.13"
 
       # Without it, on macOS, the Python binaries will have a reference
@@ -324,10 +324,10 @@ function application_build_versioned_components()
       # https://github.com/openssl/openssl/tags
       openssl_build "3.3.2" # "1.1.1u"
 
-      # https://ftp.gnu.org/gnu/ncurses/
+      # https://ftpmirror.gnu.org/gnu/ncurses/
       ncurses_build "6.5"
 
-      # https://ftp.gnu.org/gnu/readline/
+      # https://ftpmirror.gnu.org/gnu/readline/
       readline_build "8.2.13"
 
       # Without it, on macOS, the Python binaries will have a reference
@@ -435,10 +435,10 @@ function application_build_versioned_components()
       # https://github.com/openssl/openssl/tags
       openssl_build "${XBB_OPENSSL_VERSION}"
 
-      # https://ftp.gnu.org/gnu/ncurses/
+      # https://ftpmirror.gnu.org/gnu/ncurses/
       ncurses_build "6.4" # "6.3"
 
-      # https://ftp.gnu.org/gnu/readline/
+      # https://ftpmirror.gnu.org/gnu/readline/
       readline_build "8.2" # "8.1.2"
 
       # Without it, on macOS, the Python binaries will have a reference
@@ -535,10 +535,10 @@ function application_build_versioned_components()
       # https://www.openssl.org/source/
       openssl_build "1.1.1q"
 
-      # https://ftp.gnu.org/gnu/ncurses/
+      # https://ftpmirror.gnu.org/gnu/ncurses/
       ncurses_build "6.3"
 
-      # https://ftp.gnu.org/gnu/readline/
+      # https://ftpmirror.gnu.org/gnu/readline/
       readline_build "8.1.2"
 
       # Without it, on macOS, the Python binaries will have a reference

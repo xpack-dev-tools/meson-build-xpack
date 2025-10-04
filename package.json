@@ -72,12 +72,13 @@
     "liquidjs": "^10.19.1"
   },
   "topConfig": {
-    "descriptiveName": "Meson Build",
+    "descriptiveName": "xPack Meson Build",
+    "upstreamDescriptiveName": "Meson Build",
     "permalinkName": "meson-build",
     "skipCiTests": "true",
-    "useSelfHostedRunners": "true"
+    "useSelfHostedRunners": "false"
   },
   "engines": {
-    "node": " >=18.0.0"
+    "node": " >=20.0"
   }
 }
