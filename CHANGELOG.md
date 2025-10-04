@@ -4,6 +4,13 @@ Entries in this file are in reverse chronological order.
 
 ## 2025-10-04
 
+* v1.7.2-1 released
+* c86046c package.json cleanups
+* c62059a website: update actions durations
+* 3138be5 website: update folder hierarchies
+* 4335189 website: update development durations
+* 1e06dba package.json with dependency to github
+* c6975b7 prepare v1.7.2-1
 * v1.7.2-1 prepared
 * 835c329 regenerate website commons
 * a3a230c re-generate top commons
