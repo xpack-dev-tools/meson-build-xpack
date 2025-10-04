@@ -4,7 +4,10 @@ Entries in this file are in reverse chronological order.
 
 ## 2025-10-04
 
-* v1.7.2-1 released
+* v1.7.2-1.1 published on npmjs.com
+* 58cab6d package.json: update URLs for 1.7.2-1.1 release
+* b5a5e51 website: blog post release 1.7.2-1.1 published
+* d720f95 CHANGELOG update* v1.7.2-1 released
 * c86046c package.json cleanups
 * c62059a website: update actions durations
 * 3138be5 website: update folder hierarchies
