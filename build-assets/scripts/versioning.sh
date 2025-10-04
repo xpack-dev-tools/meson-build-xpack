@@ -14,7 +14,125 @@ function application_build_versioned_components()
   XBB_MESON_VERSION="$(xbb_strip_version_pre_release "${XBB_RELEASE_VERSION}")"
 
   # Keep them in sync with the combo archive content.
-  if [[ "${XBB_RELEASE_VERSION}" =~ 1[.]6[.][0-9]*-[0-9]* ]]
+  if [[ "${XBB_RELEASE_VERSION}" =~ 1[.][78][.][0-9]*-[0-9]* ]]
+  then
+
+    # -------------------------------------------------------------------------
+
+    # https://www.python.org/ftp/python/
+    # Be sure that ${helper_folder_path}/extras/python/pyconfig-win-3.X.Y.h
+    # is available.
+
+    # For the latest stable see:
+    # https://www.python.org/downloads/
+    # "3.12.8" fails with Wine 8 & 9.0. Use 10.0
+    XBB_PYTHON3_VERSION="3.13.7" # "3.12.8" # "3.11.8"
+    # https://pypi.org/project/packaging/
+    XBB_PYTHON3_PACKAGING_VERSION="25.0" # "24.2"
+
+    XBB_PYTHON3_VERSION_MAJOR=$(xbb_get_version_major "${XBB_PYTHON3_VERSION}")
+    XBB_PYTHON3_VERSION_MINOR=$(echo ${XBB_PYTHON3_VERSION} | sed -e 's|\([0-9]\)[.]\([0-9][0-9]*\)[.].*|\2|')
+    XBB_PYTHON3_VERSION_MAJOR_MINOR=${XBB_PYTHON3_VERSION_MAJOR}${XBB_PYTHON3_VERSION_MINOR}
+    XBB_PYTHON3_SRC_FOLDER_NAME="Python-${XBB_PYTHON3_VERSION}"
+
+    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
+    then
+      if [ ! -f "${helper_folder_path}/extras/python/pyconfig-win-${XBB_PYTHON3_VERSION}.h" ]
+      then
+        echo
+        echo "Missing extras/includes/pyconfig-win-${XBB_PYTHON3_VERSION}.h"
+        exit 1
+      fi
+    fi
+
+    # -------------------------------------------------------------------------
+    # Build the native dependencies.
+
+    # None
+
+    # -------------------------------------------------------------------------
+    # Build the target dependencies.
+
+    xbb_reset_env
+    # Before set target (to possibly update CC & co variables).
+    # xbb_activate_installed_bin
+
+    xbb_set_target "requested"
+
+    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" != "win32" ]
+    then
+      # https://zlib.net/fossils/
+      zlib_build "1.3.1"
+
+      # https://sourceware.org/pub/bzip2/
+      bzip2_build "1.0.8"
+
+      # https://sourceforge.net/projects/lzmautils/files/
+      # Avoid 5.6.[01]!
+      xz_build "5.8.1" # "5.6.4"
+
+      # https://www.bytereef.org/mpdecimal/download.html
+      mpdecimal_build "4.0.0"
+
+      # https://github.com/libexpat/libexpat/releases
+      expat_build "2.7.3" # "2.6.4"
+
+      # https://github.com/libffi/libffi/releases
+      libffi_build "3.5.2" # "3.4.6"
+
+      # https://github.com/besser82/libxcrypt/releases
+      libxcrypt_build "4.4.38"
+
+      # https://github.com/openssl/openssl/tags
+      openssl_build "3.6.0" # "3.4.0"
+
+      # https://ftpmirror.gnu.org/gnu/ncurses/
+      # readline prefers non-wide (-lncurses).
+      # ncurses_build "6.5" --enable-lib-suffixes --disable-widec
+
+      # Python prefers wide:
+      # Modules/_cursesmodule.o
+      # /usr/lib/x86_64-linux-gnu/libncursesw.so
+      # /lib/x86_64-linux-gnu/libncursesw.so.6
+      # --enable-lib-suffixes --enable-widec --enable-overwrite
+      ncurses_build "6.5" --hack-links
+
+      # https://ftpmirror.gnu.org/gnu/readline/
+      # Python with the readline module disabled.
+      readline_build "8.3" # "8.2.13"
+
+      # Without it, on macOS, the Python binaries will have a reference
+      # to the system libsqlite.
+      # https://www.sqlite.org/download.html
+      # 3480000 fails on macOS
+      sqlite_build "3500400" "2025" # "3470200" "2024"
+
+      python3_build "${XBB_PYTHON3_VERSION}" --with-ensurepip=install
+    fi
+
+    # -------------------------------------------------------------------------
+    # Build the application binaries.
+
+    xbb_set_executables_install_path "${XBB_APPLICATION_INSTALL_FOLDER_PATH}"
+    xbb_set_libraries_install_path "${XBB_DEPENDENCIES_INSTALL_FOLDER_PATH}"
+
+    if [ "${XBB_REQUESTED_TARGET_PLATFORM}" == "win32" ]
+    then
+      # Shortcut, use the existing pyton3X.dll instead of building
+      # if from sources. It also downloads the sources.
+      python3_download_win "${XBB_PYTHON3_VERSION}"
+
+      python3_copy_win_py
+    fi
+
+    meson_build "${XBB_MESON_VERSION}" \
+      --packaging-version=${XBB_PYTHON3_PACKAGING_VERSION:-""} \
+      --with-meson-python \
+      --preserve-py \
+      --keep-all-pyc \
+
+    # -------------------------------------------------------------------------
+  elif [[ "${XBB_RELEASE_VERSION}" =~ 1[.]6[.][0-9]*-[0-9]* ]]
   then
 
     # -------------------------------------------------------------------------

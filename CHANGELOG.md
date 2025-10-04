@@ -2,8 +2,84 @@
 
 Entries in this file are in reverse chronological order.
 
+## 2025-10-04
+
+* v1.7.2-1 prepared
+* 835c329 regenerate website commons
+* a3a230c re-generate top commons
+
+## 2025-04-09
+
+* 6d397d8 test-sourceforge*: on every Saturday
+
+## 2025-04-06
+
+* 203b031 test-sourceforge-downloads.yml update
+
+## 2025-04-05
+
+* e6f5800 test-sourceforge-downloads.yml update
+* 078ffea add test-sourceforge-downloads.yml
+* b4e8504 add test-sourceforge-downloads.yml
+
+## 2025-03-23
+
+* 416c6f8 update /licenses/MIT
+* 878070c website: re-generate commons
+* 1040117 re-generate commons
+* 69e6197 website package.json shareOnTwitter update
+* f79eacc website package.json author update
+* 069851b website generate-website-commons update
+
+## 2025-02-24
+
+* 16ea6f9 website: re-generate descriptive & permalink names
+* f02f7ab re-generate descriptive & permalink names
+
+## 2025-02-23
+
+* 430c07c website: re-generate commons
+* 32bfac4 re-generate commons
+
+## 2025-02-18
+
+* 24dede4 package.json: bump minimumXpmRequired 0.20.5
+* 620c4bf package.json: bump xpm 0.20.5
+
+## 2025-02-14
+
+* 866a53e re-generate commons
+* 8c7e2df re-generate commons
+
+## 2025-02-13
+
+* 82a76b1 versioning.sh: ncurses --hack-links
+* f786bc4 versioning.sh: build both wide & non-wide ncurses
+
+## 2025-02-12
+
+* 037df91 versioning.sh: explain python
+* 1523ede versioning.sh: ncurses with wide for python
+* b423a5e re-generate commons
+* d6ed486 versioning.sh: ncurses with explicit suffixes no wide
+
+## 2025-02-10
+
+* ff7fdf5 revert top version to release
+* bb3d7e5 1.6.1-2 with ffi 3.4.7
+
+## 2025-02-07
+
+* c257a16 website: re-generate commons
+
+## 2025-02-05
+
+* bb67538 website: fix post permalink
+
 ## 2025-02-04
 
+* 1965039 1.6.1-1.1
+* 48d26ad CHANGELOG: publish npm v1.6.1-1.1
 * v1.6.1-1.1 published on npmjs.com
 * 20d0980 package.json: update urls for 1.6.1-1.1 release
 * b12b582 website blog fix --verbose
