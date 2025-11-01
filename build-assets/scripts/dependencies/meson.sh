@@ -294,7 +294,8 @@ function meson_build()
           run_host_app_verbose "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}.exe" \
             -m compileall \
             -j "${XBB_JOBS}" \
-            -f "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/"
+            -f "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/" \
+            -x ".*/Lib/test.*"
 
           if [ "${keep_all_pyc}" != "y" ]
           then
