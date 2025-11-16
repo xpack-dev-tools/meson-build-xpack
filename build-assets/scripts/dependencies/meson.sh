@@ -1,13 +1,13 @@
 # -----------------------------------------------------------------------------
 #
 # This file is part of the xPack project (http://xpack.github.io).
-# Copyright (c) 2020 Liviu Ionescu. All rights reserved.
+# Copyright (c) 2020-2025 Liviu Ionescu. All rights reserved.
 #
 # Permission to use, copy, modify, and/or distribute this software
 # for any purpose is hereby granted, under the terms of the MIT license.
 #
 # If a copy of the license was not distributed with this file, it can
-# be obtained from https://opensource.org/licenses/MIT.
+# be obtained from https://opensource.org/licenses/mit.
 #
 # -----------------------------------------------------------------------------
 
@@ -294,7 +294,8 @@ function meson_build()
           run_host_app_verbose "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/bin/meson-python${XBB_PYTHON3_VERSION_MAJOR}.exe" \
             -m compileall \
             -j "${XBB_JOBS}" \
-            -f "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/"
+            -f "${XBB_EXECUTABLES_INSTALL_FOLDER_PATH}/Lib/" \
+            -x ".*/Lib/test.*"
 
           if [ "${keep_all_pyc}" != "y" ]
           then
