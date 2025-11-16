@@ -49,10 +49,13 @@ jobs:
           name="meson-build"
           threshold=13107 # (60%, i.e. 32767 * (100-60)/100)
 
+          # 2025
+          platforms="win32-x64,linux-x64,linux-arm64,darwin-x64,darwin-arm64"
+          download_sourceforge "${name}" "1.8.5-1" ${threshold} "${platforms}"
+
           # 2024-2022
           platforms="win32-x64,linux-x64,linux-arm64,linux-arm,darwin-x64,darwin-arm64"
 
-          download_sourceforge "${name}" "1.8.5-1" ${threshold} "${platforms}"
           download_sourceforge "${name}" "1.7.2-1" ${threshold} "${platforms}"
           download_sourceforge "${name}" "1.6.1-1" ${threshold} "${platforms}"
           download_sourceforge "${name}" "1.5.2-1" ${threshold} "${platforms}"
