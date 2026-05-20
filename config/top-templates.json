@@ -1,0 +1,8 @@
+{
+  "descriptiveName": "xPack Meson Build",
+  "permalinkName": "meson-build",
+  "preferredName": "xPack Meson Build",
+  "upstreamDescriptiveName": "Meson Build",
+  "skipCiTests": true,
+  "useSelfHostedRunners": false
+}

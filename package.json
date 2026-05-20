@@ -2,7 +2,6 @@
   "name": "@xpack-dev-tools/meson-build",
   "version": "1.8.5-1.1",
   "description": "A binary xpm package with the Meson Build executables",
-  "main": "",
   "scripts": {
     "generate-top-commons": "bash node_modules/@xpack/npm-packages-helper/maintenance-scripts/generate-top-commons.sh --xpack-dev-tools",
     "npm-install": "npm install",
@@ -66,12 +65,17 @@
       "meson-python3": "./.content/bin/meson-python3"
     }
   },
+  "$dependenciesUrls": {
+    "del-cli": "https://www.npmjs.com/package/del-cli",
+    "json": "https://www.npmjs.com/package/json",
+    "liquidjs": "https://www.npmjs.com/package/liquidjs"
+  },
   "devDependencies": {
     "del-cli": "^7.0.0",
     "json": "^11.0.0",
-    "liquidjs": "^10.23.0"
+    "liquidjs": "^10.27.0"
   },
-  "topConfig": {
+  "_topConfig": {
     "descriptiveName": "xPack Meson Build",
     "upstreamDescriptiveName": "Meson Build",
     "permalinkName": "meson-build",
